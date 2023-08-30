@@ -50,7 +50,7 @@ if (
 # Define packages
 package_list <-
   c(
-   "assertthat",
+    "assertthat",
     "devtools",
     "here",
     "httpgd",
@@ -95,10 +95,14 @@ fun_list <-
   )
 
 # source them
-sapply(
-  paste0("R/functions/", fun_list, sep = ""),
-  source
-)
+if (
+  length(fun_list) > 0
+) {
+  sapply(
+    paste0("R/functions/", fun_list, sep = ""),
+    source
+  )
+}
 
 
 #----------------------------------------------------------#
