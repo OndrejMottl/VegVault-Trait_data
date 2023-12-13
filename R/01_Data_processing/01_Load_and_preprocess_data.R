@@ -30,7 +30,7 @@ source(
 #----------------------------------------------------------#
 
 # Data request 28498
-# Trait List: 3106, 4, 3108, 3110, 3112, 3114, 3114, 3116, 3117, 14, 26
+# Trait List: 3106, 4, 3108, 3110, 3112, 3114, 3116, 3117, 14, 26
 
 library(rtry)
 
@@ -45,6 +45,27 @@ data_trait_raw <-
 # 3. Data wrangling  -----
 #----------------------------------------------------------#
 
+# trait_id_value corespond to TRY trait ID
+# trait_domain corespond to trait selection by Diaz et al. (2016)
+# trait_full_name corespond to trait name in TRY
+trait_name_translation_table <-
+  tibble::tribble(
+    ~trait_id_value, ~trait_domain, ~trait_full_name,
+    4, "Stem specific density", "Stem specific density (SSD, stem dry mass per stem fresh volume) or wood density",
+    14, "Leaf nitrogen content per unit mass", "Leaf nitrogen (N) content per leaf dry mass",
+    26, "Diaspore mass", "Seed dry mass",
+    3106, "Plant heigh", "Plant height vegetative	",
+    3108, "Leaf Area", "Leaf area (in case of compound leaves: leaf, petiole excluded)",
+    3110, "Leaf Area", "Leaf area (in case of compound leaves: leaf, petiole included)",
+    3112, "Leaf Area", "Leaf area (in case of compound leaves: leaf, undefined if petiole in- or excluded)",
+    3114, "Leaf Area", "Leaf area (in case of compound leaves undefined if leaf or leaflet, undefined if petiole is in- or exluded)",
+    3116, "Leaf mass per area", "Leaf area per leaf dry mass (specific leaf area, SLA or 1/LMA): petiole included",
+    3117, "Leaf mass per area", "Leaf area per leaf dry mass (specific leaf area, SLA or 1/LMA): undefined if petiole is in- or excluded)"
+  ) %>%
+  dplyr::mutate(
+    trait_id_value = as.character(trait_id_value)
+  )
+
 data_trait_tibble <-
   tibble::as_tibble(data_trait_raw)
 
@@ -54,7 +75,8 @@ data_trait_dummy <-
   tidyr::drop_na() %>%
   purrr::chuck("TraitID") %>%
   rlang::set_names() %>%
-  tibble::enframe()
+  tibble::enframe() %>%
+  dplyr::arrange(value)
 
 data_trait_observations <-
   data_trait_dummy %>%
@@ -109,6 +131,10 @@ data_trait_sel_data_id <-
   tidyr::unnest(sel_data_id_overview) %>%
   dplyr::filter(!DataID %in% vec_data_id_to_remove)
 
+
+data_trait_observations$sel_observation[[1]] %>%
+  dplyr::glimpse()
+
 data_trait_values <-
   data_trait_observations %>%
   dplyr::mutate(
@@ -117,14 +143,17 @@ data_trait_values <-
       .x = sel_observation,
       .f = ~ .x %>%
         dplyr::filter(DataID %in% data_trait_sel_data_id$DataID) %>%
-        dplyr::select(DatasetID, AccSpeciesID, ObservationID, OrigValueStr) %>%
+        dplyr::select(Dataset, AccSpeciesName, ObservationID, OrigValueStr) %>%
         dplyr::distinct(
-          DatasetID, AccSpeciesID, ObservationID,
+          Dataset, AccSpeciesName, ObservationID,
           .keep_all = TRUE
         ) %>%
         dplyr::filter(is.na(OrigValueStr) == FALSE)
     )
   )
+
+data_trait_values$sel_data_trait_values[[1]] %>%
+  dplyr::glimpse()
 
 data_trait_covariates <-
   data_trait_values %>%
@@ -137,20 +166,23 @@ data_trait_covariates <-
         dplyr::filter(!DataID %in% vec_data_id_to_remove) %>%
         dplyr::filter(!DataID %in% data_trait_sel_data_id$DataID) %>%
         dplyr::select(
-          DatasetID, AccSpeciesID, ObservationID, DataName, OrigValueStr
+          Dataset, AccSpeciesName, ObservationID, DataName, OrigValueStr
         ) %>%
         dplyr::distinct(
-          DatasetID, AccSpeciesID, ObservationID, DataName,
+          Dataset, AccSpeciesName, ObservationID, DataName,
           .keep_all = TRUE
         ) %>%
         dplyr::filter(is.na(OrigValueStr) == FALSE) %>%
-        dplyr::group_by(DatasetID, AccSpeciesID, ObservationID) %>%
+        dplyr::group_by(Dataset, AccSpeciesName, ObservationID) %>%
         tidyr::pivot_wider(
           names_from = DataName, values_from = OrigValueStr
         ) %>%
         dplyr::ungroup()
     )
   )
+
+data_trait_covariates$sel_data_covariates[[1]] %>%
+  dplyr::glimpse()
 
 data_trait_merged <-
   dplyr::full_join(
@@ -164,23 +196,24 @@ data_trait_merged <-
         name, sel_data_covariates
       ) %>%
       tidyr::unnest(sel_data_covariates),
-    by = c("name", "DatasetID", "AccSpeciesID", "ObservationID")
+    by = c("name", "Dataset", "AccSpeciesName", "ObservationID")
   )
 
-data_specis_names <-
-  data_trait_tibble %>%
-  dplyr::distinct(AccSpeciesID, AccSpeciesName)
-
 data_trait_processed <-
-  dplyr::left_join(
-    data_trait_merged,
-    data_specis_names,
-    by = "AccSpeciesID"
-  ) %>%
+  data_trait_merged %>%
   dplyr::mutate(
     trait_value = as.double(OrigValueStr)
   ) %>%
-  janitor::clean_names()
+  dplyr::left_join(
+    trait_name_translation_table,
+    by = c("name" = "trait_id_value")
+  ) %>%
+  janitor::clean_names() %>%
+  dplyr::select(-name) %>%
+  dplyr::relocate(
+    trait_value, trait_domain, trait_full_name,
+    .before = observation_id
+  )
 
 #----------------------------------------------------------#
 # 4. Save  -----
@@ -188,8 +221,9 @@ data_trait_processed <-
 
 RUtilpol::save_latest_file(
   object_to_save = data_trait_processed,
+  file_name = "data_trait_try",
   dir = here::here(
-    "Data/Processed"
+    "Outputs/Data/"
   ),
   prefered_format = "qs",
   preset = "high"
@@ -199,21 +233,22 @@ RUtilpol::save_latest_file(
 # 5. (Optional) Check the distribution  -----
 #----------------------------------------------------------#
 
+data_trait_summary <-
+  data_trait_processed %>%
+  dplyr::select(trait_domain, trait_value, acc_species_name) %>%
+  dplyr::group_by(trait_domain, acc_species_name) %>%
+  dplyr::summarise(
+    .groups = "drop",
+    n = n(),
+    mean = mean(trait_value, na.rm = TRUE),
+    sd = sd(trait_value, na.rm = TRUE),
+    min = min(trait_value, na.rm = TRUE),
+    max = max(trait_value, na.rm = TRUE)
+  )
 
-data_trait_processed %>%
-  dplyr::select(name, trait_value) %>%
-  dplyr::slice_sample(n = 10e3) %>%
-  ggplot2::ggplot(
-    mapping = ggplot2::aes(
-      x = trait_value
-    )
-  ) +
-  ggplot2::facet_grid(1 ~ name, scales = "free") +
-  ggplot2::geom_density(
-    mapping = ggplot2::aes(
-      fill = name
-    )
-  ) +
-  ggplot2::guides(
-    fill = "none"
+data_trait_summary %>%
+  dplyr::filter(n > 50) %>%
+  split(.$trait_domain) %>%
+  purrr::map(
+    .f = ~ summary(.x)
   )
