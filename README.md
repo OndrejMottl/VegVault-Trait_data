@@ -1,4 +1,4 @@
-# BIODYNAMICS: Process Trait data
+# VegVault: Process Trait data
 
 This is part of the [BIODYNAMICS project](https://ondrejmottl.github.io/projects/BIODYNAMICS/).
 
