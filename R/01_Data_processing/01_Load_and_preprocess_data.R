@@ -104,10 +104,16 @@ data_trait_observations <-
           tidyr::drop_na() %>%
           purrr::chuck("ObservationID")
 
+        data_trait_dummy_negate <-
+          data_trait_dummy %>%
+          dplyr::filter(name != .x)
+
         data_trait_tibble %>%
           dplyr::filter(
-            ObservationID %in% vec_sel_trait_observation_id & 
-            TraitID == .x
+            ObservationID %in% vec_sel_trait_observation_id
+          ) %>%
+          dplyr::filter(
+            !TraitID %in% data_trait_dummy_negate$value
           ) %>%
           return()
       }
@@ -198,7 +204,7 @@ data_trait_covariates$sel_data_covariates[[1]] %>%
   dplyr::glimpse()
 
 data_trait_merged <-
-  dplyr::full_join(
+  dplyr::inner_join(
     data_trait_covariates %>%
       dplyr::select(
         name, sel_data_trait_values
@@ -224,16 +230,16 @@ data_trait_processed <-
   janitor::clean_names() %>%
   dplyr::select(-name) %>%
   dplyr::mutate(
-  # Flip the trait value for leaf mass per area
-  trait_value = ifelse(trait_domain == "Leaf mass per area",
+    # Flip the trait value for leaf mass per area
+    trait_value = ifelse(trait_domain == "Leaf mass per area",
       1 / trait_value,
       trait_value
     ),
-  unit_name = ifelse(trait_domain == "Leaf mass per area",
+    unit_name = ifelse(trait_domain == "Leaf mass per area",
       "mg/mm2",
       unit_name
     )
-  ) %>% 
+  ) %>%
   dplyr::relocate(
     trait_value, trait_domain, trait_full_name,
     .before = observation_id
