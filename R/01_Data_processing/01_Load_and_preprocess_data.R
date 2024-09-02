@@ -32,6 +32,18 @@ source(
 # Data request 28498
 # Trait List: 3106, 4, 3108, 3110, 3112, 3114, 3116, 3117, 14, 26
 
+# Units
+# 4 =  g/cm3
+# 14 =  mg/g
+# 26 = mg
+# 3106 =  m
+# 3108 = mm2
+# 3110 = mm2
+# 3112 = mm2
+# 3114 = mm2
+# 3116 = mm2 mg-1
+# 3117 = mm2 mg-1
+
 library(rtry)
 
 data_trait_raw <-
@@ -94,7 +106,8 @@ data_trait_observations <-
 
         data_trait_tibble %>%
           dplyr::filter(
-            ObservationID %in% vec_sel_trait_observation_id
+            ObservationID %in% vec_sel_trait_observation_id & 
+            TraitID == .x
           ) %>%
           return()
       }
@@ -143,7 +156,7 @@ data_trait_values <-
       .x = sel_observation,
       .f = ~ .x %>%
         dplyr::filter(DataID %in% data_trait_sel_data_id$DataID) %>%
-        dplyr::select(Dataset, AccSpeciesName, ObservationID, OrigValueStr) %>%
+        dplyr::select(Dataset, AccSpeciesName, ObservationID, OrigValueStr, UnitName) %>%
         dplyr::distinct(
           Dataset, AccSpeciesName, ObservationID,
           .keep_all = TRUE
@@ -210,6 +223,17 @@ data_trait_processed <-
   ) %>%
   janitor::clean_names() %>%
   dplyr::select(-name) %>%
+  dplyr::mutate(
+  # Flip the trait value for leaf mass per area
+  trait_value = ifelse(trait_domain == "Leaf mass per area",
+      1 / trait_value,
+      trait_value
+    ),
+  unit_name = ifelse(trait_domain == "Leaf mass per area",
+      "mg/mm2",
+      unit_name
+    )
+  ) %>% 
   dplyr::relocate(
     trait_value, trait_domain, trait_full_name,
     .before = observation_id
