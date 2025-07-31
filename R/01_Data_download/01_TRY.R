@@ -49,7 +49,7 @@ library(rtry)
 data_trait_raw <-
   rtry::rtry_import(
     here::here(
-      "Data/Input/Raw/28498.txt"
+      "Data/Input/TRY/Raw/28498.txt"
     )
   )
 
