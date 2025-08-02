@@ -50,4 +50,6 @@ rsconnect/
 .Rproj.user
 
 # Large files
-Data/Input/Raw/*
+Data/Input/TRY/Raw/*
+Data/Input/BIEN/*.qs
+Data/Processed/BIEN/data_traits*.qs
