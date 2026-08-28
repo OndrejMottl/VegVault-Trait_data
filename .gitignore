@@ -49,6 +49,9 @@ po/*~
 rsconnect/
 .Rproj.user
 
+# VS code files
+.vscode/settings.json
+
 # Large files
 Data/Input/TRY/Raw/*
 Data/Input/BIEN/*.qs
