@@ -335,13 +335,12 @@ base::dir.create(
   showWarnings = FALSE
 )
 
-qs::qsave(
-  x = data_trait_quarantine,
+qs2::qs_save(
+  object = data_trait_quarantine,
   file = base::file.path(
     path_private_audit,
     "trait_unit_quarantine_try.qs"
-  ),
-  preset = "high"
+  )
 )
 
 #----------------------------------------------------------#

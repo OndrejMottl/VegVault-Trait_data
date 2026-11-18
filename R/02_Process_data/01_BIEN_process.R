@@ -243,13 +243,12 @@ base::dir.create(
   showWarnings = FALSE
 )
 
-qs::qsave(
-  x = data_bien_quarantine,
+qs2::qs_save(
+  object = data_bien_quarantine,
   file = base::file.path(
     path_private_audit,
     "trait_unit_quarantine_bien.qs"
-  ),
-  preset = "high"
+  )
 )
 
 stopifnot(
