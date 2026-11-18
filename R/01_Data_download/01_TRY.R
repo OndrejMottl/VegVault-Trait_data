@@ -285,8 +285,7 @@ RUtilpol::save_latest_file(
   dir = here::here(
     "Outputs/Data/"
   ),
-  prefered_format = "qs",
-  preset = "high"
+  prefered_format = "qs"
 )
 
 RUtilpol::save_latest_file(

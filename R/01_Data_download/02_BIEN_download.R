@@ -89,8 +89,7 @@ purrr::walk(
         object_to_save = data_download,
         file_name = sel_trait,
         dir = sel_path,
-        prefered_format = "qs",
-        preset = "archive"
+        prefered_format = "qs"
       )
     }
   }

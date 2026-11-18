@@ -186,8 +186,7 @@ list_chunk_rows %>%
         dir = here::here(
           "Outputs/Data/"
         ),
-        prefered_format = "qs",
-        preset = "archive"
+        prefered_format = "qs"
       )
   )
 
