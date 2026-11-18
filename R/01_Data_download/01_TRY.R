@@ -162,7 +162,15 @@ data_trait_values <-
       .x = sel_observation,
       .f = ~ .x %>%
         dplyr::filter(DataID %in% data_trait_sel_data_id$DataID) %>%
-        dplyr::select(Dataset, AccSpeciesName, ObservationID, OrigValueStr, UnitName) %>%
+        dplyr::select(
+          Dataset,
+          AccSpeciesName,
+          ObservationID,
+          OrigValueStr,
+          OrigUnitStr,
+          StdValue,
+          UnitName
+        ) %>%
         dplyr::distinct(
           Dataset, AccSpeciesName, ObservationID,
           .keep_all = TRUE
@@ -218,32 +226,54 @@ data_trait_merged <-
     by = c("name", "Dataset", "AccSpeciesName", "ObservationID")
   )
 
-data_trait_processed <-
+data_trait_contract <-
   data_trait_merged %>%
-  dplyr::mutate(
-    trait_value = as.double(OrigValueStr)
-  ) %>%
   dplyr::left_join(
     trait_name_translation_table,
     by = c("name" = "trait_id_value")
   ) %>%
   janitor::clean_names() %>%
-  dplyr::select(-name) %>%
   dplyr::mutate(
-    # Flip the trait value for leaf mass per area
-    trait_value = ifelse(trait_domain == "Leaf mass per area",
-      1 / trait_value,
-      trait_value
-    ),
-    unit_name = ifelse(trait_domain == "Leaf mass per area",
-      "mg/mm2",
-      unit_name
+    source_provider = "TRY",
+    source_dataset_key = .data$dataset,
+    source_record_id = base::as.character(.data$observation_id),
+    source_trait_id = base::as.character(.data$name),
+    source_trait_name = .data$trait_full_name,
+    original_value_string = .data$orig_value_str,
+    original_unit = .data$orig_unit_str,
+    source_standardized_value = parse_trait_numeric(.data$std_value),
+    source_standardized_unit = .data$unit_name,
+    derivation_rule_key = dplyr::if_else(
+      .data$trait_domain == "Leaf mass per area",
+      "sla_to_lma",
+      NA_character_
     )
   ) %>%
+  apply_trait_unit_contract()
+
+data_trait_reconciliation <-
+  validate_trait_unit_reconciliation(data_trait_contract)
+validate_known_try_leaf_area(data_trait_contract)
+
+
+data_trait_processed <-
+  data_trait_contract %>% 
+  dplyr::filter(.data$disposition == "published") %>%
+  dplyr::select(-"name") %>%
   dplyr::relocate(
-    trait_value, trait_domain, trait_full_name,
+    trait_value,
+    trait_unit,
+    trait_domain,
+    trait_full_name,
     .before = observation_id
   )
+
+data_trait_quarantine <-
+  data_trait_contract %>%
+  dplyr::filter(.data$disposition == "quarantined")
+
+data_trait_unit_audit_summary <-
+  summarise_trait_unit_audit(data_trait_contract)
 
 #----------------------------------------------------------#
 # 4. Save  -----
@@ -256,6 +286,61 @@ RUtilpol::save_latest_file(
     "Outputs/Data/"
   ),
   prefered_format = "qs",
+  preset = "high"
+)
+
+RUtilpol::save_latest_file(
+  object_to_save = data_trait_unit_audit_summary,
+  file_name = "trait_unit_audit_summary_try",
+  dir = here::here("Outputs", "Tables"),
+  prefered_format = "csv"
+)
+
+RUtilpol::save_latest_file(
+  object_to_save = data_trait_reconciliation,
+  file_name = "trait_unit_reconciliation_try",
+  dir = here::here("Outputs", "Tables"),
+  prefered_format = "csv"
+)
+
+vec_try_output_paths <-
+  list.files(
+    here::here("Outputs", "Data"),
+    pattern = "^data_trait_try_.*[.]qs$",
+    full.names = TRUE
+  ) %>%
+  sort() %>%
+  tail(1L)
+
+data_try_manifest <-
+  make_trait_artifact_manifest(
+    input_paths = here::here("Data", "Input", "TRY", "Raw", "28498.txt"),
+    output_paths = vec_try_output_paths,
+    data_contract = data_trait_contract
+  )
+
+RUtilpol::save_latest_file(
+  object_to_save = data_try_manifest,
+  file_name = "trait_artifact_manifest_try",
+  dir = here::here("Outputs", "Tables"),
+  prefered_format = "csv"
+)
+
+path_private_audit <-
+  here::here("Data", "Temp", "trait_unit_audit")
+
+base::dir.create(
+  path_private_audit,
+  recursive = TRUE,
+  showWarnings = FALSE
+)
+
+qs::qsave(
+  x = data_trait_quarantine,
+  file = base::file.path(
+    path_private_audit,
+    "trait_unit_quarantine_try.qs"
+  ),
   preset = "high"
 )
 

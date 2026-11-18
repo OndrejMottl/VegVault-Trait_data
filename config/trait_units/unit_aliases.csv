@@ -1,0 +1,139 @@
+original_unit,normalized_original_unit
+g/cm3,g/cm3
+g/cm^3,g/cm3
+mg/mm3,g/cm3
+mg/mm^3,g/cm3
+mg mm-3,g/cm3
+mg / mm3,g/cm3
+g cm-3,g/cm3
+g*cm-3,g/cm3
+g / cm3,g/cm3
+g / ml,g/cm3
+gr/cm3,g/cm3
+kg/m3,kg/m3
+kg m-3,kg/m3
+t/m3,t/m3
+g/dm3,g/dm3
+mg/cm3,mg/cm3
+cm3/mg,cm3/mg
+(g/cm3)*100,g/cm3_x100
+g /(cm3*10),g/cm3_x10
+%,percent
+percent,percent
+mass%,percent
+% mass/mass,percent
+% dry mass,percent
+%DM,percent
+% by wt,percent
+% (100 * g g-1 ),percent
+g/100g,percent
+mg/mg *100,percent
+mg/g,mg/g
+mg g-1,mg/g
+(mg g-1),mg/g
+mg/g dry mass,mg/g
+mg/g DW,mg/g
+mg / g,mg/g
+mg_g-1,mg/g
+mg N g-1Leaf,mg/g
+mg N g-1,mg/g
+mgN gDM-1,mg/g
+g/kg,mg/g
+g kg-1,mg/g
+g/g,g/g
+g g-1,g/g
+g N g-1 DW,g/g
+kg/kg,g/g
+mmol/g,mmol/g
+mg,mg
+(mg),mg
+mg/seed,mg
+mg per seed,mg
+g,g
+gr,g
+g ?,g
+g / 1000 seeds,g_per_1000_seeds
+g/1000,g_per_1000_seeds
+g/1000 seeds,g_per_1000_seeds
+g/100 seeds,g_per_100_seeds
+mg/1000,mg_per_1000_seeds
+mg/100,mg_per_100_seeds
+mg/100 seeds,mg_per_100_seeds
+micro gx10,microgram_x10
+1/kg,seeds_per_kg
+1/g,seeds_per_g
+1/pound,seeds_per_pound
+m,m
+meter,m
+cm,cm
+(cm),cm
+Cm,cm
+mm,mm
+feet,feet
+mm2,mm2
+mm^2,mm2
+cm2,cm2
+cm²,cm2
+cm 2,cm2
+cm^2,cm2
+m2,m2
+mm2/mg,mm2/mg
+mm2 mg-1,mm2/mg
+mm2*mg-1,mm2/mg
+mm2 / mg,mm2/mg
+mm^2/mg,mm2/mg
+mm2mg-1,mm2/mg
+mm2 mg−1,mm2/mg
+mm2 g 10-6,mm2_g_1e-6
+mm²/mg,mm2/mg
+mm2  mg-1,mm2/mg
+mm2 mgDM-1,mm2/mg
+mm2/mg-1,mm2/mg
+cm2/g,cm2/g
+cm²/g,cm2/g
+cm²g-1,cm2/g
+cm2·g-1,cm2/g
+cm².g,cm2/g
+cm^2/g,cm2/g
+cm² g-1,cm2/g
+SLA cm2/g,cm2/g
+cm2 / g,cm2/g
+cm2 g-1,cm2/g
+(cm2/g),cm2/g
+cm2/gDW,cm2/g
+cm2.g-1,cm2/g
+cm2*g-1,cm2/g
+cm^2 g^-1,cm2/g
+(cm2 g-1),cm2/g
+cm2/ g,cm2/g
+m2/kg,m2/kg
+m² kg-1,m2/kg
+m² Kg-1,m2/kg
+m2 kg-1,m2/kg
+m2 / kg,m2/kg
+m2/Kg,m2/kg
+m^2*kg^-1,m2/kg
+m-2 kg-1,m2/kg
+(m² kg-1),m2/kg
+m2/kg leaf DM,m2/kg
+m2/g,m2/g
+m2 g-1,m2/g
+mm2/g,mm2/g
+mm2 g-1,mm2/g
+cm2/mg,cm2/mg
+cm2 mg-1,cm2/mg
+g/m2,g/m2
+g m-2,g/m2
+g m−2,g/m2
+gDM m-2,g/m2
+(g m-2),g/m2
+gm-2,g/m2
+g/m^2,g/m2
+g/cm2,g/cm2
+(g/cm2),g/cm2
+mg/mm2,mg/mm2
+mg mm-2,mg/mm2
+mg/cm2,mg/cm2
+(mm2 mg-1)/10,mm2/mg_div10
+(cm2/g)/100,cm2/g_div100
+m2.kg-1,m2/kg

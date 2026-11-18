@@ -74,7 +74,7 @@ data_bien_raw %>%
   dplyr::slice(1:1e3) %>%
   names()
 
-data_bien <-
+data_bien_contract <-
   data_bien_raw %>%
   dplyr::select(
     dplyr::any_of(
@@ -96,44 +96,60 @@ data_bien <-
   ) %>%
   dplyr::mutate(
     id = as.character(id),
-    trait_value = as.numeric(trait_value)
-  ) %>%
-  dplyr::group_by(
-    trait_name
-  ) %>%
-  tidyr::nest(
-    species_data = c(
-      id,
-      scrubbed_species_binomial,
-      trait_value,
-      unit,
-      longitude,
-      latitude,
-      method,
-      url_source,
-      source_citation,
-      project_pi,
-      access,
+    source_provider = "BIEN",
+    source_dataset_key = dplyr::coalesce(
+      .data$project_pi,
+      .data$source_citation,
+      .data$url_source,
+      "BIEN"
+    ),
+    source_record_id = .data$id,
+    source_trait_id = .data$trait_name,
+    source_trait_name = .data$trait_name,
+    original_value_string = base::as.character(.data$trait_value),
+    original_unit = .data$unit,
+    source_standardized_value = NA_real_,
+    source_standardized_unit = NA_character_,
+    trait_domain = dplyr::case_when(
+      .data$trait_name == "stem wood density" ~
+        "Stem specific density",
+      .data$trait_name == "leaf nitrogen content per leaf dry mass" ~
+        "Leaf nitrogen content per unit mass",
+      .data$trait_name == "seed mass" ~ "Diaspore mass",
+      .data$trait_name == "whole plant height" ~ "Plant heigh",
+      .data$trait_name == "leaf area" ~ "Leaf Area",
+      .data$trait_name == "leaf area per leaf dry mass" ~
+        "Leaf mass per area",
+      TRUE ~ NA_character_
+    ),
+    trait_full_name = dplyr::if_else(
+      .data$trait_name == "leaf area per leaf dry mass",
+      "leaf mass per area",
+      .data$trait_name
+    ),
+    derivation_rule_key = dplyr::if_else(
+      .data$trait_name == "leaf area per leaf dry mass",
+      "sla_to_lma",
+      NA_character_
     )
   ) %>%
-  dplyr::ungroup()
+  apply_trait_unit_contract()
 
-# data check -----
+data_bien_reconciliation <-
+  validate_trait_unit_reconciliation(data_bien_contract)
 
 data_bien_unnest <-
-  data_bien %>%
-  tidyr::unnest(species_data)
+  data_bien_contract %>%
+  dplyr::filter(.data$disposition == "published")
+
+data_bien_quarantine <-
+  data_bien_contract %>%
+  dplyr::filter(.data$disposition == "quarantined")
+
+data_bien_unit_audit_summary <-
+  summarise_trait_unit_audit(data_bien_contract)
 
 dplyr::glimpse(data_bien_unnest)
-
-data_bien_unnest %>%
-  dplyr::mutate(
-    dplyr::across(
-      tidyselect::where(is.character),
-      as.factor
-    )
-  ) %>%
-  summary()
 
 # check the percentage of NAs in each column
 (data_bien_unnest %>%
@@ -146,16 +162,18 @@ data_bien_unnest %>%
 #----------------------------------------------------------#
 
 total_rows <- nrow(data_bien_unnest)
-n_chunks <- 4
-chunk_size <- total_rows / n_chunks
+n_chunks <- 4L
+list_chunk_rows <-
+  split(
+    seq_len(total_rows),
+    cut(
+      seq_len(total_rows),
+      breaks = n_chunks,
+      labels = FALSE
+    )
+  )
 
-c(
-  0:(n_chunks - 1)
-) %>%
-  rlang::set_names() %>%
-  purrr::map(
-    .f = ~ as.integer((.x * chunk_size + 1):((.x + 1) * chunk_size))
-  ) %>%
+list_chunk_rows %>%
   purrr::iwalk(
     .f = ~ data_bien_unnest %>%
       dplyr::slice(.x) %>%
@@ -163,7 +181,7 @@ c(
         object_to_save = .,
         file_name = paste0(
           "data_traits_bien_",
-          .y
+          base::as.integer(.y) - 1L
         ),
         dir = here::here(
           "Outputs/Data/"
@@ -172,3 +190,68 @@ c(
         preset = "archive"
       )
   )
+
+RUtilpol::save_latest_file(
+  object_to_save = data_bien_unit_audit_summary,
+  file_name = "trait_unit_audit_summary_bien",
+  dir = here::here("Outputs", "Tables"),
+  prefered_format = "csv"
+)
+
+RUtilpol::save_latest_file(
+  object_to_save = data_bien_reconciliation,
+  file_name = "trait_unit_reconciliation_bien",
+  dir = here::here("Outputs", "Tables"),
+  prefered_format = "csv"
+)
+
+vec_bien_output_path_inventory <-
+  list.files(
+    here::here("Outputs", "Data"),
+    pattern = "^data_traits_bien_[0-9]+_.*[.]qs$",
+    full.names = TRUE
+  )
+vec_bien_output_paths_latest <-
+  vec_bien_output_path_inventory[
+    order(file.info(vec_bien_output_path_inventory)$mtime, decreasing = TRUE)
+  ] %>%
+  head(4L)
+
+data_bien_manifest <-
+  make_trait_artifact_manifest(
+    input_paths = list.files(
+      here::here("Data", "Input", "BIEN"),
+      full.names = TRUE
+    ),
+    output_paths = vec_bien_output_paths_latest,
+    data_contract = data_bien_contract
+  )
+
+RUtilpol::save_latest_file(
+  object_to_save = data_bien_manifest,
+  file_name = "trait_artifact_manifest_bien",
+  dir = here::here("Outputs", "Tables"),
+  prefered_format = "csv"
+)
+
+path_private_audit <-
+  here::here("Data", "Temp", "trait_unit_audit")
+
+base::dir.create(
+  path_private_audit,
+  recursive = TRUE,
+  showWarnings = FALSE
+)
+
+qs::qsave(
+  x = data_bien_quarantine,
+  file = base::file.path(
+    path_private_audit,
+    "trait_unit_quarantine_bien.qs"
+  ),
+  preset = "high"
+)
+
+stopifnot(
+  sum(purrr::map_int(list_chunk_rows, length)) == total_rows
+)
