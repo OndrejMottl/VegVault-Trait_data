@@ -96,7 +96,7 @@ vec_try_columns <-
   c(
     "Dataset", "AccSpeciesName", "ObservationID", "ObsDataID", "TraitID",
     "DataID", "DataName", "OrigValueStr", "OrigUnitStr", "ValueKindName",
-    "OrigObsDataID", "StdValue", "UnitName"
+    "OrigObsDataID", "StdValue", "UnitName", "Reference"
   )
 
 data_trait_raw <-
@@ -218,7 +218,9 @@ data_trait_dropped_counts <-
   dplyr::mutate(source_provider = "TRY")
 
 # Repeated values of one trait within an observation are kept here and
-#   resolved after the unit contract (resolve_repeated_try_values())
+#   resolved after the unit contract (resolve_repeated_try_values()).
+#   `Reference` is TRY's citation of the publication behind each record;
+#   it is exported as `record_reference`.
 data_trait_values <-
   data_trait_raw_rows |>
   dplyr::filter(
@@ -237,7 +239,8 @@ data_trait_values <-
     "ValueKindName",
     "OrigObsDataID",
     "StdValue",
-    "UnitName"
+    "UnitName",
+    record_reference = "Reference"
   )
 
 base::rm(data_trait_raw_rows)
@@ -317,6 +320,7 @@ data_trait_contract <-
     original_unit = .data$orig_unit_str,
     source_standardized_value = parse_trait_numeric(.data$std_value),
     source_standardized_unit = .data$unit_name,
+    record_reference = dplyr::na_if(.data$record_reference, ""),
     derivation_rule_key = dplyr::if_else(
       .data$trait_domain == "Leaf mass per area",
       "sla_to_lma",
@@ -377,6 +381,16 @@ data_trait_unpublished <-
 data_trait_unit_audit_summary <-
   summarise_trait_unit_audit(data_trait_resolved)
 
+data_trait_reference_completeness <-
+  summarise_trait_reference_completeness(
+    data_source = data_trait_processed,
+    reference_columns = c(
+      "record_reference",
+      "reference_source",
+      "dataset_reference_citation"
+    )
+  )
+
 #----------------------------------------------------------#
 # 4. Save  -----
 #----------------------------------------------------------#
@@ -398,6 +412,13 @@ RUtilpol::save_latest_file(
 RUtilpol::save_latest_file(
   object_to_save = data_trait_reconciliation,
   file_name = "trait_unit_reconciliation_try",
+  dir = path_output_tables,
+  prefered_format = "csv"
+)
+
+RUtilpol::save_latest_file(
+  object_to_save = data_trait_reference_completeness,
+  file_name = "trait_reference_completeness_try",
   dir = path_output_tables,
   prefered_format = "csv"
 )
