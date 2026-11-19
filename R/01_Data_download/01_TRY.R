@@ -25,6 +25,51 @@ source(
   )
 )
 
+# Locations. Without arguments the script reads the TRY request and writes
+#   the release outputs. A validation run on a subset passes an input file
+#   and an output folder, which then receives Data/, Tables/ and Audit/:
+#   Rscript R/01_Data_download/01_TRY.R <input file> <output folder>
+vec_script_args <-
+  base::commandArgs(trailingOnly = TRUE)
+
+if (
+  base::length(vec_script_args) == 2L
+) {
+  path_try_input <- vec_script_args[[1]]
+
+  path_output_data <-
+    base::file.path(vec_script_args[[2]], "Data")
+
+  path_output_tables <-
+    base::file.path(vec_script_args[[2]], "Tables")
+
+  path_private_audit <-
+    base::file.path(vec_script_args[[2]], "Audit")
+} else if (
+  base::length(vec_script_args) == 0L
+) {
+  path_try_input <-
+    here::here("Data", "Input", "TRY", "Raw", "28498.txt")
+
+  path_output_data <-
+    here::here("Outputs", "Data")
+
+  path_output_tables <-
+    here::here("Outputs", "Tables")
+
+  path_private_audit <-
+    here::here("Data", "Temp", "trait_unit_audit")
+} else {
+  cli::cli_abort(
+    "Pass no arguments, or an input file and an output folder."
+  )
+}
+
+purrr::walk(
+  .x = c(path_output_data, path_output_tables, path_private_audit),
+  .f = ~ base::dir.create(.x, recursive = TRUE, showWarnings = FALSE)
+)
+
 #----------------------------------------------------------#
 # 2. Load data  -----
 #----------------------------------------------------------#
@@ -47,11 +92,7 @@ source(
 library(rtry)
 
 data_trait_raw <-
-  rtry::rtry_import(
-    here::here(
-      "Data/Input/TRY/Raw/28498.txt"
-    )
-  )
+  rtry::rtry_import(path_try_input)
 
 #----------------------------------------------------------#
 # 3. Data wrangling  -----
@@ -66,7 +107,7 @@ trait_name_translation_table <-
     4, "Stem specific density", "Stem specific density (SSD, stem dry mass per stem fresh volume) or wood density",
     14, "Leaf nitrogen content per unit mass", "Leaf nitrogen (N) content per leaf dry mass",
     26, "Diaspore mass", "Seed dry mass",
-    3106, "Plant heigh", "Plant height vegetative	",
+    3106, "Plant heigh", "Plant height vegetative",
     3108, "Leaf Area", "Leaf area (in case of compound leaves: leaf, petiole excluded)",
     3110, "Leaf Area", "Leaf area (in case of compound leaves: leaf, petiole included)",
     3112, "Leaf Area", "Leaf area (in case of compound leaves: leaf, undefined if petiole in- or excluded)",
@@ -324,9 +365,12 @@ data_trait_contract <-
 validate_known_try_leaf_area(data_trait_contract)
 
 # One published value per observation and trait, by the documented rule in
-#   resolve_repeated_try_values(); the others are marked as dropped
+#   resolve_repeated_try_values(); then records that TRY flags as copies of
+#   a published original are dropped (resolve_try_duplicate_records())
 data_trait_resolved <-
-  resolve_repeated_try_values(data_trait_contract)
+  data_trait_contract |>
+  resolve_repeated_try_values() |>
+  resolve_try_duplicate_records()
 
 data_trait_reconciliation <-
   validate_trait_unit_reconciliation(
@@ -362,26 +406,26 @@ path_try_artifact <-
   save_trait_artifact(
     object_to_save = data_trait_processed,
     file_name = "data_trait_try",
-    dir = here::here("Outputs", "Data")
+    dir = path_output_data
   )
 
 RUtilpol::save_latest_file(
   object_to_save = data_trait_unit_audit_summary,
   file_name = "trait_unit_audit_summary_try",
-  dir = here::here("Outputs", "Tables"),
+  dir = path_output_tables,
   prefered_format = "csv"
 )
 
 RUtilpol::save_latest_file(
   object_to_save = data_trait_reconciliation,
   file_name = "trait_unit_reconciliation_try",
-  dir = here::here("Outputs", "Tables"),
+  dir = path_output_tables,
   prefered_format = "csv"
 )
 
 data_try_manifest <-
   make_trait_artifact_manifest(
-    input_paths = here::here("Data", "Input", "TRY", "Raw", "28498.txt"),
+    input_paths = path_try_input,
     output_paths = path_try_artifact,
     output_rows = base::nrow(data_trait_processed),
     data_contract = data_trait_resolved
@@ -390,17 +434,8 @@ data_try_manifest <-
 RUtilpol::save_latest_file(
   object_to_save = data_try_manifest,
   file_name = "trait_artifact_manifest_try",
-  dir = here::here("Outputs", "Tables"),
+  dir = path_output_tables,
   prefered_format = "csv"
-)
-
-path_private_audit <-
-  here::here("Data", "Temp", "trait_unit_audit")
-
-base::dir.create(
-  path_private_audit,
-  recursive = TRUE,
-  showWarnings = FALSE
 )
 
 # Quarantined and dropped records stay private (TRY licence)

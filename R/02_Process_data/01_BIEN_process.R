@@ -24,14 +24,58 @@ source(
   )
 )
 
+# Locations. Without arguments the script reads the BIEN downloads and
+#   writes the release outputs. A validation run on a subset passes an input
+#   folder and an output folder, which then receives Data/, Tables/ and
+#   Audit/:
+#   Rscript R/02_Process_data/01_BIEN_process.R <input folder> <output folder>
+vec_script_args <-
+  base::commandArgs(trailingOnly = TRUE)
+
+if (
+  base::length(vec_script_args) == 2L
+) {
+  path_bien_input <- vec_script_args[[1]]
+
+  path_output_data <-
+    base::file.path(vec_script_args[[2]], "Data")
+
+  path_output_tables <-
+    base::file.path(vec_script_args[[2]], "Tables")
+
+  path_private_audit <-
+    base::file.path(vec_script_args[[2]], "Audit")
+} else if (
+  base::length(vec_script_args) == 0L
+) {
+  path_bien_input <-
+    here::here("Data", "Input", "BIEN")
+
+  path_output_data <-
+    here::here("Outputs", "Data")
+
+  path_output_tables <-
+    here::here("Outputs", "Tables")
+
+  path_private_audit <-
+    here::here("Data", "Temp", "trait_unit_audit")
+} else {
+  cli::cli_abort(
+    "Pass no arguments, or an input folder and an output folder."
+  )
+}
+
+purrr::walk(
+  .x = c(path_output_data, path_output_tables, path_private_audit),
+  .f = ~ base::dir.create(.x, recursive = TRUE, showWarnings = FALSE)
+)
+
 #----------------------------------------------------------#
 # 2. Load data  -----
 #----------------------------------------------------------#
 
 data_bien_files <-
-  here::here(
-    "Data/Input/BIEN/"
-  ) %>%
+  path_bien_input %>%
   list.files() %>%
   purrr::map(
     .f = ~ RUtilpol::get_clean_name(.x)
@@ -41,9 +85,7 @@ data_bien_files <-
   purrr::map(
     .f = ~ RUtilpol::get_latest_file(
       file_name = .x,
-      dir = here::here(
-        "Data/Input/BIEN/"
-      )
+      dir = path_bien_input
     )
   )
 
@@ -53,7 +95,7 @@ vec_bien_input_files <-
   purrr::map_chr(
     .f = ~ RUtilpol::get_latest_file_name(
       file_name = .x,
-      dir = here::here("Data", "Input", "BIEN"),
+      dir = path_bien_input,
       verbose = FALSE
     )
   ) |>
@@ -61,7 +103,7 @@ vec_bien_input_files <-
 
 vec_bien_input_paths <-
   base::file.path(
-    here::here("Data", "Input", "BIEN"),
+    path_bien_input,
     vec_bien_input_files
   )
 
@@ -231,7 +273,7 @@ data_bien_parts <-
         path = save_trait_artifact(
           object_to_save = data_part,
           file_name = stringr::str_glue("data_traits_bien_{.x}"),
-          dir = here::here("Outputs", "Data")
+          dir = path_output_data
         ),
         n_rows = base::nrow(data_part)
       )
@@ -249,14 +291,14 @@ validate_trait_artifact_parts(
 RUtilpol::save_latest_file(
   object_to_save = data_bien_unit_audit_summary,
   file_name = "trait_unit_audit_summary_bien",
-  dir = here::here("Outputs", "Tables"),
+  dir = path_output_tables,
   prefered_format = "csv"
 )
 
 RUtilpol::save_latest_file(
   object_to_save = data_bien_reconciliation,
   file_name = "trait_unit_reconciliation_bien",
-  dir = here::here("Outputs", "Tables"),
+  dir = path_output_tables,
   prefered_format = "csv"
 )
 
@@ -271,19 +313,11 @@ data_bien_manifest <-
 RUtilpol::save_latest_file(
   object_to_save = data_bien_manifest,
   file_name = "trait_artifact_manifest_bien",
-  dir = here::here("Outputs", "Tables"),
+  dir = path_output_tables,
   prefered_format = "csv"
 )
 
-path_private_audit <-
-  here::here("Data", "Temp", "trait_unit_audit")
-
-base::dir.create(
-  path_private_audit,
-  recursive = TRUE,
-  showWarnings = FALSE
-)
-
+# Quarantined and dropped records stay private (BIEN licence)
 qs2::qs_save(
   object = data_bien_unpublished,
   file = base::file.path(
