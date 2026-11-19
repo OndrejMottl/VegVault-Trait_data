@@ -24,30 +24,51 @@ source(
   )
 )
 
-# Locations. Without arguments the script reads the BIEN downloads and
-#   writes the release outputs. A validation run on a subset passes an input
-#   folder and an output folder, which then receives Data/, Tables/ and
-#   Audit/:
-#   Rscript R/02_Process_data/01_BIEN_process.R <input folder> <output folder>
+# Locations. BIEN records duplicated in TRY are dropped, so the published
+#   TRY artifact written by 01_TRY.R is an explicit input. A release run
+#   passes only that file and writes the release outputs:
+#   Rscript R/02_Process_data/01_BIEN_process.R <TRY artifact>
+#   A validation run on a subset also passes an input folder and an output
+#   folder, which then receives Data/, Tables/ and Audit/:
+#   Rscript R/02_Process_data/01_BIEN_process.R <TRY artifact> <input>
+#     <output>
 vec_script_args <-
   base::commandArgs(trailingOnly = TRUE)
 
 if (
-  base::length(vec_script_args) == 2L
+  !base::length(vec_script_args) %in% c(1L, 3L)
 ) {
-  path_bien_input <- vec_script_args[[1]]
+  cli::cli_abort(
+    stringr::str_c(
+      "Pass the TRY artifact, optionally followed by an input folder and",
+      " an output folder."
+    )
+  )
+}
+
+path_try_artifact <- vec_script_args[[1]]
+
+path_shared_sources <-
+  here::here(
+    "config",
+    "trait_duplicates",
+    "bien_sources_shared_with_try.csv"
+  )
+
+if (
+  base::length(vec_script_args) == 3L
+) {
+  path_bien_input <- vec_script_args[[2]]
 
   path_output_data <-
-    base::file.path(vec_script_args[[2]], "Data")
+    base::file.path(vec_script_args[[3]], "Data")
 
   path_output_tables <-
-    base::file.path(vec_script_args[[2]], "Tables")
+    base::file.path(vec_script_args[[3]], "Tables")
 
   path_private_audit <-
-    base::file.path(vec_script_args[[2]], "Audit")
-} else if (
-  base::length(vec_script_args) == 0L
-) {
+    base::file.path(vec_script_args[[3]], "Audit")
+} else {
   path_bien_input <-
     here::here("Data", "Input", "BIEN")
 
@@ -59,10 +80,6 @@ if (
 
   path_private_audit <-
     here::here("Data", "Temp", "trait_unit_audit")
-} else {
-  cli::cli_abort(
-    "Pass no arguments, or an input folder and an output folder."
-  )
 }
 
 purrr::walk(
@@ -220,23 +237,44 @@ data_bien_contract <-
   ) %>%
   apply_trait_unit_contract()
 
+# BIEN records that copy a compilation also held by TRY are dropped when the
+#   published TRY artifact holds the same measurement; the TRY copy is kept
+#   (resolve_bien_try_duplicates())
+data_try_published <-
+  qs2::qs_read(path_try_artifact)
+
+data_shared_sources <-
+  readr::read_csv(
+    file = path_shared_sources,
+    col_types = readr::cols(.default = readr::col_character()),
+    show_col_types = FALSE,
+    progress = FALSE
+  )
+
+data_bien_resolved <-
+  resolve_bien_try_duplicates(
+    data_bien = data_bien_contract,
+    data_try_published = data_try_published,
+    data_shared_sources = data_shared_sources
+  )
+
 data_bien_reconciliation <-
   validate_trait_unit_reconciliation(
-    data_source = data_bien_contract,
+    data_source = data_bien_resolved,
     data_raw_counts = data_bien_raw_counts,
     data_dropped_counts = data_bien_dropped_counts
   )
 
 data_bien_unnest <-
-  data_bien_contract %>%
+  data_bien_resolved %>%
   dplyr::filter(.data$disposition == "published")
 
 data_bien_unpublished <-
-  data_bien_contract %>%
+  data_bien_resolved %>%
   dplyr::filter(.data$disposition != "published")
 
 data_bien_unit_audit_summary <-
-  summarise_trait_unit_audit(data_bien_contract)
+  summarise_trait_unit_audit(data_bien_resolved)
 
 dplyr::glimpse(data_bien_unnest)
 
@@ -304,10 +342,14 @@ RUtilpol::save_latest_file(
 
 data_bien_manifest <-
   make_trait_artifact_manifest(
-    input_paths = vec_bien_input_paths,
+    input_paths = c(
+      vec_bien_input_paths,
+      path_try_artifact,
+      path_shared_sources
+    ),
     output_paths = dplyr::pull(data_bien_parts, path),
     output_rows = dplyr::pull(data_bien_parts, n_rows),
-    data_contract = data_bien_contract
+    data_contract = data_bien_resolved
   )
 
 RUtilpol::save_latest_file(

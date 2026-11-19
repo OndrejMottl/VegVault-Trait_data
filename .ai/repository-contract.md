@@ -16,11 +16,14 @@ Treat filenames and partitions, taxon identifiers, trait identifiers, value and 
 
 ## Trait export under the unit contract
 
-- `R/01_Data_download/01_TRY.R` and `R/02_Process_data/01_BIEN_process.R` take no arguments for a release run: they read `Data/Input/` and write to `Outputs/Data/`, `Outputs/Tables/` and `Data/Temp/trait_unit_audit/`. For validation, pass an input (the TRY file or the BIEN folder) and an output folder; the output folder receives `Data/`, `Tables/` and `Audit/`. Keep validation runs inside `Data/Temp/`.
+- Run `R/01_Data_download/01_TRY.R` first, then `R/02_Process_data/01_BIEN_process.R`, because the BIEN script reads the published TRY artifact.
+  - Release run: the TRY script takes no arguments, and the BIEN script takes the path of the TRY artifact. Both read `Data/Input/` and write to `Outputs/Data/`, `Outputs/Tables/` and `Data/Temp/trait_unit_audit/`.
+  - Validation run: the TRY script takes the TRY file and an output folder. The BIEN script takes the TRY artifact, the BIEN folder and an output folder. The output folder receives `Data/`, `Tables/` and `Audit/`. Keep validation runs inside `Data/Temp/`.
 - Every raw trait record gets one disposition:
   - `published`: the unit contract converted and verified the value.
   - `quarantined`: the value or unit could not be verified.
-  - `dropped`: the record was removed by a rule. The reasons are a configured DataID exclusion, a missing value, another value of the same trait in the same TRY observation (`resolve_repeated_try_values()`), a TRY record flagged as a copy of a published original (`resolve_try_duplicate_records()`), or a BIEN record without a species name.
+  - `dropped`: the record was removed by a rule. The reasons are a configured DataID exclusion, a missing value, another value of the same trait in the same TRY observation (`resolve_repeated_try_values()`), a TRY record flagged as a copy of a published original (`resolve_try_duplicate_records()`), a BIEN record without a species name, or a BIEN record duplicated in TRY (`resolve_bien_try_duplicates()`).
+- When TRY and BIEN hold the same measurement, the TRY copy is kept. A BIEN record is a duplicate only when its source is listed in `config/trait_duplicates/bien_sources_shared_with_try.csv` and the published TRY artifact has the same trait domain, species and value at three significant digits. The list holds the BIEN sources that copy compilations held by TRY. It was selected from the data by the rule in its `selection_basis` column, and must be rechecked when either provider's data change.
 - `validate_trait_unit_reconciliation()` aborts unless raw records equal published plus quarantined plus dropped, per provider and trait.
 - Unit rules live in `config/trait_units/`. Add an alias or conversion only with a stated source. TRY conversions are verified against TRY's standardised value (`StdValue`), and dataset-specific overrides cover the known source errors.
 - Artefacts are written by `save_trait_artifact()` to exact paths named `<stem>_<date>__<hash>__.qs` (`qs2` format). TRY is one file (`data_trait_try`). BIEN is four parts (`data_traits_bien_<0-3>`), checked by `validate_trait_artifact_parts()`. Never select artefacts by folder listing or modification time.
