@@ -329,11 +329,25 @@ data_trait_contract <-
 #   before repeated values are resolved
 validate_known_try_leaf_area(data_trait_contract)
 
-# One published value per observation and trait, by the documented rule in
-#   resolve_repeated_try_values(); then records that TRY flags as copies of
-#   a published original are dropped (resolve_try_duplicate_records())
+# Reviewed source-level quarantines (values on an impossible scale) are
+#   applied first. Then one published value per observation and trait is
+#   kept (resolve_repeated_try_values()), and records that TRY flags as
+#   copies of a published original are dropped
+#   (resolve_try_duplicate_records())
+path_source_quarantine <-
+  here::here("config", "trait_quarantine", "source_quarantine.csv")
+
+data_source_quarantine <-
+  readr::read_csv(
+    file = path_source_quarantine,
+    col_types = readr::cols(.default = readr::col_character()),
+    show_col_types = FALSE,
+    progress = FALSE
+  )
+
 data_trait_resolved <-
   data_trait_contract |>
+  resolve_source_quarantines(data_quarantine = data_source_quarantine) |>
   resolve_repeated_try_values() |>
   resolve_try_duplicate_records()
 
@@ -390,7 +404,7 @@ RUtilpol::save_latest_file(
 
 data_try_manifest <-
   make_trait_artifact_manifest(
-    input_paths = path_try_input,
+    input_paths = c(path_try_input, path_source_quarantine),
     output_paths = path_try_artifact,
     output_rows = base::nrow(data_trait_processed),
     data_contract = data_trait_resolved

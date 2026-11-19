@@ -251,9 +251,25 @@ data_shared_sources <-
     progress = FALSE
   )
 
+# Reviewed source-level quarantines (values on an impossible scale) are
+#   applied before duplicates are resolved
+path_source_quarantine <-
+  here::here("config", "trait_quarantine", "source_quarantine.csv")
+
+data_bien_quarantined <-
+  resolve_source_quarantines(
+    data_source = data_bien_contract,
+    data_quarantine = readr::read_csv(
+      file = path_source_quarantine,
+      col_types = readr::cols(.default = readr::col_character()),
+      show_col_types = FALSE,
+      progress = FALSE
+    )
+  )
+
 data_bien_resolved <-
   resolve_bien_try_duplicates(
-    data_bien = data_bien_contract,
+    data_bien = data_bien_quarantined,
     data_try_published = data_try_published,
     data_shared_sources = data_shared_sources
   )
@@ -263,7 +279,7 @@ data_bien_resolved <-
 #   list before release
 data_bien_try_twins <-
   summarise_bien_try_twins(
-    data_bien = data_bien_contract,
+    data_bien = data_bien_quarantined,
     data_try_published = data_try_published,
     data_shared_sources = data_shared_sources
   )
@@ -385,7 +401,8 @@ data_bien_manifest <-
     input_paths = c(
       vec_bien_input_paths,
       path_try_artifact,
-      path_shared_sources
+      path_shared_sources,
+      path_source_quarantine
     ),
     output_paths = dplyr::pull(data_bien_parts, path),
     output_rows = dplyr::pull(data_bien_parts, n_rows),

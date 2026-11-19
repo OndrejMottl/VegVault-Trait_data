@@ -91,6 +91,34 @@ testthat::test_that("unsupported and invalid inputs fail closed", {
   testthat::expect_equal(data_observed_invalid$disposition, "quarantined")
 })
 
+testthat::test_that("missing and blank units are quarantined", {
+  data_trait_contract_no_unit <-
+    dplyr::bind_rows(
+      dplyr::mutate(data_trait_contract_fixture, original_unit = NA),
+      dplyr::mutate(
+        data_trait_contract_fixture,
+        source_record_id = "record-2",
+        original_unit = "  "
+      )
+    )
+
+  data_observed_no_unit <-
+    apply_trait_unit_contract(data_trait_contract_no_unit)
+
+  testthat::expect_equal(
+    dplyr::pull(data_observed_no_unit, conversion_status),
+    c("ambiguous", "ambiguous")
+  )
+  testthat::expect_equal(
+    dplyr::pull(data_observed_no_unit, disposition),
+    c("quarantined", "quarantined")
+  )
+  testthat::expect_equal(
+    dplyr::pull(data_observed_no_unit, disposition_reason),
+    c("original_unit_missing", "original_unit_missing")
+  )
+})
+
 testthat::test_that("TRY unit notation variants are published", {
   # Notation variants observed in TRY request 28498: middle dot,
   #    superscript two, Windows en dash (read as U+0096) and micro sign
