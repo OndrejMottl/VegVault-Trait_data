@@ -133,16 +133,60 @@ data_trait_data_id <-
     )
   )
 
-data_trait_data_id %>%
-  dplyr::select(-sel_observation) %>%
-  tidyr::unnest(sel_data_id_overview) %>%
-  View()
+if (
+  base::interactive()
+) {
+  data_trait_data_id %>%
+    dplyr::select(-sel_observation) %>%
+    tidyr::unnest(sel_data_id_overview) %>%
+    View()
+}
 
 vec_data_id_to_remove <-
   c(
     2221:2225, 3646, 3647, 3698, 3699, 3727, 3728, 3730, 3731, 3849, 3850,
     4029, 4030
   )
+
+# Raw TRY trait records per trait, and the records removed before the unit
+#   contract is applied, counted by reason for the reconciliation
+vec_try_trait_ids <-
+  trait_name_translation_table |>
+  dplyr::pull(trait_id_value)
+
+data_trait_raw_rows <-
+  data_trait_tibble |>
+  dplyr::mutate(
+    source_trait_id = base::as.character(.data$TraitID)
+  ) |>
+  dplyr::filter(.data$source_trait_id %in% vec_try_trait_ids)
+
+data_trait_raw_counts <-
+  data_trait_raw_rows |>
+  dplyr::count(.data$source_trait_id, name = "n_raw") |>
+  dplyr::mutate(source_provider = "TRY")
+
+data_trait_dropped_counts <-
+  data_trait_raw_rows |>
+  dplyr::mutate(
+    disposition_reason = dplyr::case_when(
+      .data$DataID %in% vec_data_id_to_remove ~ "data_id_excluded",
+      base::is.na(.data$OrigValueStr) ~ "original_value_missing",
+      TRUE ~ NA_character_
+    )
+  ) |>
+  dplyr::filter(!base::is.na(.data$disposition_reason)) |>
+  dplyr::count(
+    .data$source_trait_id,
+    .data$disposition_reason,
+    name = "n_records"
+  ) |>
+  dplyr::mutate(source_provider = "TRY")
+
+vec_trait_observation_ids <-
+  data_trait_raw_rows |>
+  dplyr::distinct(.data$ObservationID) |>
+  dplyr::pull(.data$ObservationID)
 
 data_trait_sel_data_id <-
   data_trait_data_id %>%
@@ -166,15 +210,17 @@ data_trait_values <-
           Dataset,
           AccSpeciesName,
           ObservationID,
+          ObsDataID,
           OrigValueStr,
           OrigUnitStr,
+          ValueKindName,
+          OrigObsDataID,
           StdValue,
           UnitName
         ) %>%
-        dplyr::distinct(
-          Dataset, AccSpeciesName, ObservationID,
-          .keep_all = TRUE
-        ) %>%
+        # Repeated values of one trait within an observation are kept here
+        #   and resolved after the unit contract
+        #   (resolve_repeated_try_values())
         dplyr::filter(is.na(OrigValueStr) == FALSE)
     )
   )
@@ -211,8 +257,10 @@ data_trait_covariates <-
 data_trait_covariates$sel_data_covariates[[1]] %>%
   dplyr::glimpse()
 
+# Observations without any ancillary data (no location or reference) are
+#   kept; their ancillary columns stay missing
 data_trait_merged <-
-  dplyr::inner_join(
+  dplyr::left_join(
     data_trait_covariates %>%
       dplyr::select(
         name, sel_data_trait_values
@@ -223,8 +271,22 @@ data_trait_merged <-
         name, sel_data_covariates
       ) %>%
       tidyr::unnest(sel_data_covariates),
-    by = c("name", "Dataset", "AccSpeciesName", "ObservationID")
+    by = c("name", "Dataset", "AccSpeciesName", "ObservationID"),
+    relationship = "many-to-one"
   )
+
+# Numeric WGS84 coordinates, preferring TRY's standardised values; they
+#   replace the text coordinates of the ancillary data
+data_trait_coordinates <-
+  data_trait_tibble |>
+  dplyr::filter(
+    base::is.na(.data$TraitID),
+    .data$DataName %in% c("Latitude", "Longitude"),
+    !.data$DataID %in% vec_data_id_to_remove,
+    .data$ObservationID %in% vec_trait_observation_ids
+  ) |>
+  janitor::clean_names() |>
+  prepare_try_coordinates()
 
 data_trait_contract <-
   data_trait_merged %>%
@@ -233,6 +295,12 @@ data_trait_contract <-
     by = c("name" = "trait_id_value")
   ) %>%
   janitor::clean_names() %>%
+  dplyr::select(-dplyr::any_of(c("latitude", "longitude"))) %>%
+  dplyr::left_join(
+    data_trait_coordinates,
+    by = c("dataset", "acc_species_name", "observation_id"),
+    relationship = "many-to-one"
+  ) %>%
   dplyr::mutate(
     source_provider = "TRY",
     source_dataset_key = .data$dataset,
@@ -251,13 +319,24 @@ data_trait_contract <-
   ) %>%
   apply_trait_unit_contract()
 
-data_trait_reconciliation <-
-  validate_trait_unit_reconciliation(data_trait_contract)
+# The known Leaf Area corrections are checked on the contract output,
+#   before repeated values are resolved
 validate_known_try_leaf_area(data_trait_contract)
 
+# One published value per observation and trait, by the documented rule in
+#   resolve_repeated_try_values(); the others are marked as dropped
+data_trait_resolved <-
+  resolve_repeated_try_values(data_trait_contract)
+
+data_trait_reconciliation <-
+  validate_trait_unit_reconciliation(
+    data_source = data_trait_resolved,
+    data_raw_counts = data_trait_raw_counts,
+    data_dropped_counts = data_trait_dropped_counts
+  )
 
 data_trait_processed <-
-  data_trait_contract %>% 
+  data_trait_resolved %>%
   dplyr::filter(.data$disposition == "published") %>%
   dplyr::select(-"name") %>%
   dplyr::relocate(
@@ -268,25 +347,23 @@ data_trait_processed <-
     .before = observation_id
   )
 
-data_trait_quarantine <-
-  data_trait_contract %>%
-  dplyr::filter(.data$disposition == "quarantined")
+data_trait_unpublished <-
+  data_trait_resolved %>%
+  dplyr::filter(.data$disposition != "published")
 
 data_trait_unit_audit_summary <-
-  summarise_trait_unit_audit(data_trait_contract)
+  summarise_trait_unit_audit(data_trait_resolved)
 
 #----------------------------------------------------------#
 # 4. Save  -----
 #----------------------------------------------------------#
 
-RUtilpol::save_latest_file(
-  object_to_save = data_trait_processed,
-  file_name = "data_trait_try",
-  dir = here::here(
-    "Outputs/Data/"
-  ),
-  prefered_format = "qs"
-)
+path_try_artifact <-
+  save_trait_artifact(
+    object_to_save = data_trait_processed,
+    file_name = "data_trait_try",
+    dir = here::here("Outputs", "Data")
+  )
 
 RUtilpol::save_latest_file(
   object_to_save = data_trait_unit_audit_summary,
@@ -302,20 +379,12 @@ RUtilpol::save_latest_file(
   prefered_format = "csv"
 )
 
-vec_try_output_paths <-
-  list.files(
-    here::here("Outputs", "Data"),
-    pattern = "^data_trait_try_.*[.]qs$",
-    full.names = TRUE
-  ) %>%
-  sort() %>%
-  tail(1L)
-
 data_try_manifest <-
   make_trait_artifact_manifest(
     input_paths = here::here("Data", "Input", "TRY", "Raw", "28498.txt"),
-    output_paths = vec_try_output_paths,
-    data_contract = data_trait_contract
+    output_paths = path_try_artifact,
+    output_rows = base::nrow(data_trait_processed),
+    data_contract = data_trait_resolved
   )
 
 RUtilpol::save_latest_file(
@@ -334,11 +403,12 @@ base::dir.create(
   showWarnings = FALSE
 )
 
+# Quarantined and dropped records stay private (TRY licence)
 qs2::qs_save(
-  object = data_trait_quarantine,
+  object = data_trait_unpublished,
   file = base::file.path(
     path_private_audit,
-    "trait_unit_quarantine_try.qs"
+    "trait_unit_unpublished_try.qs2"
   )
 )
 

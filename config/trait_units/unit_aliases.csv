@@ -137,3 +137,5 @@ mg/cm2,mg/cm2
 (mm2 mg-1)/10,mm2/mg_div10
 (cm2/g)/100,cm2/g_div100
 m2.kg-1,m2/kg
+mg.g-1,mg/g
+g.cm-3,g/cm3

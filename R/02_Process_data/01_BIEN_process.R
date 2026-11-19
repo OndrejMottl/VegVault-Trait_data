@@ -47,6 +47,24 @@ data_bien_files <-
     )
   )
 
+# The exact input files read above, for the manifest
+vec_bien_input_files <-
+  base::names(data_bien_files) |>
+  purrr::map_chr(
+    .f = ~ RUtilpol::get_latest_file_name(
+      file_name = .x,
+      dir = here::here("Data", "Input", "BIEN"),
+      verbose = FALSE
+    )
+  ) |>
+  purrr::discard(.p = base::is.na)
+
+vec_bien_input_paths <-
+  base::file.path(
+    here::here("Data", "Input", "BIEN"),
+    vec_bien_input_files
+  )
+
 #----------------------------------------------------------#
 # 3. Process data  -----
 #----------------------------------------------------------#
@@ -74,8 +92,33 @@ data_bien_raw %>%
   dplyr::slice(1:1e3) %>%
   names()
 
+# Raw BIEN trait records per trait, the base of the reconciliation
+data_bien_raw_counts <-
+  data_bien_raw |>
+  dplyr::count(source_trait_id = .data$trait_name, name = "n_raw") |>
+  dplyr::mutate(source_provider = "BIEN")
+
+# Records without a scrubbed species name cannot be attached to a taxon in
+#   VegVault, so they are dropped before the contract and counted
+data_bien_raw_flagged <-
+  data_bien_raw |>
+  dplyr::mutate(
+    flag_species_missing = base::is.na(.data$scrubbed_species_binomial) |
+      !base::nzchar(base::trimws(.data$scrubbed_species_binomial))
+  )
+
+data_bien_dropped_counts <-
+  data_bien_raw_flagged |>
+  dplyr::filter(.data$flag_species_missing) |>
+  dplyr::count(source_trait_id = .data$trait_name, name = "n_records") |>
+  dplyr::mutate(
+    source_provider = "BIEN",
+    disposition_reason = "species_name_missing"
+  )
+
 data_bien_contract <-
-  data_bien_raw %>%
+  data_bien_raw_flagged %>%
+  dplyr::filter(!.data$flag_species_missing) %>%
   dplyr::select(
     dplyr::any_of(
       c(
@@ -136,15 +179,19 @@ data_bien_contract <-
   apply_trait_unit_contract()
 
 data_bien_reconciliation <-
-  validate_trait_unit_reconciliation(data_bien_contract)
+  validate_trait_unit_reconciliation(
+    data_source = data_bien_contract,
+    data_raw_counts = data_bien_raw_counts,
+    data_dropped_counts = data_bien_dropped_counts
+  )
 
 data_bien_unnest <-
   data_bien_contract %>%
   dplyr::filter(.data$disposition == "published")
 
-data_bien_quarantine <-
+data_bien_unpublished <-
   data_bien_contract %>%
-  dplyr::filter(.data$disposition == "quarantined")
+  dplyr::filter(.data$disposition != "published")
 
 data_bien_unit_audit_summary <-
   summarise_trait_unit_audit(data_bien_contract)
@@ -161,34 +208,43 @@ dplyr::glimpse(data_bien_unnest)
 # 4. Save  -----
 #----------------------------------------------------------#
 
-total_rows <- nrow(data_bien_unnest)
-n_chunks <- 4L
-list_chunk_rows <-
-  split(
-    seq_len(total_rows),
-    cut(
-      seq_len(total_rows),
-      breaks = n_chunks,
-      labels = FALSE
-    )
-  )
+# Split the published rows by row order into numbered parts (from 0), each
+#   saved to an exact path that the manifest records
+n_bien_parts <- 4L
 
-list_chunk_rows %>%
-  purrr::iwalk(
-    .f = ~ data_bien_unnest %>%
-      dplyr::slice(.x) %>%
-      RUtilpol::save_latest_file(
-        object_to_save = .,
-        file_name = paste0(
-          "data_traits_bien_",
-          base::as.integer(.y) - 1L
+vec_bien_part <-
+  base::cut(
+    base::seq_len(base::nrow(data_bien_unnest)),
+    breaks = n_bien_parts,
+    labels = FALSE
+  ) - 1L
+
+data_bien_parts <-
+  (base::seq_len(n_bien_parts) - 1L) |>
+  purrr::map(
+    .f = ~ {
+      data_part <-
+        dplyr::filter(data_bien_unnest, vec_bien_part == .x)
+
+      tibble::tibble(
+        part = .x,
+        path = save_trait_artifact(
+          object_to_save = data_part,
+          file_name = stringr::str_glue("data_traits_bien_{.x}"),
+          dir = here::here("Outputs", "Data")
         ),
-        dir = here::here(
-          "Outputs/Data/"
-        ),
-        prefered_format = "qs"
+        n_rows = base::nrow(data_part)
       )
-  )
+    }
+  ) |>
+  purrr::list_rbind()
+
+validate_trait_artifact_parts(
+  data_parts = data_bien_parts,
+  file_stem = "data_traits_bien",
+  n_parts_expected = n_bien_parts,
+  n_rows_expected = base::nrow(data_bien_unnest)
+)
 
 RUtilpol::save_latest_file(
   object_to_save = data_bien_unit_audit_summary,
@@ -204,25 +260,11 @@ RUtilpol::save_latest_file(
   prefered_format = "csv"
 )
 
-vec_bien_output_path_inventory <-
-  list.files(
-    here::here("Outputs", "Data"),
-    pattern = "^data_traits_bien_[0-9]+_.*[.]qs$",
-    full.names = TRUE
-  )
-vec_bien_output_paths_latest <-
-  vec_bien_output_path_inventory[
-    order(file.info(vec_bien_output_path_inventory)$mtime, decreasing = TRUE)
-  ] %>%
-  head(4L)
-
 data_bien_manifest <-
   make_trait_artifact_manifest(
-    input_paths = list.files(
-      here::here("Data", "Input", "BIEN"),
-      full.names = TRUE
-    ),
-    output_paths = vec_bien_output_paths_latest,
+    input_paths = vec_bien_input_paths,
+    output_paths = dplyr::pull(data_bien_parts, path),
+    output_rows = dplyr::pull(data_bien_parts, n_rows),
     data_contract = data_bien_contract
   )
 
@@ -243,13 +285,9 @@ base::dir.create(
 )
 
 qs2::qs_save(
-  object = data_bien_quarantine,
+  object = data_bien_unpublished,
   file = base::file.path(
     path_private_audit,
-    "trait_unit_quarantine_bien.qs"
+    "trait_unit_unpublished_bien.qs2"
   )
-)
-
-stopifnot(
-  sum(purrr::map_int(list_chunk_rows, length)) == total_rows
 )

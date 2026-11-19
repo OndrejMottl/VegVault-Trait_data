@@ -90,3 +90,52 @@ testthat::test_that("unsupported and invalid inputs fail closed", {
   testthat::expect_equal(data_observed_invalid$conversion_status, "failed")
   testthat::expect_equal(data_observed_invalid$disposition, "quarantined")
 })
+
+testthat::test_that("observed BIEN unit strings are published", {
+  # Unit strings returned by BIEN database 4.2.8 (R package BIEN 1.2.8)
+  #    for the six traits
+  data_bien_units <-
+    tibble::tibble(
+      source_trait_id = c(
+        "leaf area",
+        "leaf area per leaf dry mass",
+        "leaf nitrogen content per leaf dry mass",
+        "seed mass",
+        "stem wood density",
+        "whole plant height"
+      ),
+      original_unit = c("mm2", "m2.kg-1", "mg.g-1", "mg", "g.cm-3", "m")
+    ) |>
+    dplyr::mutate(
+      source_provider = "BIEN",
+      source_dataset_key = "BIEN",
+      source_record_id = base::as.character(dplyr::row_number()),
+      source_trait_name = .data$source_trait_id,
+      original_value_string = "2",
+      source_standardized_value = NA_real_,
+      source_standardized_unit = NA_character_,
+      trait_domain = "domain",
+      trait_full_name = .data$source_trait_id,
+      derivation_rule_key = dplyr::if_else(
+        .data$source_trait_id == "leaf area per leaf dry mass",
+        "sla_to_lma",
+        NA_character_
+      )
+    )
+
+  data_bien_contract <-
+    apply_trait_unit_contract(data_bien_units)
+
+  testthat::expect_equal(
+    dplyr::pull(data_bien_contract, disposition),
+    base::rep("published", 6L)
+  )
+  testthat::expect_equal(
+    dplyr::pull(data_bien_contract, trait_unit),
+    c("mm2", "mg/mm2", "mg/g", "mg", "g/cm3", "m")
+  )
+  testthat::expect_equal(
+    dplyr::pull(data_bien_contract, trait_value),
+    c(2, 0.5, 2, 2, 2, 2)
+  )
+})
