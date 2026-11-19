@@ -1,0 +1,66 @@
+conversion_rule_key,rule_version,source_provider,source_trait_id,source_dataset_key,normalized_original_unit,standardized_unit,trait_dimension,operation,multiplier,verify_source_standardized,verification_absolute_tolerance,evidence
+try_density_g_cm3,1.0.0,TRY,4,,g/cm3,g/cm3,mass_per_volume,identity,1,TRUE,0.000001,TRY request 28498 unit contract
+try_density_kg_m3,1.0.0,TRY,4,,kg/m3,g/cm3,mass_per_volume,multiply,0.001,TRUE,0.000001,SI conversion
+try_density_t_m3,1.0.0,TRY,4,,t/m3,g/cm3,mass_per_volume,identity,1,TRUE,0.000001,SI conversion
+try_density_g_dm3,1.0.0,TRY,4,,g/dm3,g/cm3,mass_per_volume,multiply,0.001,TRUE,0.000001,SI conversion
+try_density_mg_cm3,1.0.0,TRY,4,,mg/cm3,g/cm3,mass_per_volume,multiply,0.001,TRUE,0.000001,SI conversion
+try_density_specific_volume,1.0.0,TRY,4,,cm3/mg,g/cm3,mass_per_volume,reciprocal,0.001,TRUE,0.000001,Reciprocal specific volume
+try_density_scaled_100,1.0.0,TRY,4,,g/cm3_x100,g/cm3,mass_per_volume,multiply,0.01,TRUE,0.000001,TRY source encoding
+try_density_scaled_10,1.0.0,TRY,4,,g/cm3_x10,g/cm3,mass_per_volume,multiply,0.1,TRUE,0.000001,TRY source encoding
+try_leaf_n_mg_g,1.0.0,TRY,14,,mg/g,mg/g,mass_per_mass,identity,1,TRUE,0.000001,SI conversion
+try_leaf_n_percent,1.0.0,TRY,14,,percent,mg/g,mass_per_mass,multiply,10,TRUE,0.000001,Percent to mg per g
+try_leaf_n_g_g,1.0.0,TRY,14,,g/g,mg/g,mass_per_mass,multiply,1000,TRUE,0.000001,SI conversion
+try_leaf_n_mmol_g,1.0.0,TRY,14,,mmol/g,mg/g,mass_per_mass,multiply,14,TRUE,0.000001,TRY nitrogen molar conversion
+try_seed_mg,1.0.0,TRY,26,,mg,mg,mass,identity,1,TRUE,0.000001,SI conversion
+try_seed_g,1.0.0,TRY,26,,g,mg,mass,multiply,1000,TRUE,0.000001,SI conversion
+try_seed_g_1000,1.0.0,TRY,26,,g_per_1000_seeds,mg,mass,identity,1,TRUE,0.000001,Mass per seed conversion
+try_seed_g_100,1.0.0,TRY,26,,g_per_100_seeds,mg,mass,multiply,10,TRUE,0.000001,Mass per seed conversion
+try_seed_mg_1000,1.0.0,TRY,26,,mg_per_1000_seeds,mg,mass,multiply,0.001,TRUE,0.000001,Mass per seed conversion
+try_seed_mg_100,1.0.0,TRY,26,,mg_per_100_seeds,mg,mass,multiply,0.01,TRUE,0.000001,Mass per seed conversion
+try_seed_microgram_x10,1.0.0,TRY,26,,microgram_x10,mg,mass,multiply,0.01,TRUE,0.000001,Source encoding
+try_seed_inverse_kg,1.0.0,TRY,26,,seeds_per_kg,mg,mass,reciprocal,1000000,TRUE,0.000001,Count per mass conversion
+try_seed_inverse_g,1.0.0,TRY,26,,seeds_per_g,mg,mass,reciprocal,1000,TRUE,0.000001,Count per mass conversion
+try_seed_inverse_pound,1.0.0,TRY,26,,seeds_per_pound,mg,mass,reciprocal,453592.37,FALSE,0.000001,International avoirdupois pound
+try_height_m,1.0.0,TRY,3106,,m,m,length,identity,1,TRUE,0.0005,SI conversion with source rounding
+try_height_cm,1.0.0,TRY,3106,,cm,m,length,multiply,0.01,TRUE,0.0005,SI conversion with source rounding
+try_height_mm,1.0.0,TRY,3106,,mm,m,length,multiply,0.001,TRUE,0.0005,SI conversion with source rounding
+try_height_feet,1.0.0,TRY,3106,,feet,m,length,multiply,0.3048,TRUE,0.0005,International foot
+try_leaf_area_3108_mm2,1.0.0,TRY,3108,,mm2,mm2,area,identity,1,TRUE,0.000001,SI conversion
+try_leaf_area_3108_cm2,1.0.0,TRY,3108,,cm2,mm2,area,multiply,100,TRUE,0.000001,SI conversion
+try_leaf_area_3110_mm2,1.0.0,TRY,3110,,mm2,mm2,area,identity,1,TRUE,0.000001,SI conversion
+try_leaf_area_3110_cm2,1.0.0,TRY,3110,,cm2,mm2,area,multiply,100,TRUE,0.000001,SI conversion
+try_leaf_area_3110_m2,1.0.0,TRY,3110,,m2,mm2,area,multiply,1000000,TRUE,0.000001,SI conversion
+try_leaf_area_3112_mm2,1.0.0,TRY,3112,,mm2,mm2,area,identity,1,TRUE,0.000001,SI conversion
+try_leaf_area_3112_cm2,1.0.0,TRY,3112,,cm2,mm2,area,multiply,100,TRUE,0.000001,SI conversion
+try_leaf_area_3114_mm2,1.0.0,TRY,3114,,mm2,mm2,area,identity,1,TRUE,0.000001,SI conversion
+try_leaf_area_3114_cm2,1.0.0,TRY,3114,,cm2,mm2,area,multiply,100,TRUE,0.000001,SI conversion
+try_leaf_area_below_cm2,1.0.0,TRY,3114,Trait and biomass data 2014 and 2015 of the BE_LOW project,cm2,mm2,area,multiply,100,FALSE,0.000001,Issue 76 confirmed source-level correction
+try_leaf_area_alpine_cm2,1.0.0,TRY,3114,AlpinePlants_Austria,cm2,mm2,area,multiply,100,FALSE,0.000001,Issue 76 confirmed source-level correction
+try_sla_3116_mm2_mg,1.0.0,TRY,3116,,mm2/mg,mm2 mg-1,area_per_mass,identity,1,TRUE,0.000001,SI conversion
+try_sla_3116_cm2_g,1.0.0,TRY,3116,,cm2/g,mm2 mg-1,area_per_mass,multiply,0.1,TRUE,0.000001,SI conversion
+try_sla_3116_m2_kg,1.0.0,TRY,3116,,m2/kg,mm2 mg-1,area_per_mass,identity,1,TRUE,0.000001,SI conversion
+try_sla_3116_m2_g,1.0.0,TRY,3116,,m2/g,mm2 mg-1,area_per_mass,multiply,1000,TRUE,0.000001,SI conversion
+try_sla_3116_mm2_g,1.0.0,TRY,3116,,mm2/g,mm2 mg-1,area_per_mass,multiply,0.001,TRUE,0.000001,SI conversion
+try_sla_3116_mm2_g_1e6,1.0.0,TRY,3116,,mm2_g_1e-6,mm2 mg-1,area_per_mass,multiply,1000,TRUE,0.000001,TRY source encoding
+try_sla_3116_cm2_mg,1.0.0,TRY,3116,,cm2/mg,mm2 mg-1,area_per_mass,multiply,100,TRUE,0.000001,SI conversion
+try_sla_3116_g_m2,1.0.0,TRY,3116,,g/m2,mm2 mg-1,area_per_mass,reciprocal,1000,TRUE,0.000001,LMA to SLA conversion
+try_sla_3116_g_cm2,1.0.0,TRY,3116,,g/cm2,mm2 mg-1,area_per_mass,reciprocal,0.1,TRUE,0.000001,LMA to SLA conversion
+try_sla_3116_div10,1.0.0,TRY,3116,,mm2/mg_div10,mm2 mg-1,area_per_mass,multiply,10,TRUE,0.000001,TRY source encoding
+try_sla_3117_mm2_mg,1.0.0,TRY,3117,,mm2/mg,mm2 mg-1,area_per_mass,identity,1,TRUE,0.000001,SI conversion
+try_sla_3117_cm2_g,1.0.0,TRY,3117,,cm2/g,mm2 mg-1,area_per_mass,multiply,0.1,TRUE,0.000001,SI conversion
+try_sla_3117_m2_kg,1.0.0,TRY,3117,,m2/kg,mm2 mg-1,area_per_mass,identity,1,TRUE,0.000001,SI conversion
+try_sla_3117_m2_g,1.0.0,TRY,3117,,m2/g,mm2 mg-1,area_per_mass,multiply,1000,TRUE,0.000001,SI conversion
+try_sla_3117_mm2_g,1.0.0,TRY,3117,,mm2/g,mm2 mg-1,area_per_mass,multiply,0.001,TRUE,0.000001,SI conversion
+try_sla_3117_mm2_g_1e6,1.0.0,TRY,3117,,mm2_g_1e-6,mm2 mg-1,area_per_mass,multiply,1000,TRUE,0.000001,TRY source encoding
+try_sla_3117_cm2_mg,1.0.0,TRY,3117,,cm2/mg,mm2 mg-1,area_per_mass,multiply,100,TRUE,0.000001,SI conversion
+try_sla_3117_g_m2,1.0.0,TRY,3117,,g/m2,mm2 mg-1,area_per_mass,reciprocal,1000,TRUE,0.000001,LMA to SLA conversion
+try_sla_3117_g_cm2,1.0.0,TRY,3117,,g/cm2,mm2 mg-1,area_per_mass,reciprocal,0.1,TRUE,0.000001,LMA to SLA conversion
+try_sla_3117_mg_mm2,1.0.0,TRY,3117,,mg/mm2,mm2 mg-1,area_per_mass,reciprocal,1,TRUE,0.000001,LMA to SLA conversion
+try_sla_3117_mg_cm2,1.0.0,TRY,3117,,mg/cm2,mm2 mg-1,area_per_mass,reciprocal,100,TRUE,0.000001,LMA to SLA conversion
+try_sla_3117_div100,1.0.0,TRY,3117,,cm2/g_div100,mm2 mg-1,area_per_mass,multiply,10,TRUE,0.000001,TRY source encoding
+bien_density,1.0.0,BIEN,stem wood density,,g/cm3,g/cm3,mass_per_volume,identity,1,FALSE,0.000001,BIEN unit contract
+bien_leaf_n,1.0.0,BIEN,leaf nitrogen content per leaf dry mass,,mg/g,mg/g,mass_per_mass,identity,1,FALSE,0.000001,BIEN unit contract
+bien_seed_mass,1.0.0,BIEN,seed mass,,mg,mg,mass,identity,1,FALSE,0.000001,BIEN unit contract
+bien_height,1.0.0,BIEN,whole plant height,,m,m,length,identity,1,FALSE,0.000001,BIEN unit contract
+bien_leaf_area,1.0.0,BIEN,leaf area,,mm2,mm2,area,identity,1,FALSE,0.000001,BIEN unit contract
+bien_sla,1.0.0,BIEN,leaf area per leaf dry mass,,m2/kg,mm2 mg-1,area_per_mass,identity,1,FALSE,0.000001,SI-equivalent SLA units
