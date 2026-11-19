@@ -157,10 +157,26 @@ data_bien_raw_counts <-
   dplyr::count(source_trait_id = .data$trait_name, name = "n_raw") |>
   dplyr::mutate(source_provider = "BIEN")
 
+# BIEN delivers part of its citation, PI and method text mis-encoded (UTF-8
+#   read as Latin-1 or Windows-1252, once or twice). The text is repaired
+#   before any source key is built from it, so the shared-source and
+#   quarantine lists hold repaired text.
+data_bien_text_repaired <-
+  data_bien_raw |>
+  dplyr::mutate(
+    dplyr::across(
+      .cols = dplyr::any_of(
+        c("method", "url_source", "source_citation", "project_pi")
+      ) &
+        dplyr::where(base::is.character),
+      .fns = ~ repair_mis_encoded_text(vec_text = .x)
+    )
+  )
+
 # Records without a scrubbed species name cannot be attached to a taxon in
 #   VegVault, so they are dropped before the contract and counted
 data_bien_raw_flagged <-
-  data_bien_raw |>
+  data_bien_text_repaired |>
   dplyr::mutate(
     flag_species_missing = base::is.na(.data$scrubbed_species_binomial) |
       !base::nzchar(base::trimws(.data$scrubbed_species_binomial))
@@ -325,6 +341,13 @@ data_bien_unpublished <-
 data_bien_unit_audit_summary <-
   summarise_trait_unit_audit(data_bien_resolved)
 
+# BIEN gives its references once per source, not per measurement
+data_bien_reference_completeness <-
+  summarise_trait_reference_completeness(
+    data_source = data_bien_unnest,
+    reference_columns = c("url_source", "source_citation", "project_pi")
+  )
+
 dplyr::glimpse(data_bien_unnest)
 
 # check the percentage of NAs in each column
@@ -392,6 +415,13 @@ RUtilpol::save_latest_file(
 RUtilpol::save_latest_file(
   object_to_save = data_bien_try_twins,
   file_name = "trait_bien_try_twins_by_source",
+  dir = path_output_tables,
+  prefered_format = "csv"
+)
+
+RUtilpol::save_latest_file(
+  object_to_save = data_bien_reference_completeness,
+  file_name = "trait_reference_completeness_bien",
   dir = path_output_tables,
   prefered_format = "csv"
 )

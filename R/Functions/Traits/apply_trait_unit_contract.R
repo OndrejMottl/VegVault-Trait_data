@@ -3,6 +3,8 @@
 #' @param data_source A data frame containing source trait records and IDs.
 #' @param registry A list of alias, conversion, and derivation registries.
 #' @return A tibble with source fields, final values, units, and audit data.
+#'   Columns the contract does not use, such as provider references, are
+#'   returned unchanged.
 #' @details Rules fail closed; invalid or unexplained records are quarantined.
 #' @export
 apply_trait_unit_contract <- function(

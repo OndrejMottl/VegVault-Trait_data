@@ -218,3 +218,33 @@ testthat::test_that("observed BIEN unit strings are published", {
     c(2, 0.5, 2, 2, 2, 2)
   )
 })
+
+testthat::test_that("provider reference columns pass through unchanged", {
+  vec_reference <-
+    c("D\u00edaz S (2016) Leaf traits. Ecology 97: 1-9.", NA)
+
+  data_trait_contract_reference <-
+    dplyr::bind_rows(
+      data_trait_contract_fixture,
+      dplyr::mutate(
+        data_trait_contract_fixture,
+        source_record_id = "record-2",
+        original_unit = NA
+      )
+    ) |>
+    dplyr::mutate(record_reference = vec_reference)
+
+  data_observed_reference <-
+    apply_trait_unit_contract(data_trait_contract_reference) |>
+    dplyr::arrange(source_record_id)
+
+  testthat::expect_equal(base::nrow(data_observed_reference), 2L)
+  testthat::expect_equal(
+    dplyr::pull(data_observed_reference, disposition),
+    c("published", "quarantined")
+  )
+  testthat::expect_identical(
+    dplyr::pull(data_observed_reference, record_reference),
+    vec_reference
+  )
+})
