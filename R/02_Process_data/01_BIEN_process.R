@@ -258,6 +258,39 @@ data_bien_resolved <-
     data_shared_sources = data_shared_sources
   )
 
+# Recheck the list of shared sources against the current data: a source
+#   that qualifies but is not listed, or the reverse, needs a review of the
+#   list before release
+data_bien_try_twins <-
+  summarise_bien_try_twins(
+    data_bien = data_bien_contract,
+    data_try_published = data_try_published,
+    data_shared_sources = data_shared_sources
+  )
+
+vec_shared_sources_to_review <-
+  c(
+    data_bien_try_twins |>
+      dplyr::filter(.data$qualifies != .data$listed) |>
+      dplyr::pull("bien_source_key"),
+    base::setdiff(
+      base::trimws(dplyr::pull(data_shared_sources, "bien_source_key")),
+      dplyr::pull(data_bien_try_twins, "bien_source_key")
+    )
+  )
+
+if (
+  base::length(vec_shared_sources_to_review) > 0L
+) {
+  cli::cli_warn(
+    c(
+      "The list of BIEN sources shared with TRY differs from the data.",
+      "i" = "Review {.file {path_shared_sources}}.",
+      "x" = "Sources: {vec_shared_sources_to_review}"
+    )
+  )
+}
+
 data_bien_reconciliation <-
   validate_trait_unit_reconciliation(
     data_source = data_bien_resolved,
@@ -336,6 +369,13 @@ RUtilpol::save_latest_file(
 RUtilpol::save_latest_file(
   object_to_save = data_bien_reconciliation,
   file_name = "trait_unit_reconciliation_bien",
+  dir = path_output_tables,
+  prefered_format = "csv"
+)
+
+RUtilpol::save_latest_file(
+  object_to_save = data_bien_try_twins,
+  file_name = "trait_bien_try_twins_by_source",
   dir = path_output_tables,
   prefered_format = "csv"
 )
