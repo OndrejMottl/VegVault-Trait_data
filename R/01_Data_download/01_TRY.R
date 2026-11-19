@@ -89,10 +89,27 @@ purrr::walk(
 # 3116 = mm2 mg-1
 # 3117 = mm2 mg-1
 
-library(rtry)
+# Read only the columns the export needs, with the read settings of
+#   rtry::rtry_import(). The full request (about 17 million rows) must not be
+#   held in memory more than once.
+vec_try_columns <-
+  c(
+    "Dataset", "AccSpeciesName", "ObservationID", "ObsDataID", "TraitID",
+    "DataID", "DataName", "OrigValueStr", "OrigUnitStr", "ValueKindName",
+    "OrigObsDataID", "StdValue", "UnitName"
+  )
 
 data_trait_raw <-
-  rtry::rtry_import(path_try_input)
+  data.table::fread(
+    file = path_try_input,
+    header = TRUE,
+    sep = "\t",
+    dec = ".",
+    encoding = "Latin-1",
+    quote = "",
+    select = vec_try_columns,
+    showProgress = FALSE
+  )
 
 #----------------------------------------------------------#
 # 3. Data wrangling  -----
@@ -119,89 +136,65 @@ trait_name_translation_table <-
     trait_id_value = as.character(trait_id_value)
   )
 
-data_trait_tibble <-
-  tibble::as_tibble(data_trait_raw)
-
-data_trait_dummy <-
-  data_trait_tibble %>%
-  dplyr::distinct(TraitID) %>%
-  tidyr::drop_na() %>%
-  purrr::chuck("TraitID") %>%
-  rlang::set_names() %>%
-  tibble::enframe() %>%
-  dplyr::arrange(value)
-
-data_trait_observations <-
-  data_trait_dummy %>%
-  dplyr::mutate(
-    sel_observation = purrr::map(
-      .progress = TRUE,
-      .x = name,
-      .f = ~ {
-        vec_sel_trait_observation_id <-
-          data_trait_tibble %>%
-          dplyr::filter(TraitID == .x) %>%
-          dplyr::distinct(ObservationID) %>%
-          tidyr::drop_na() %>%
-          purrr::chuck("ObservationID")
-
-        data_trait_dummy_negate <-
-          data_trait_dummy %>%
-          dplyr::filter(name != .x)
-
-        data_trait_tibble %>%
-          dplyr::filter(
-            ObservationID %in% vec_sel_trait_observation_id
-          ) %>%
-          dplyr::filter(
-            !TraitID %in% data_trait_dummy_negate$value
-          ) %>%
-          return()
-      }
-    )
-  )
-
-data_trait_data_id <-
-  data_trait_observations %>%
-  dplyr::mutate(
-    sel_data_id_overview = purrr::map2(
-      .progress = TRUE,
-      .x = name,
-      .y = sel_observation,
-      .f = ~ .y %>%
-        dplyr::filter(TraitID == .x) %>%
-        dplyr::distinct(DataID, DataName)
-    )
-  )
-
-if (
-  base::interactive()
-) {
-  data_trait_data_id %>%
-    dplyr::select(-sel_observation) %>%
-    tidyr::unnest(sel_data_id_overview) %>%
-    View()
-}
-
 vec_data_id_to_remove <-
   c(
     2221:2225, 3646, 3647, 3698, 3699, 3727, 3728, 3730, 3731, 3849, 3850,
     4029, 4030
   )
 
-# Raw TRY trait records per trait, and the records removed before the unit
-#   contract is applied, counted by reason for the reconciliation
 vec_try_trait_ids <-
   trait_name_translation_table |>
   dplyr::pull(trait_id_value)
 
+# Trait records of the requested traits
 data_trait_raw_rows <-
-  data_trait_tibble |>
+  data_trait_raw[
+    base::as.character(TraitID) %in% vec_try_trait_ids
+  ] |>
+  tibble::as_tibble() |>
   dplyr::mutate(
     source_trait_id = base::as.character(.data$TraitID)
-  ) |>
-  dplyr::filter(.data$source_trait_id %in% vec_try_trait_ids)
+  )
 
+vec_trait_observation_ids <-
+  data_trait_raw_rows |>
+  dplyr::distinct(.data$ObservationID) |>
+  dplyr::pull(.data$ObservationID)
+
+# Ancillary records that VegVault reads: coordinates and references. Other
+#   ancillary variables (altitude, climate, site descriptions, ...) are not
+#   exported.
+vec_ancillary_names <-
+  c(
+    "Latitude",
+    "Longitude",
+    "Reference / source",
+    "Dataset reference (citation)"
+  )
+
+data_trait_ancillary <-
+  data_trait_raw[
+    base::is.na(TraitID) &
+      DataName %in% vec_ancillary_names &
+      !DataID %in% vec_data_id_to_remove &
+      ObservationID %in% vec_trait_observation_ids
+  ] |>
+  tibble::as_tibble()
+
+base::rm(data_trait_raw)
+
+base::invisible(base::gc())
+
+if (
+  base::interactive()
+) {
+  data_trait_raw_rows %>%
+    dplyr::distinct(TraitID, DataID, DataName) %>%
+    View()
+}
+
+# Raw TRY trait records per trait, and the records removed before the unit
+#   contract is applied, counted by reason for the reconciliation
 data_trait_raw_counts <-
   data_trait_raw_rows |>
   dplyr::count(.data$source_trait_id, name = "n_raw") |>
@@ -224,108 +217,80 @@ data_trait_dropped_counts <-
   ) |>
   dplyr::mutate(source_provider = "TRY")
 
-vec_trait_observation_ids <-
-  data_trait_raw_rows |>
-  dplyr::distinct(.data$ObservationID) |>
-  dplyr::pull(.data$ObservationID)
-
-data_trait_sel_data_id <-
-  data_trait_data_id %>%
-  dplyr::select(-sel_observation) %>%
-  tidyr::unnest(sel_data_id_overview) %>%
-  dplyr::filter(!DataID %in% vec_data_id_to_remove)
-
-
-data_trait_observations$sel_observation[[1]] %>%
-  dplyr::glimpse()
-
+# Repeated values of one trait within an observation are kept here and
+#   resolved after the unit contract (resolve_repeated_try_values())
 data_trait_values <-
-  data_trait_observations %>%
-  dplyr::mutate(
-    sel_data_trait_values = purrr::map(
-      .progress = TRUE,
-      .x = sel_observation,
-      .f = ~ .x %>%
-        dplyr::filter(DataID %in% data_trait_sel_data_id$DataID) %>%
-        dplyr::select(
-          Dataset,
-          AccSpeciesName,
-          ObservationID,
-          ObsDataID,
-          OrigValueStr,
-          OrigUnitStr,
-          ValueKindName,
-          OrigObsDataID,
-          StdValue,
-          UnitName
-        ) %>%
-        # Repeated values of one trait within an observation are kept here
-        #   and resolved after the unit contract
-        #   (resolve_repeated_try_values())
-        dplyr::filter(is.na(OrigValueStr) == FALSE)
-    )
+  data_trait_raw_rows |>
+  dplyr::filter(
+    !.data$DataID %in% vec_data_id_to_remove,
+    !base::is.na(.data$OrigValueStr)
+  ) |>
+  dplyr::mutate(name = .data$source_trait_id) |>
+  dplyr::select(
+    "name",
+    "Dataset",
+    "AccSpeciesName",
+    "ObservationID",
+    "ObsDataID",
+    "OrigValueStr",
+    "OrigUnitStr",
+    "ValueKindName",
+    "OrigObsDataID",
+    "StdValue",
+    "UnitName"
   )
 
-data_trait_values$sel_data_trait_values[[1]] %>%
-  dplyr::glimpse()
+base::rm(data_trait_raw_rows)
 
-data_trait_covariates <-
-  data_trait_values %>%
-  dplyr::mutate(
-    sel_data_covariates = purrr::map(
-      .progress = TRUE,
-      .x = sel_observation,
-      .f = ~ .x %>%
-        dplyr::filter(is.na(TraitID)) %>%
-        dplyr::filter(!DataID %in% vec_data_id_to_remove) %>%
-        dplyr::filter(!DataID %in% data_trait_sel_data_id$DataID) %>%
-        dplyr::select(
-          Dataset, AccSpeciesName, ObservationID, DataName, OrigValueStr
-        ) %>%
-        dplyr::distinct(
-          Dataset, AccSpeciesName, ObservationID, DataName,
-          .keep_all = TRUE
-        ) %>%
-        dplyr::filter(is.na(OrigValueStr) == FALSE) %>%
-        dplyr::group_by(Dataset, AccSpeciesName, ObservationID) %>%
-        tidyr::pivot_wider(
-          names_from = DataName, values_from = OrigValueStr
-        ) %>%
-        dplyr::ungroup()
-    )
+base::invisible(base::gc())
+
+# One row of references per observation; the first value is kept when a
+#   reference is given twice
+data_trait_references <-
+  dplyr::bind_rows(
+    tibble::tibble(
+      `Reference / source` = base::character(0),
+      `Dataset reference (citation)` = base::character(0)
+    ),
+    data_trait_ancillary |>
+      dplyr::filter(
+        .data$DataName %in% c(
+          "Reference / source",
+          "Dataset reference (citation)"
+        ),
+        !base::is.na(.data$OrigValueStr)
+      ) |>
+      dplyr::distinct(
+        .data$Dataset,
+        .data$AccSpeciesName,
+        .data$ObservationID,
+        .data$DataName,
+        .keep_all = TRUE
+      ) |>
+      dplyr::select(
+        "Dataset", "AccSpeciesName", "ObservationID", "DataName",
+        "OrigValueStr"
+      ) |>
+      tidyr::pivot_wider(
+        names_from = "DataName",
+        values_from = "OrigValueStr"
+      )
   )
-
-data_trait_covariates$sel_data_covariates[[1]] %>%
-  dplyr::glimpse()
 
 # Observations without any ancillary data (no location or reference) are
 #   kept; their ancillary columns stay missing
 data_trait_merged <-
   dplyr::left_join(
-    data_trait_covariates %>%
-      dplyr::select(
-        name, sel_data_trait_values
-      ) %>%
-      tidyr::unnest(sel_data_trait_values),
-    data_trait_covariates %>%
-      dplyr::select(
-        name, sel_data_covariates
-      ) %>%
-      tidyr::unnest(sel_data_covariates),
-    by = c("name", "Dataset", "AccSpeciesName", "ObservationID"),
+    data_trait_values,
+    data_trait_references,
+    by = c("Dataset", "AccSpeciesName", "ObservationID"),
     relationship = "many-to-one"
   )
 
-# Numeric WGS84 coordinates, preferring TRY's standardised values; they
-#   replace the text coordinates of the ancillary data
+# Numeric WGS84 coordinates, preferring TRY's standardised values
 data_trait_coordinates <-
-  data_trait_tibble |>
-  dplyr::filter(
-    base::is.na(.data$TraitID),
-    .data$DataName %in% c("Latitude", "Longitude"),
-    !.data$DataID %in% vec_data_id_to_remove,
-    .data$ObservationID %in% vec_trait_observation_ids
-  ) |>
+  data_trait_ancillary |>
+  dplyr::filter(.data$DataName %in% c("Latitude", "Longitude")) |>
   janitor::clean_names() |>
   prepare_try_coordinates()
 
