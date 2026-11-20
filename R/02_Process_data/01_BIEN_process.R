@@ -212,6 +212,9 @@ data_bien_contract <-
       )
     )
   ) %>%
+  # Coordinates out of range, and a coordinate without its pair, become
+  #   missing, as in the TRY export; the record itself is kept
+  prepare_bien_coordinates() %>%
   dplyr::mutate(
     id = as.character(id),
     source_provider = "BIEN",
@@ -348,6 +351,11 @@ data_bien_reference_completeness <-
     reference_columns = c("url_source", "source_citation", "project_pi")
   )
 
+# Published records and datasets per coordinate source, including those
+#   whose coordinates were set missing
+data_bien_coordinate_summary <-
+  summarise_trait_coordinates(data_source = data_bien_unnest)
+
 dplyr::glimpse(data_bien_unnest)
 
 # check the percentage of NAs in each column
@@ -422,6 +430,13 @@ RUtilpol::save_latest_file(
 RUtilpol::save_latest_file(
   object_to_save = data_bien_reference_completeness,
   file_name = "trait_reference_completeness_bien",
+  dir = path_output_tables,
+  prefered_format = "csv"
+)
+
+RUtilpol::save_latest_file(
+  object_to_save = data_bien_coordinate_summary,
+  file_name = "trait_coordinate_summary_bien",
   dir = path_output_tables,
   prefered_format = "csv"
 )

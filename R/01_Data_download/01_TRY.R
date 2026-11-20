@@ -391,6 +391,11 @@ data_trait_reference_completeness <-
     )
   )
 
+# Published records and datasets per coordinate source, including those
+#   whose coordinates were set missing (prepare_try_coordinates())
+data_trait_coordinate_summary <-
+  summarise_trait_coordinates(data_source = data_trait_processed)
+
 #----------------------------------------------------------#
 # 4. Save  -----
 #----------------------------------------------------------#
@@ -419,6 +424,13 @@ RUtilpol::save_latest_file(
 RUtilpol::save_latest_file(
   object_to_save = data_trait_reference_completeness,
   file_name = "trait_reference_completeness_try",
+  dir = path_output_tables,
+  prefered_format = "csv"
+)
+
+RUtilpol::save_latest_file(
+  object_to_save = data_trait_coordinate_summary,
+  file_name = "trait_coordinate_summary_try",
   dir = path_output_tables,
   prefered_format = "csv"
 )
