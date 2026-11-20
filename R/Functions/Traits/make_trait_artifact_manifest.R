@@ -13,21 +13,29 @@
 #' Optional integer vector, one non-negative row count per output path.
 #' @param data_contract
 #' Optional data whose row count and column names are recorded.
+#' @param root_directory
+#' Character scalar. An existing directory that holds every listed file and
+#' the registry directory; paths are recorded relative to it. Defaults to
+#' the repository root.
 #' @return
 #' A tibble with one row per distinct file and the columns `artifact_role`
-#' (`"input"`, `"registry"` or `"output"`), `path`, `bytes`, `md5`,
-#' `sha256`, `n_rows` (outputs only), `contract_rows`, `contract_schema`
-#' and `recorded_at_utc`.
+#' (`"input"`, `"registry"` or `"output"`), `path` (relative to
+#' `root_directory`, with forward slashes), `bytes`, `md5`, `sha256`,
+#' `n_rows` (outputs only), `contract_rows`, `contract_schema` and
+#' `recorded_at_utc`.
 #' @details
 #' Every listed file must exist; a missing file is an error, so the
-#' manifest never silently omits an artifact. Files are not changed.
+#' manifest never silently omits an artifact. Every file must also lie
+#' inside `root_directory`; a file outside it is an error, so the manifest
+#' never records a machine-specific path. Files are not changed.
 #' @export
 make_trait_artifact_manifest <- function(
   input_paths,
   registry_directory = here::here("config", "trait_units"),
   output_paths = character(0),
   output_rows = NULL,
-  data_contract = NULL
+  data_contract = NULL,
+  root_directory = here::here()
 ) {
   assertthat::assert_that(
     base::is.character(input_paths),
@@ -47,6 +55,13 @@ make_trait_artifact_manifest <- function(
       "'output_rows' must be NULL or one non-negative count per output",
       " path."
     )
+  )
+
+  assertthat::assert_that(
+    base::is.character(root_directory),
+    base::length(root_directory) == 1L,
+    base::dir.exists(root_directory),
+    msg = "'root_directory' must be one existing directory."
   )
 
   vec_listed_paths <-
@@ -81,6 +96,42 @@ make_trait_artifact_manifest <- function(
       base::as.integer(output_rows)
     }
 
+  vec_absolute_paths <-
+    base::normalizePath(
+      c(input_paths, vec_registry_paths, output_paths),
+      winslash = "/",
+      mustWork = TRUE
+    )
+
+  # normalizePath() also restores the on-disk case on Windows, so a plain
+  #   prefix comparison finds the files inside the root
+  path_root <-
+    base::normalizePath(
+      root_directory,
+      winslash = "/",
+      mustWork = TRUE
+    ) |>
+    stringr::str_remove("/$")
+
+  vec_outside_paths <-
+    vec_absolute_paths[
+      !stringr::str_starts(
+        vec_absolute_paths,
+        stringr::fixed(stringr::str_c(path_root, "/"))
+      )
+    ]
+
+  if (
+    base::length(vec_outside_paths) > 0L
+  ) {
+    cli::cli_abort(
+      c(
+        "Every file in a manifest must lie inside {.path {path_root}}.",
+        "x" = "Outside: {.file {vec_outside_paths}}"
+      )
+    )
+  }
+
   data_requested_artifacts <-
     tibble::tibble(
       artifact_role = c(
@@ -88,10 +139,10 @@ make_trait_artifact_manifest <- function(
         base::rep("registry", base::length(vec_registry_paths)),
         base::rep("output", base::length(output_paths))
       ),
-      path = base::normalizePath(
-        c(input_paths, vec_registry_paths, output_paths),
-        winslash = "/",
-        mustWork = TRUE
+      path_absolute = vec_absolute_paths,
+      path = stringr::str_sub(
+        vec_absolute_paths,
+        start = base::nchar(path_root) + 2L
       ),
       n_rows = c(
         base::rep(NA_integer_, base::length(input_paths)),
@@ -122,9 +173,9 @@ make_trait_artifact_manifest <- function(
   res <-
     data_requested_artifacts |>
     dplyr::mutate(
-      bytes = base::file.size(.data$path),
-      md5 = base::unname(tools::md5sum(.data$path)),
-      sha256 = base::unname(tools::sha256sum(.data$path)),
+      bytes = base::file.size(.data$path_absolute),
+      md5 = base::unname(tools::md5sum(.data$path_absolute)),
+      sha256 = base::unname(tools::sha256sum(.data$path_absolute)),
       contract_rows = n_contract_rows,
       contract_schema = text_contract_schema,
       recorded_at_utc = base::format(
@@ -133,6 +184,7 @@ make_trait_artifact_manifest <- function(
         usetz = TRUE
       )
     ) |>
+    dplyr::select(-"path_absolute") |>
     dplyr::relocate(
       "n_rows",
       .after = "sha256"

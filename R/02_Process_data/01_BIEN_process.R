@@ -333,9 +333,26 @@ data_bien_reconciliation <-
     data_dropped_counts = data_bien_dropped_counts
   )
 
+# Published records in BIEN record-ID order (whole numbers; the text breaks
+#   any tie), so the parts do not depend on the row order of a download.
+#   One reordering subset copies the published records only once.
+vec_published_rows <-
+  base::which(dplyr::pull(data_bien_resolved, "disposition") == "published")
+
+vec_published_ids <-
+  dplyr::pull(data_bien_resolved, "source_record_id")[vec_published_rows]
+
 data_bien_unnest <-
   data_bien_resolved %>%
-  dplyr::filter(.data$disposition == "published")
+  dplyr::slice(
+    vec_published_rows[
+      base::order(
+        base::suppressWarnings(base::as.numeric(vec_published_ids)),
+        vec_published_ids,
+        method = "radix"
+      )
+    ]
+  )
 
 data_bien_unpublished <-
   data_bien_resolved %>%
@@ -368,8 +385,8 @@ dplyr::glimpse(data_bien_unnest)
 # 4. Save  -----
 #----------------------------------------------------------#
 
-# Split the published rows by row order into numbered parts (from 0), each
-#   saved to an exact path that the manifest records
+# Split the published rows, in record-ID order, into numbered parts (from
+#   0), each saved to an exact path that the manifest records
 n_bien_parts <- 4L
 
 vec_bien_part <-
