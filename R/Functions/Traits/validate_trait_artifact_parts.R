@@ -23,7 +23,7 @@
 #' must match `<file_stem>_<part>_<YYYY-MM-DD>__<32 hex>__.qs`. A stale file
 #' cannot enter the set because the paths come from the save step, not from
 #' a folder listing.
-#' @seealso [save_trait_artifact()], [make_trait_artifact_manifest()]
+#' @seealso [save_trait_artifact()], [build_trait_artifact_manifest()]
 #' @export
 validate_trait_artifact_parts <- function(
   data_parts,

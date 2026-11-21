@@ -1,0 +1,11 @@
+trait_id,trait_domain,trait_full_name,derivation_rule_key
+4,Stem specific density,"Stem specific density (SSD, stem dry mass per stem fresh volume) or wood density",
+14,Leaf nitrogen content per unit mass,Leaf nitrogen (N) content per leaf dry mass,
+26,Diaspore mass,Seed dry mass,
+3106,Plant heigh,Plant height vegetative,
+3108,Leaf Area,"Leaf area (in case of compound leaves: leaf, petiole excluded)",
+3110,Leaf Area,"Leaf area (in case of compound leaves: leaf, petiole included)",
+3112,Leaf Area,"Leaf area (in case of compound leaves: leaf, undefined if petiole in- or excluded)",
+3114,Leaf Area,"Leaf area (in case of compound leaves undefined if leaf or leaflet, undefined if petiole is in- or exluded)",
+3116,Leaf mass per area,"Leaf area per leaf dry mass (specific leaf area, SLA or 1/LMA): petiole included",sla_to_lma
+3117,Leaf mass per area,"Leaf area per leaf dry mass (specific leaf area, SLA or 1/LMA): undefined if petiole is in- or excluded)",sla_to_lma

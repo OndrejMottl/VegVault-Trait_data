@@ -9,7 +9,7 @@ It is part of the [BIODYNAMICS project](https://ondrejmottl.github.io/projects/B
 The six traits follow Díaz et al. (2016): plant height, leaf area, leaf mass per area, leaf nitrogen content per leaf dry mass, seed (diaspore) mass and stem specific density (wood density).
 
 - **TRY:** a data request of public TRY data, released under CC BY. The request file is obtained from TRY by hand and is not part of this repository.
-- **BIEN:** downloaded with the BIEN R package (`R/01_Data_download/02_BIEN_download.R`). The package states that public BIEN data are licensed under CC-BY.
+- **BIEN:** downloaded with the BIEN R package (`save_bien_trait_download()`, when `bien: flag_download` is `true`). The package states that public BIEN data are licensed under CC-BY.
 
 The exact input files of a release, with their SHA-256 checksums, are listed in its manifest tables (see below). When you use the data, cite TRY and BIEN as their terms ask.
 
@@ -31,6 +31,7 @@ Aggregate tables in `Outputs/Tables/`, one set per provider (`try`, `bien`):
 | `trait_reference_completeness_<provider>` | Per trait, the share of published records with a value in each reference column |
 | `trait_coordinate_summary_<provider>` | Records and datasets per coordinate source, and whether the coordinates were kept |
 | `trait_bien_try_twins_by_source` | Per BIEN source, how many records have a TRY twin, and whether the source qualifies for and is on the list of shared sources (BIEN only) |
+| `trait_data_id_summary_try` | TRY trait records per trait and DataID, with TRY's name of each DataID, for reviewing the excluded DataIDs (TRY only) |
 | `trait_artifact_manifest_<provider>` | Every input, registry file and output, with size, SHA-256 and row count |
 
 Records that are not published stay out of the repository: they are kept only in the git-ignored `Data/Temp/trait_unit_audit/` and are counted in the tables.
@@ -47,29 +48,31 @@ The reconciliation must balance for every provider and trait: raw records equal 
 
 ## Running the pipeline
 
-The project uses R 4.6.2 and `renv`; restore the packages with `renv::restore(lockfile = "renv/library_list.lock")`. The raw inputs are not in Git: put the TRY request file in `Data/Input/TRY/Raw/` and the BIEN downloads in `Data/Input/BIEN/`.
+The project uses R 4.6.2 and `renv`, and follows the layout of the [project template](https://github.com/OndrejMottl/Project_template). Restore the packages once with `Rscript R/___Init_project___.R`. The raw inputs are not in Git: put the TRY request file in `Data/Input/TRY/Raw/` and the BIEN downloads in `Data/Input/BIEN/`. The TRY file is checked against the SHA-256 checksum in `config.yml`, and the newest BIEN file of each trait (by the date in its name) is used.
 
-A release run writes to `Outputs/`. Run TRY first, because the BIEN step reads the published TRY artefact to find duplicates:
-
-```sh
-Rscript R/01_Data_download/01_TRY.R
-Rscript R/02_Process_data/01_BIEN_process.R Outputs/Data/data_trait_try_<date>__<hash>__.qs
-```
-
-A validation run reads other inputs and writes to a folder of your choice, which receives `Data/`, `Tables/` and `Audit/`; keep it inside `Data/Temp/`:
+The export is a [`{targets}`](https://docs.ropensci.org/targets/) pipeline in three stages: data acquisition, data processing and data export, each with its own store under `Data/Targets_data/`. Run all three with:
 
 ```sh
-Rscript R/01_Data_download/01_TRY.R <TRY file> <output folder>
-Rscript R/02_Process_data/01_BIEN_process.R <TRY artefact> <BIEN folder> <output folder>
+Rscript R/Analyses/00_run_main.R
 ```
 
-Run the tests with `Rscript tests/testthat.R`. One test compares the contract copy with a VegVault checkout next to this one (`../VegVault`), when there is one.
+This release run writes to `Outputs/Data/`, `Outputs/Tables/` and `Data/Temp/trait_unit_audit/`. A test run with the `dev` profile writes everything to the git-ignored `Outputs/Data_temp/` instead:
+
+```sh
+R_CONFIG_ACTIVE=dev Rscript R/Analyses/00_run_main.R
+```
+
+Targets that are up to date are skipped, so a run after a change rebuilds only what depends on it. The traits, the excluded TRY DataIDs and the other rules are tracked tables in `config/`; `.ai/analysis-structure.md` describes the stages and their targets.
+
+BIEN is downloaded only when `bien: flag_download` is set to `true` in `config.yml`; keep it `false` otherwise.
+
+Run the tests with `Rscript R/Tests/Run_tests.R`. One test compares the contract copy with a VegVault checkout next to this one (`../VegVault`), when there is one.
 
 ## Use in VegVault
 
 VegVault reads the artefacts of a tagged release of this repository, pinned by tag and SHA-256 checksum, and checks them against its producer contracts `try_traits` and `bien_traits`.
 
-This repository holds a copy of those contracts and of VegVault's contract validator (`Data/Contracts/` and `R/Functions/Contracts/`), taken from one VegVault commit. Both scripts check their artefacts with this copy, so the check can be repeated from a tag of this repository alone. `Data/Contracts/contract_copy.yml` records the VegVault commit and the contract versions; the copy is not edited here but made again from VegVault when a contract changes (see `Data/Contracts/README.md` in VegVault).
+This repository holds a copy of those contracts and of VegVault's contract validator (`Data/Contracts/` and `R/Functions/Contracts/`), taken from one VegVault commit. The export stage checks its artefacts with this copy, so the check can be repeated from a tag of this repository alone. `Data/Contracts/contract_copy.yml` records the VegVault commit and the contract versions; the copy is not edited here but made again from VegVault when a contract changes (see `Data/Contracts/README.md` in VegVault).
 
 Guidance for contributors and coding assistants is in `AGENTS.md` and `.ai/repository-contract.md`.
 

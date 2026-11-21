@@ -1,0 +1,7 @@
+trait_name,trait_domain,trait_full_name,derivation_rule_key
+leaf area per leaf dry mass,Leaf mass per area,leaf mass per area,sla_to_lma
+leaf area,Leaf Area,leaf area,
+leaf nitrogen content per leaf dry mass,Leaf nitrogen content per unit mass,leaf nitrogen content per leaf dry mass,
+seed mass,Diaspore mass,seed mass,
+stem wood density,Stem specific density,stem wood density,
+whole plant height,Plant heigh,whole plant height,

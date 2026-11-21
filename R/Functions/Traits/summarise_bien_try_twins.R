@@ -4,7 +4,7 @@
 #' TRY record with the same measurement key, compare with a chance level,
 #' and flag the sources that copy a compilation held by TRY.
 #' @param data_bien
-#' BIEN records after [apply_trait_unit_contract()], with the columns
+#' BIEN records after [resolve_trait_unit_contract()], with the columns
 #' `disposition`, `trait_domain`, `scrubbed_species_binomial`,
 #' `trait_value`, `url_source`, `source_citation` and `project_pi`. Only
 #' published records are counted.

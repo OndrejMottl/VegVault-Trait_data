@@ -3,7 +3,7 @@
 #' Mark published TRY records that TRY flags as copies of another published
 #' record as dropped, so each measurement is published once.
 #' @param data_source
-#' A data frame of TRY records after [apply_trait_unit_contract()] (and
+#' A data frame of TRY records after [resolve_trait_unit_contract()] (and
 #' usually [resolve_repeated_try_values()]), with the columns
 #' `disposition`, `disposition_reason`, `obs_data_id` (TRY record
 #' identifier) and `orig_obs_data_id` (TRY's duplicate flag: the

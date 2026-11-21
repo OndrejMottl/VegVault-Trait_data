@@ -3,7 +3,7 @@
 #' Quarantine the published records of provider sources whose values were
 #' reviewed and found to be on an impossible scale.
 #' @param data_source
-#' Trait records after [apply_trait_unit_contract()], with the columns
+#' Trait records after [resolve_trait_unit_contract()], with the columns
 #' `source_provider`, `source_trait_id`, `source_dataset_key`,
 #' `disposition` and `disposition_reason`.
 #' @param data_quarantine
