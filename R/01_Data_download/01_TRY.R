@@ -407,6 +407,14 @@ path_try_artifact <-
     dir = path_output_data
   )
 
+# The saved artifact must pass the VegVault contract before any table or the
+#   manifest is written. The contract and its validator are the copy in
+#   Data/Contracts/ and R/Functions/Contracts/ (see contract_copy.yml).
+validate_producer_artefact(
+  contract = here::here("Data", "Contracts", "try_traits.yml"),
+  path_artefact = path_try_artifact
+)
+
 RUtilpol::save_latest_file(
   object_to_save = data_trait_unit_audit_summary,
   file_name = "trait_unit_audit_summary_try",

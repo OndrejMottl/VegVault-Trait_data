@@ -43,7 +43,7 @@ Records that are not published stay out of the repository: they are kept only in
 - **Coordinates:** a coordinate outside -90 to 90 (latitude) or -180 to 180 (longitude), or one without its pair, is set missing; the record stays published.
 - **References:** TRY records carry the citation of their publication (`record_reference`); BIEN gives its references per source. Mis-encoded BIEN text is repaired. Contributor names and contact details are never exported.
 
-The reconciliation must balance for every provider and trait: raw records equal published plus quarantined plus dropped records.
+The reconciliation must balance for every provider and trait: raw records equal published plus quarantined plus dropped records. Before any table is written, the saved artefacts must also pass the VegVault contracts (see below); otherwise the run stops.
 
 ## Running the pipeline
 
@@ -63,11 +63,13 @@ Rscript R/01_Data_download/01_TRY.R <TRY file> <output folder>
 Rscript R/02_Process_data/01_BIEN_process.R <TRY artefact> <BIEN folder> <output folder>
 ```
 
-Run the tests with `Rscript tests/testthat.R`.
+Run the tests with `Rscript tests/testthat.R`. One test compares the contract copy with a VegVault checkout next to this one (`../VegVault`), when there is one.
 
 ## Use in VegVault
 
-VegVault reads the artefacts of a tagged release of this repository, pinned by tag and SHA-256 checksum, and checks them against its producer contracts `try_traits` and `bien_traits` (`Data/Contracts/` in VegVault).
+VegVault reads the artefacts of a tagged release of this repository, pinned by tag and SHA-256 checksum, and checks them against its producer contracts `try_traits` and `bien_traits`.
+
+This repository holds a copy of those contracts and of VegVault's contract validator (`Data/Contracts/` and `R/Functions/Contracts/`), taken from one VegVault commit. Both scripts check their artefacts with this copy, so the check can be repeated from a tag of this repository alone. `Data/Contracts/contract_copy.yml` records the VegVault commit and the contract versions; the copy is not edited here but made again from VegVault when a contract changes (see `Data/Contracts/README.md` in VegVault).
 
 Guidance for contributors and coding assistants is in `AGENTS.md` and `.ai/repository-contract.md`.
 
