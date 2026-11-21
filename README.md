@@ -31,6 +31,7 @@ Aggregate tables in `Outputs/Tables/`, one set per provider (`try`, `bien`):
 | `trait_reference_completeness_<provider>` | Per trait, the share of published records with a value in each reference column |
 | `trait_coordinate_summary_<provider>` | Records and datasets per coordinate source, and whether the coordinates were kept |
 | `trait_bien_try_twins_by_source` | Per BIEN source, how many records have a TRY twin, and whether the source qualifies for and is on the list of shared sources (BIEN only) |
+| `trait_data_id_summary_try` | TRY trait records per trait and DataID, with TRY's name of each DataID, for reviewing the excluded DataIDs (TRY only) |
 | `trait_artifact_manifest_<provider>` | Every input, registry file and output, with size, SHA-256 and row count |
 
 Records that are not published stay out of the repository: they are kept only in the git-ignored `Data/Temp/trait_unit_audit/` and are counted in the tables.

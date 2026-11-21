@@ -88,11 +88,13 @@ path_contract_bien_file <-
 #----------------------------------------------------------#
 
 # Only these public targets of the upstream stores are imported. The raw
-#   files come from the acquisition store, for the manifests.
+#   files come from the acquisition store, for the manifests, and so does
+#   the overview of the TRY DataIDs, for the tables.
 vec_public_targets_data_acquisition <-
   c(
     "path_try_raw_file",
-    "path_bien_raw_file"
+    "path_bien_raw_file",
+    "data_try_data_ids"
   )
 
 vec_public_targets_data_processing <-
@@ -170,6 +172,20 @@ list(
       load_target_store_value(
         store = store_data_acquisition,
         target_name = "path_bien_raw_file",
+        runner = runner_data_acquisition
+      )
+    }
+  ),
+  # Import the TRY trait records per trait and DataID, the overview for
+  #   reviewing the DataID exclusions.
+  targets::tar_target(
+    name = "data_try_data_ids",
+    command = {
+      fingerprint_data_acquisition
+
+      load_target_store_value(
+        store = store_data_acquisition,
+        target_name = "data_try_data_ids",
         runner = runner_data_acquisition
       )
     }
@@ -312,14 +328,17 @@ list(
       data_contract = data_try_resolved
     )
   ),
-  # Public target: the TRY aggregate tables and the manifest, written only
-  #   after the contract check.
+  # Public target: the TRY aggregate tables, the DataID overview and the
+  #   manifest, written only after the contract check.
   targets::tar_target(
     name = "path_try_tables",
     command = save_trait_tables(
       list_tables = c(
         list_try_tables,
-        list(trait_artifact_manifest_try = data_try_manifest)
+        list(
+          trait_data_id_summary_try = data_try_data_ids,
+          trait_artifact_manifest_try = data_try_manifest
+        )
       ),
       dir_output = dir_export_tables
     ),
