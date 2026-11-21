@@ -1,5 +1,76 @@
-# VegVault: Process Trait data
+# VegVault: trait data
 
-This is part of the [BIODYNAMICS project](https://ondrejmottl.github.io/projects/BIODYNAMICS/).
+This repository produces the plant-trait data of [VegVault](https://github.com/OndrejMottl/VegVault). It takes trait measurements from [TRY](https://www.try-db.org) and [BIEN](https://biendata.org), converts every value to one unit per trait, removes duplicated measurements, checks the result and saves it as files that the VegVault database build reads from a tagged release.
 
-The goal of this repo get a prepare vegetatiomn trait data downloaded from TRY.
+It is part of the [BIODYNAMICS project](https://ondrejmottl.github.io/projects/BIODYNAMICS/).
+
+## Traits and sources
+
+The six traits follow Díaz et al. (2016): plant height, leaf area, leaf mass per area, leaf nitrogen content per leaf dry mass, seed (diaspore) mass and stem specific density (wood density).
+
+- **TRY:** a data request of public TRY data, released under CC BY. The request file is obtained from TRY by hand and is not part of this repository.
+- **BIEN:** downloaded with the BIEN R package (`R/01_Data_download/02_BIEN_download.R`). The package states that public BIEN data are licensed under CC-BY.
+
+The exact input files of a release, with their SHA-256 checksums, are listed in its manifest tables (see below). When you use the data, cite TRY and BIEN as their terms ask.
+
+## What a release contains
+
+Artefacts in `Outputs/Data/`, saved in `qs2` format under a `.qs` extension (read them with `qs2::qs_read()`):
+
+- `data_trait_try_<date>__<hash>__.qs`: the published TRY records, one file.
+- `data_traits_bien_<part>_<date>__<hash>__.qs`: the published BIEN records, in four parts numbered from 0, sorted by BIEN record ID.
+
+Each record holds the trait value in the canonical unit of its trait (`trait_value`, `trait_unit`), the value and unit as the provider wrote them, the conversion rule that was applied, and its provenance: provider, dataset, record and trait identifiers, species name, coordinates and references.
+
+Aggregate tables in `Outputs/Tables/`, one set per provider (`try`, `bien`):
+
+| Table | Content |
+| --- | --- |
+| `trait_unit_audit_summary_<provider>` | Records per source, trait, original unit, rule and disposition, with value quantiles |
+| `trait_unit_reconciliation_<provider>` | Records per trait by disposition (published, quarantined, dropped) and reason; they add up to the raw records |
+| `trait_reference_completeness_<provider>` | Per trait, the share of published records with a value in each reference column |
+| `trait_coordinate_summary_<provider>` | Records and datasets per coordinate source, and whether the coordinates were kept |
+| `trait_bien_try_twins_by_source` | Per BIEN source, how many records have a TRY twin, and whether the source qualifies for and is on the list of shared sources (BIEN only) |
+| `trait_artifact_manifest_<provider>` | Every input, registry file and output, with size, SHA-256 and row count |
+
+Records that are not published stay out of the repository: they are kept only in the git-ignored `Data/Temp/trait_unit_audit/` and are counted in the tables.
+
+## How the data are processed
+
+- **Units:** a record is published only when its unit is registered and the conversion to the canonical unit is verified. The rules live in `config/trait_units/`, each with its source; TRY conversions are checked against TRY's standardised values. Everything else is quarantined.
+- **Duplicates:** one value is kept per TRY observation and trait, TRY records that TRY flags as copies of a published original are dropped, and BIEN records that duplicate a TRY measurement from a shared compilation are dropped, keeping the TRY copy (`config/trait_duplicates/`).
+- **Implausible sources:** source and trait combinations with values on an impossible scale are quarantined (`config/trait_quarantine/`).
+- **Coordinates:** a coordinate outside -90 to 90 (latitude) or -180 to 180 (longitude), or one without its pair, is set missing; the record stays published.
+- **References:** TRY records carry the citation of their publication (`record_reference`); BIEN gives its references per source. Mis-encoded BIEN text is repaired. Contributor names and contact details are never exported.
+
+The reconciliation must balance for every provider and trait: raw records equal published plus quarantined plus dropped records.
+
+## Running the pipeline
+
+The project uses R 4.6.2 and `renv`; restore the packages with `renv::restore(lockfile = "renv/library_list.lock")`. The raw inputs are not in Git: put the TRY request file in `Data/Input/TRY/Raw/` and the BIEN downloads in `Data/Input/BIEN/`.
+
+A release run writes to `Outputs/`. Run TRY first, because the BIEN step reads the published TRY artefact to find duplicates:
+
+```sh
+Rscript R/01_Data_download/01_TRY.R
+Rscript R/02_Process_data/01_BIEN_process.R Outputs/Data/data_trait_try_<date>__<hash>__.qs
+```
+
+A validation run reads other inputs and writes to a folder of your choice, which receives `Data/`, `Tables/` and `Audit/`; keep it inside `Data/Temp/`:
+
+```sh
+Rscript R/01_Data_download/01_TRY.R <TRY file> <output folder>
+Rscript R/02_Process_data/01_BIEN_process.R <TRY artefact> <BIEN folder> <output folder>
+```
+
+Run the tests with `Rscript tests/testthat.R`.
+
+## Use in VegVault
+
+VegVault reads the artefacts of a tagged release of this repository, pinned by tag and SHA-256 checksum, and checks them against its producer contracts `try_traits` and `bien_traits` (`Data/Contracts/` in VegVault).
+
+Guidance for contributors and coding assistants is in `AGENTS.md` and `.ai/repository-contract.md`.
+
+## Licence
+
+The code is released under the MIT licence (`LICENSE`). The trait data keep the licences of their providers.
