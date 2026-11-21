@@ -423,6 +423,49 @@ validate_trait_artifact_parts(
   n_rows_expected = base::nrow(data_bien_unnest)
 )
 
+# The manifest is built while the contract output still exists; it is
+#   written only after the contract check below
+data_bien_manifest <-
+  make_trait_artifact_manifest(
+    input_paths = c(
+      vec_bien_input_paths,
+      path_try_artifact,
+      path_shared_sources,
+      path_source_quarantine
+    ),
+    output_paths = dplyr::pull(data_bien_parts, path),
+    output_rows = dplyr::pull(data_bien_parts, n_rows),
+    data_contract = data_bien_resolved
+  )
+
+# The contract check reads every part back. Releasing the record-level
+#   tables first keeps its memory use below that of the processing. Only
+#   the unpublished records (a small table) are kept, for the audit file.
+base::rm(
+  data_bien_files,
+  data_bien_raw,
+  data_bien_text_repaired,
+  data_bien_raw_flagged,
+  data_bien_contract,
+  data_try_published,
+  data_bien_quarantined,
+  data_bien_resolved,
+  data_bien_unnest,
+  vec_published_rows,
+  vec_published_ids,
+  vec_bien_part
+)
+
+base::invisible(base::gc())
+
+# The saved parts must pass the VegVault contract before any table or the
+#   manifest is written. The contract and its validator are the copy in
+#   Data/Contracts/ and R/Functions/Contracts/ (see contract_copy.yml).
+validate_producer_artefact(
+  contract = here::here("Data", "Contracts", "bien_traits.yml"),
+  path_artefact = dplyr::pull(data_bien_parts, path)
+)
+
 RUtilpol::save_latest_file(
   object_to_save = data_bien_unit_audit_summary,
   file_name = "trait_unit_audit_summary_bien",
@@ -457,19 +500,6 @@ RUtilpol::save_latest_file(
   dir = path_output_tables,
   prefered_format = "csv"
 )
-
-data_bien_manifest <-
-  make_trait_artifact_manifest(
-    input_paths = c(
-      vec_bien_input_paths,
-      path_try_artifact,
-      path_shared_sources,
-      path_source_quarantine
-    ),
-    output_paths = dplyr::pull(data_bien_parts, path),
-    output_rows = dplyr::pull(data_bien_parts, n_rows),
-    data_contract = data_bien_resolved
-  )
 
 RUtilpol::save_latest_file(
   object_to_save = data_bien_manifest,
