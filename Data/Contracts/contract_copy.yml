@@ -1,7 +1,7 @@
 # Copy of the VegVault producer contracts, written by
 #   save_contract_copy(). Do not edit the copied files or this record;
 #   make the copy again from a VegVault checkout instead.
-vegvault_commit: 5f5818d046adab7dab367a55c1500c690edede5f
+vegvault_commit: 74129463159125c61a27a78d1190e0477eb72996
 producer_repository: OndrejMottl/VegVault-Trait_data
 files:
 - path: Data/Contracts/bien_traits.yml
@@ -9,9 +9,9 @@ files:
   contract_id: bien_traits
   contract_version: 1.0.0
 - path: Data/Contracts/try_traits.yml
-  sha256: 8521004d73c9a5ec54035a0f05d4c8d285ab8237b81740bed66c4699089c087f
+  sha256: ad77cc5e90dacf08220075ab0445a3b428aef5823a50ea2e7fccb20d26c4de8e
   contract_id: try_traits
-  contract_version: 1.0.0
+  contract_version: 2.0.0
 - path: R/Functions/Contracts/build_bien_plots_fixture.R
   sha256: d510970a0cdbee36c4f1cd94d620791655375f721134ae04c4f013d26bfcdb9f
 - path: R/Functions/Contracts/build_bien_traits_fixture.R
@@ -19,11 +19,13 @@ files:
 - path: R/Functions/Contracts/build_chelsa_neoclimate_fixture.R
   sha256: f753acd539c3231871d26a1458eae3f2e72c6c02403a9d58558d2afeb06daac1
 - path: R/Functions/Contracts/build_chelsa_trace21k_palaeoclimate_fixture.R
-  sha256: bf24a8810e8030a87ccd3460699974a69aaf70ae7ccc8f487083aab2cb5d1933
+  sha256: 4211b7e096cce82e3d030964b1ddc4f3dd581ace906b898d8a51103093a1e897
 - path: R/Functions/Contracts/build_fossilpol_age_uncertainty_fixture.R
   sha256: 51787bae2ebc30b5218903de00ede1f0af82b0283e4f2ebcbdd3137c1e225f76
 - path: R/Functions/Contracts/build_fossilpol_assembly_fixture.R
   sha256: 57707e7c78c761cab2624432ffe5eac4dcba52e3d8af2b0033002bfd6ea61827
+- path: R/Functions/Contracts/build_hwsd_soil_fixture.R
+  sha256: 5ded857a4effa109548b66b5b1ea43edef4fe58adec56a7f2e67a437116e0738
 - path: R/Functions/Contracts/build_producer_file_name.R
   sha256: d376025972865d19f1002711bea412a4307958eda778b30f2f2db96f9d0167d5
 - path: R/Functions/Contracts/build_producer_file_regex.R
@@ -35,9 +37,7 @@ files:
 - path: R/Functions/Contracts/build_splot_plots_fixture.R
   sha256: cb0276d54c4470f59613255c9f14725a70d5d4108aafcbacb7c7a6973d564db3
 - path: R/Functions/Contracts/build_try_traits_fixture.R
-  sha256: 10cc32df93fd59f999df4150ad36bc4cda91c19a40b68636dbeb5d1abb049d1d
-- path: R/Functions/Contracts/build_wosis_soil_fixture.R
-  sha256: b267ec4af9af891bdc50a3e02b1ec41d2e103e8122e34b847e958ce4a6d7c8ca
+  sha256: 01af9322103574c7fecb7a785afa091236536cb9409621029ae5106ce12bae8e
 - path: R/Functions/Contracts/compute_text_file_sha256.R
   sha256: 32b9f404db3b7f808d3d54a62d84c662f8f9389a93ea27b3ffa1c6f0e8695c1d
 - path: R/Functions/Contracts/diagnose_producer_artefact.R

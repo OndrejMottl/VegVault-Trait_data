@@ -1,10 +1,10 @@
-#' @title Build the soil classes fixture
+#' @title Build the HWSD soil groups fixture
 #' @description
-#' Build a small synthetic artefact for the `wosis_soil` contract, for
+#' Build a small synthetic artefact for the `hwsd_soil` contract, for
 #' tests and for producers checking their export. All values are invented;
 #' none comes from a real dataset.
 #' @param contract
-#' The `wosis_soil` contract, as returned by `load_producer_contract()`.
+#' The `hwsd_soil` contract, as returned by `load_producer_contract()`.
 #' @param date_file
 #' Character scalar `YYYY-MM-DD` used for the date in the file name.
 #' @param flag_broken
@@ -16,20 +16,21 @@
 #' `rlang::hash()` of the tibble.
 #' @details
 #' The six grid cells of `build_chelsa_neoclimate_fixture()` with invented
-#' soil-class codes. The result is identical on every call. Aborts when
-#' `contract` is not the `wosis_soil` contract.
-build_wosis_soil_fixture <- function(
+#' soil-group codes between 1 and 32 and the variable name `HWSD2`. The
+#' result is identical on every call. Aborts when `contract` is not the
+#' `hwsd_soil` contract.
+build_hwsd_soil_fixture <- function(
   contract = load_producer_contract(
     path_contract = here::here(
-      "Data", "Contracts", "wosis_soil.yml"
+      "Data", "Contracts", "hwsd_soil.yml"
     )
   ),
   date_file = "2000-01-01",
   flag_broken = FALSE
 ) {
   assertthat::assert_that(
-    base::identical(purrr::pluck(contract, "contract_id"), "wosis_soil"),
-    msg = "'contract' must be the wosis_soil contract."
+    base::identical(purrr::pluck(contract, "contract_id"), "hwsd_soil"),
+    msg = "'contract' must be the hwsd_soil contract."
   )
 
   assertthat::assert_that(
@@ -44,7 +45,7 @@ build_wosis_soil_fixture <- function(
       long = c(-179.95, 179.95, 10.05, 10.45, -60.05, 25.05),
       lat = c(65.05, 65.05, 50.05, 50.05, -10.05, 70.05),
       value = c(14, 14, 21, 21, 6, 30),
-      var_name = "soil_class"
+      var_name = "HWSD2"
     )
 
   # The one defect, when asked for: class codes exported as text
