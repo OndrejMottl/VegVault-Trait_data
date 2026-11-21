@@ -4,7 +4,7 @@
 #' record by provider, trait, disposition and reason, so that published,
 #' quarantined and dropped records add up to the raw input.
 #' @param data_source
-#' A canonical trait data frame from [apply_trait_unit_contract()], with
+#' A canonical trait data frame from [resolve_trait_unit_contract()], with
 #' the columns `source_provider`, `source_record_id`, `source_trait_id`,
 #' `conversion_status`, `disposition`, `disposition_reason`, `trait_value`,
 #' `trait_unit` and `conversion_rule_key`.

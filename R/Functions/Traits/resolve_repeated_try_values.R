@@ -3,7 +3,7 @@
 #' Keep one published value per TRY observation and trait, and mark the
 #' other published values of that observation and trait as dropped.
 #' @param data_source
-#' A data frame returned by [apply_trait_unit_contract()] for TRY records,
+#' A data frame returned by [resolve_trait_unit_contract()] for TRY records,
 #' with the columns `source_provider`, `source_record_id` (the TRY
 #' observation), `source_trait_id`, `disposition`, `disposition_reason`,
 #' `value_kind_name`, `orig_obs_data_id` and `obs_data_id`.

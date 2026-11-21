@@ -59,3 +59,13 @@ Data/Processed/BIEN/data_traits*.qs
 
 # Temporary and private audit products (quarantined records)
 Data/Temp/
+
+# Project template
+Rplots.pdf
+secrets.yaml
+_targets.yaml
+_targets/
+Data/Targets_data/*
+!Data/Targets_data/.keep
+Outputs/Data_temp/*
+!Outputs/Data_temp/.keep

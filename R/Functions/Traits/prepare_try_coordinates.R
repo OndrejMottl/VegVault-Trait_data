@@ -21,7 +21,7 @@
 #' when one is unusable or absent, both are set missing and the usable one
 #' gets the source `"incomplete_pair"`. Two rows for the same coordinate of
 #' one observation are an error.
-#' @seealso [parse_trait_numeric()]
+#' @seealso [prepare_trait_numeric()]
 #' @export
 prepare_try_coordinates <- function(data_coordinate_rows) {
   vec_required_columns <-
@@ -59,7 +59,7 @@ prepare_try_coordinates <- function(data_coordinate_rows) {
       value_standardized = base::suppressWarnings(
         base::as.numeric(.data$std_value)
       ),
-      value_original = parse_trait_numeric(.data$orig_value_str),
+      value_original = prepare_trait_numeric(.data$orig_value_str),
       flag_standardized_ok = base::is.finite(.data$value_standardized) &
         base::abs(.data$value_standardized) <= .data$limit,
       flag_original_ok = base::is.finite(.data$value_original) &

@@ -21,7 +21,7 @@
 #' the producer artifact contract names the files that way. When a file of
 #' the same name already exists it holds the same object, so it is not
 #' rewritten. Older versions of the artifact are never removed.
-#' @seealso [make_trait_artifact_manifest()]
+#' @seealso [build_trait_artifact_manifest()]
 #' @export
 save_trait_artifact <- function(
   object_to_save,

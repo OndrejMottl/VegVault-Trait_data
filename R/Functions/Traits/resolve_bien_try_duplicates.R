@@ -4,7 +4,7 @@
 #' copies a compilation also held by TRY and a published TRY record holds
 #' the same measurement. The TRY copy is kept.
 #' @param data_bien
-#' BIEN records after [apply_trait_unit_contract()], with the columns
+#' BIEN records after [resolve_trait_unit_contract()], with the columns
 #' `disposition`, `disposition_reason`, `trait_domain`,
 #' `scrubbed_species_binomial`, `trait_value`, `url_source`,
 #' `source_citation` and `project_pi`.
