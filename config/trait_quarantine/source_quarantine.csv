@@ -1,5 +1,5 @@
 source_provider,source_trait_id,source_dataset_key,disposition_reason,evidence
-BIEN,leaf area,"Kleyer M, Bekker RM, Knevel IC, et al. 2008. The LEDA Traitbase: a database of life-history traits of the Northwest European flora . Journal of Ecology 96: 1266-1274.",source_scale_implausible,Median published value 0 mm2 over 66 records (BIEN download 2025-08-01): a leaf area of 0 is not a measurement
+BIEN,leaf area,"Kleyer M, Bekker RM, Knevel IC, et al. 2008. The LEDA Traitbase: a database of life-history traits of the Northwest European flora . Journal of Ecology 96: 1266-1274.",source_scale_implausible,39 of 79 published values are 0 mm2 and the median is 21.3 mm2 (BIEN download 2026-11-19): a leaf area of 0 is not a measurement
 BIEN,leaf area per leaf dry mass,Ameztegui A,source_scale_implausible,Median published value 86300 mg/mm2 (LMA) over 48 records (BIEN download 2025-08-01): LMA above 2 mg/mm2 is not physically possible
 BIEN,leaf area per leaf dry mass,Edwards EJ,source_scale_implausible,Median published value 63200 mg/mm2 (LMA) over 32 records (BIEN download 2025-08-01): LMA above 2 mg/mm2 is not physically possible
 BIEN,leaf area per leaf dry mass,Fu B,source_scale_implausible,Median published value 63.6 mg/mm2 (LMA) over 39 records (BIEN download 2025-08-01): LMA above 2 mg/mm2 is not physically possible
@@ -12,3 +12,5 @@ BIEN,leaf area per leaf dry mass,Stevens JT,source_scale_implausible,Median publ
 BIEN,leaf nitrogen content per leaf dry mass,Newbery DM,source_scale_implausible,Median published value 0.0167 mg/g over 367 records (BIEN download 2025-08-01): leaf N below 1 mg/g is not physically possible (values look like fractions)
 BIEN,stem wood density,El-Kassaby YA,source_scale_implausible,Median published value 0.000332 g/cm3 over 1120 records (BIEN download 2025-08-01): wood density below 0.05 g/cm3 is not physically possible
 BIEN,whole plant height,Susan Letcher,source_scale_implausible,Median published value 0 m over 19748 records (BIEN download 2025-08-01): a plant height of 0 is not a measurement
+TRY,4,Midwestern and Southern US Herbaceous Species Trait Database,source_scale_implausible,Median published value 0.00361 g/cm3 over 507 records (TRY request 28498): wood density below 0.05 g/cm3 is not physically possible
+TRY,26,Plant traits from alpine plants on Mt. Malaya Khatipara,source_scale_implausible,Median published value 46500 mg over 38 records (TRY request 28498) and 1500 to 990000 mg per seed for alpine herbs and grasses such as Agrostis and Carex: seeds of these plants weigh a few milligrams at most

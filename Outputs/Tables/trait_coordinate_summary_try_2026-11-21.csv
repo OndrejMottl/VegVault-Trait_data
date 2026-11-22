@@ -1,0 +1,11 @@
+source_provider,latitude_source,longitude_source,coordinates_kept,n_records,n_datasets
+TRY,incomplete_pair,not_parsable,FALSE,3,1
+TRY,incomplete_pair,out_of_range,FALSE,3,1
+TRY,incomplete_pair,NA,FALSE,1315,6
+TRY,not_parsable,incomplete_pair,FALSE,1,1
+TRY,not_parsable,not_parsable,FALSE,788,5
+TRY,original,original,TRUE,413,1
+TRY,out_of_range,out_of_range,FALSE,7107,1
+TRY,standardized,standardized,TRUE,615159,348
+TRY,NA,not_parsable,FALSE,3,1
+TRY,NA,NA,FALSE,272391,142

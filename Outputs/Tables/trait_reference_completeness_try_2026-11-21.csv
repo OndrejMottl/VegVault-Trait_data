@@ -1,0 +1,19 @@
+source_provider,trait_domain,reference_column,n_records,n_present,share_present,n_distinct_present
+TRY,Diaspore mass,dataset_reference_citation,152629,0,0,0
+TRY,Diaspore mass,record_reference,152629,152629,1,70
+TRY,Diaspore mass,reference_source,152629,104403,0.6840312129411842,849
+TRY,Leaf Area,dataset_reference_citation,162925,0,0,0
+TRY,Leaf Area,record_reference,162925,162925,1,141
+TRY,Leaf Area,reference_source,162925,13733,0.08429031763081173,171
+TRY,Leaf mass per area,dataset_reference_citation,252707,5476,0.021669364125251774,30
+TRY,Leaf mass per area,record_reference,252707,252707,1,211
+TRY,Leaf mass per area,reference_source,252707,97406,0.3854503436786476,1188
+TRY,Leaf nitrogen content per unit mass,dataset_reference_citation,92990,835,0.00897946015700613,7
+TRY,Leaf nitrogen content per unit mass,record_reference,92990,92990,1,189
+TRY,Leaf nitrogen content per unit mass,reference_source,92990,30438,0.3273255188729971,555
+TRY,Plant heigh,dataset_reference_citation,187167,10619,0.0567354287881945,77
+TRY,Plant heigh,record_reference,187167,187167,1,164
+TRY,Plant heigh,reference_source,187167,59297,0.3168133271356596,1696
+TRY,Stem specific density,dataset_reference_citation,48765,1593,0.032666871731774835,11
+TRY,Stem specific density,record_reference,48765,48765,1,60
+TRY,Stem specific density,reference_source,48765,2727,0.05592125499846201,156

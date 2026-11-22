@@ -1,0 +1,4 @@
+source_provider,latitude_source,longitude_source,coordinates_kept,n_records,n_datasets
+BIEN,incomplete_pair,NA,FALSE,1077,2
+BIEN,original,original,TRUE,9027540,61
+BIEN,NA,NA,FALSE,995152,103

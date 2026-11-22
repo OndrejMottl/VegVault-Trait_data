@@ -1,0 +1,330 @@
+source_provider,source_dataset_key,source_trait_id,source_trait_name,original_unit,normalized_original_unit,conversion_rule_key,derivation_rule_key,trait_unit,conversion_status,disposition,disposition_reason,n_records,value_min,value_q25,value_median,value_q75,value_max
+BIEN," Zanne, A.E., Lopez-Gonzalez, G., Coomes, D.A., Ilic, J., Jansen, S., Lewis, S.L., Miller, R.B., Swenson, N.G., Wiemann, M.C., and Chave, J",stem wood density,stem wood density,g.cm-3,g/cm3,bien_density,NA,g/cm3,identity,dropped,duplicate_of_try_record,14432,0.08,0.485604,0.6,0.732435961,1.35
+BIEN," Zanne, A.E., Lopez-Gonzalez, G., Coomes, D.A., Ilic, J., Jansen, S., Lewis, S.L., Miller, R.B., Swenson, N.G., Wiemann, M.C., and Chave, J",stem wood density,stem wood density,g.cm-3,g/cm3,bien_density,NA,g/cm3,identity,published,NA,1626,0.16,0.49,0.6023521475,0.73185,1.39
+BIEN,Aakala T,whole plant height,whole plant height,m,m,bien_height,NA,m,identity,published,NA,1711,2.035,10.3975,13.918,16.995,25.657
+BIEN,Aarnes,leaf area,leaf area,mm2,mm2,bien_leaf_area,NA,mm2,identity,dropped,duplicate_of_try_record,3,17.13,77.16,137.19,1435.635,2734.08
+BIEN,Aarnes,leaf area,leaf area,mm2,mm2,bien_leaf_area,NA,mm2,identity,published,NA,54,0.84,48.292500000000004,137.21,659.3149999999999,25728.7
+BIEN,Abakumova M,leaf area,leaf area,mm2,mm2,bien_leaf_area,NA,mm2,identity,dropped,duplicate_of_try_record,22,1085.5,1505.2337265,1784.923351,2136.6978845000003,4779.2
+BIEN,Abakumova M,leaf area,leaf area,mm2,mm2,bien_leaf_area,NA,mm2,identity,published,NA,704,256.1,1846.8895625000002,4036.275266,10337.137297500001,896781.7856
+BIEN,Abakumova M,leaf area per leaf dry mass,leaf area per leaf dry mass,m2.kg-1,m2/kg,bien_sla,sla_to_lma,mg/mm2,converted,dropped,duplicate_of_try_record,684,0.022630230569744853,0.041616646903457205,0.05212628480899603,0.0697984788037506,0.15597484275709347
+BIEN,Abakumova M,leaf area per leaf dry mass,leaf area per leaf dry mass,m2.kg-1,m2/kg,bien_sla,sla_to_lma,mg/mm2,converted,published,NA,40,0.0256618843378322,0.03640639962548922,0.042721702293955596,0.05164529102075567,0.09808461376511014
+BIEN,Abakumova M,whole plant height,whole plant height,m,m,bien_height,NA,m,identity,dropped,duplicate_of_try_record,699,0.005,0.0205,0.038,0.065,0.625
+BIEN,Abakumova M,whole plant height,whole plant height,m,m,bien_height,NA,m,identity,published,NA,28,0.01,0.03975,0.065,0.07475,0.114
+BIEN,Albrectsen BR,leaf area,leaf area,mm2,mm2,bien_leaf_area,NA,mm2,identity,published,NA,359,3.787409,9.0111025,11.41066,736.0067,1529.03
+BIEN,Albrectsen BR,leaf area per leaf dry mass,leaf area per leaf dry mass,m2.kg-1,m2/kg,bien_sla,sla_to_lma,mg/mm2,converted,published,NA,359,0.00654009404655239,0.24382921105160915,0.774593338497289,0.9643631476617991,1.2953367875647668
+BIEN,Albrectsen BR,whole plant height,whole plant height,m,m,bien_height,NA,m,identity,published,NA,358,0.095,0.36062500000000003,1.2925,1.83375,4.48
+BIEN,Alcantara S,leaf area per leaf dry mass,leaf area per leaf dry mass,m2.kg-1,m2/kg,bien_sla,sla_to_lma,mg/mm2,converted,published,NA,393,0.04399897922368201,0.1433779324730084,0.18888252757300622,0.25183246072626,0.7507919411581713
+BIEN,Alcantara S,whole plant height,whole plant height,m,m,bien_height,NA,m,identity,published,NA,160,0.055,0.19,0.29,0.5185,1.105
+BIEN,Ameztegui A,leaf area per leaf dry mass,leaf area per leaf dry mass,m2.kg-1,m2/kg,bien_sla,sla_to_lma,mg/mm2,converted,quarantined,source_scale_implausible,48,30600.000000000004,71780.00000000009,86260.00000000009,156352.5,305809.99999999965
+BIEN,Ameztegui A,leaf nitrogen content per leaf dry mass,leaf nitrogen content per leaf dry mass,mg.g-1,mg/g,bien_leaf_n,NA,mg/g,identity,published,NA,48,7.6,12.075,17.75,21.449999999999996,28.4
+BIEN,Ameztegui A,seed mass,seed mass,mg,mg,bien_seed_mass,NA,mg,identity,published,NA,47,0.1,2.02,9.18,71.65,3378
+BIEN,Ameztegui A,stem wood density,stem wood density,g.cm-3,g/cm3,bien_density,NA,g/cm3,identity,published,NA,48,0.29,0.35974999999999996,0.4995,0.56,0.956
+BIEN,Anderson-Teixeira KJ,whole plant height,whole plant height,m,m,bien_height,NA,m,identity,published,NA,214,2.5,7.2,14.4,25.174999999999997,43.1
+BIEN,Andresen E,leaf nitrogen content per leaf dry mass,leaf nitrogen content per leaf dry mass,mg.g-1,mg/g,bien_leaf_n,NA,mg/g,identity,published,NA,75,12.9,21.4,28.629,32.272,65.397
+BIEN,Aranda I,leaf area,leaf area,mm2,mm2,bien_leaf_area,NA,mm2,identity,published,NA,231,74.0458333,145.6383333,180.7491667,218.58583334999997,327.3783333
+BIEN,Aranda I,leaf area per leaf dry mass,leaf area per leaf dry mass,m2.kg-1,m2/kg,bien_sla,sla_to_lma,mg/mm2,converted,published,NA,226,0.1402882434048519,0.18000909921344535,0.19055339325690646,0.2038824579417258,0.2753118615140238
+BIEN,Aranda I,leaf nitrogen content per leaf dry mass,leaf nitrogen content per leaf dry mass,mg.g-1,mg/g,bien_leaf_n,NA,mg/g,identity,published,NA,235,10.94123315,15.259389055,16.00567865,17.08188421,22.56570392
+BIEN,Aranda I,whole plant height,whole plant height,m,m,bien_height,NA,m,identity,published,NA,255,0.39,1.12,1.4,1.745,2.77
+BIEN,Austin AT,leaf nitrogen content per leaf dry mass,leaf nitrogen content per leaf dry mass,mg.g-1,mg/g,bien_leaf_n,NA,mg/g,identity,published,NA,57,5.5,11.3,15.9,18.6,31.3
+BIEN,B. Wilmann,leaf area,leaf area,mm2,mm2,bien_leaf_area,NA,mm2,identity,published,NA,25,11.76,106.24,744.93,1578.2,33597.52
+BIEN,BIEN,whole plant height,whole plant height,m,m,bien_height,NA,m,identity,published,NA,6640,0,4,10,17,80
+BIEN,Bai Y,leaf area per leaf dry mass,leaf area per leaf dry mass,m2.kg-1,m2/kg,bien_sla,sla_to_lma,mg/mm2,converted,published,NA,17,0.05778676683039584,0.06756300249983109,0.09021199819576003,0.0968429207824908,0.15785319652722968
+BIEN,Bai Y,leaf nitrogen content per leaf dry mass,leaf nitrogen content per leaf dry mass,mg.g-1,mg/g,bien_leaf_n,NA,mg/g,identity,published,NA,17,20.7,25.1,26.2,27.3,35.2
+BIEN,Bai Y,whole plant height,whole plant height,m,m,bien_height,NA,m,identity,published,NA,17,0.029,0.174,0.331,0.544,0.702
+BIEN,Balzotti CS,leaf nitrogen content per leaf dry mass,leaf nitrogen content per leaf dry mass,mg.g-1,mg/g,bien_leaf_n,NA,mg/g,identity,published,NA,531,7.2,15.7,19,23,49.6
+BIEN,Beaulieu J,stem wood density,stem wood density,g.cm-3,g/cm3,bien_density,NA,g/cm3,identity,published,NA,1694,0.3412536,0.39458055,0.41627475,0.438566475,0.6623116
+BIEN,Beaulieu J,whole plant height,whole plant height,m,m,bien_height,NA,m,identity,published,NA,1694,2.1,4.2,5,5.75,8.9
+BIEN,Benjamin Blonder,leaf area per leaf dry mass,leaf area per leaf dry mass,m2.kg-1,m2/kg,bien_sla,sla_to_lma,mg/mm2,converted,dropped,duplicate_of_try_record,2308,0.010869565219754254,0.05551374404795074,0.07159219626254516,0.10121238527552631,0.6203952315546505
+BIEN,Benjamin Blonder,leaf area per leaf dry mass,leaf area per leaf dry mass,m2.kg-1,m2/kg,bien_sla,sla_to_lma,mg/mm2,converted,published,NA,312,0.039138349509813306,0.06656637727612635,0.08151401680720757,0.09780107533194482,0.32952396142745144
+BIEN,Bhaskar R,leaf area per leaf dry mass,leaf area per leaf dry mass,m2.kg-1,m2/kg,bien_sla,sla_to_lma,mg/mm2,converted,published,NA,138,0.026212319790301444,0.041736423831113825,0.05172009783885692,0.06802758763282457,0.17006802721088435
+BIEN,Bhaskar R,leaf nitrogen content per leaf dry mass,leaf nitrogen content per leaf dry mass,mg.g-1,mg/g,bien_leaf_n,NA,mg/g,identity,published,NA,137,18,26,31,35,46
+BIEN,Bhaskar R,stem wood density,stem wood density,g.cm-3,g/cm3,bien_density,NA,g/cm3,identity,published,NA,135,0.28,0.46,0.53,0.6,0.72
+BIEN,Bhattarai GP,leaf nitrogen content per leaf dry mass,leaf nitrogen content per leaf dry mass,mg.g-1,mg/g,bien_leaf_n,NA,mg/g,identity,published,NA,153,16.4,28.1,32.4,36.7,52.2
+BIEN,Boyero L,leaf area per leaf dry mass,leaf area per leaf dry mass,m2.kg-1,m2/kg,bien_sla,sla_to_lma,mg/mm2,converted,published,NA,60,0.030303030303030304,0.05697363512000995,0.08130081300813008,0.13073593073593073,0.5263157894736842
+BIEN,Buckley YM,seed mass,seed mass,mg,mg,bien_seed_mass,NA,mg,identity,published,NA,4083,5.5,68,82,95,136
+BIEN,Bufford JL,leaf area per leaf dry mass,leaf area per leaf dry mass,m2.kg-1,m2/kg,bien_sla,sla_to_lma,mg/mm2,converted,published,NA,324,0.013426387147188112,0.03599434049145184,0.04971696768838543,0.0681013417402733,0.15786814852235415
+BIEN,Bufford JL,seed mass,seed mass,mg,mg,bien_seed_mass,NA,mg,identity,published,NA,983,1.16,3.3125,9.415,59.4545,507.893
+BIEN,Burns JH,leaf area,leaf area,mm2,mm2,bien_leaf_area,NA,mm2,failed,quarantined,original_value_not_numeric,6,NA,NA,NA,NA,NA
+BIEN,Burns JH,leaf area,leaf area,mm2,mm2,bien_leaf_area,NA,mm2,identity,published,NA,512,0.83,2.2575,3.965,9.015,33.74
+BIEN,Burns JH,leaf area per leaf dry mass,leaf area per leaf dry mass,m2.kg-1,m2/kg,bien_sla,sla_to_lma,mg/mm2,converted,published,NA,420,0.011315417256011316,0.02857142857142857,0.03414600833162603,0.040373962094944836,0.12440905697934809
+BIEN,Carmona CP,leaf area,leaf area,mm2,mm2,bien_leaf_area,NA,mm2,identity,published,NA,2405,0.9,59.2,108.1,201,40482
+BIEN,Carmona CP,leaf area per leaf dry mass,leaf area per leaf dry mass,m2.kg-1,m2/kg,bien_sla,sla_to_lma,mg/mm2,converted,published,NA,2404,0.007582938388625593,0.030453452237646478,0.03821972633072046,0.048259637879048536,0.42625745950554134
+BIEN,Carmona CP,whole plant height,whole plant height,m,m,bien_height,NA,m,identity,published,NA,2477,0.005,0.06,0.1,0.17,0.52
+BIEN,Carus J,whole plant height,whole plant height,m,m,bien_height,NA,m,identity,published,NA,31,0,0.8685,1.19,1.3599999999999999,1.553
+BIEN,Cavender-Bares J,leaf area,leaf area,mm2,mm2,bien_leaf_area,NA,mm2,identity,published,NA,5807,0.66,6.35,10.38,16.01,70.27
+BIEN,Cavender-Bares J,whole plant height,whole plant height,m,m,bien_height,NA,m,identity,published,NA,109,0.03,14,18,20,29
+BIEN,Chacón E,leaf area,leaf area,mm2,mm2,bien_leaf_area,NA,mm2,identity,dropped,duplicate_of_try_record,1769,1292.6,8612.1,17350.3,34427,294187.3
+BIEN,Chacón E,leaf area,leaf area,mm2,mm2,bien_leaf_area,NA,mm2,identity,published,NA,170,3595,10369.099999999999,14301.5,19168.775,44942.9
+BIEN,Chacón E,leaf area per leaf dry mass,leaf area per leaf dry mass,m2.kg-1,m2/kg,bien_sla,sla_to_lma,mg/mm2,converted,dropped,duplicate_of_try_record,72,0.04166145898429363,0.06808047324638518,0.089376325308161,0.10327511204058401,0.12438893933551427
+BIEN,Chacón E,leaf area per leaf dry mass,leaf area per leaf dry mass,m2.kg-1,m2/kg,bien_sla,sla_to_lma,mg/mm2,converted,published,NA,1867,0.028905911258852435,0.06003482019571351,0.07388798581350672,0.09171381051767771,0.210743714568713
+BIEN,Chacón E,leaf nitrogen content per leaf dry mass,leaf nitrogen content per leaf dry mass,mg.g-1,mg/g,bien_leaf_n,NA,mg/g,identity,dropped,duplicate_of_try_record,325,9.4,14.5,18.2,20.7,35.3
+BIEN,Chacón E,leaf nitrogen content per leaf dry mass,leaf nitrogen content per leaf dry mass,mg.g-1,mg/g,bien_leaf_n,NA,mg/g,identity,published,NA,29,11.4,13,14.3,15.7,17.3
+BIEN,Chacón E,stem wood density,stem wood density,g.cm-3,g/cm3,bien_density,NA,g/cm3,identity,dropped,duplicate_of_try_record,354,0.203,0.465,0.5665,0.713,0.991
+BIEN,Chacón E,stem wood density,stem wood density,g.cm-3,g/cm3,bien_density,NA,g/cm3,identity,published,NA,32,0.492,0.5894999999999999,0.6134999999999999,0.725,0.821
+BIEN,Chacón E,whole plant height,whole plant height,m,m,bien_height,NA,m,identity,dropped,duplicate_of_try_record,355,1.5,6,8,11.8,29.6
+BIEN,Chacón E,whole plant height,whole plant height,m,m,bien_height,NA,m,identity,published,NA,33,3.5,5.6,8,15,28.9
+BIEN,Charles Price,leaf area per leaf dry mass,leaf area per leaf dry mass,m2.kg-1,m2/kg,bien_sla,sla_to_lma,mg/mm2,converted,dropped,duplicate_of_try_record,103,0.03278813036708968,0.059880239520958084,0.07751984538468387,0.1449953247591962,0.7812559753874992
+BIEN,Charles Price,leaf area per leaf dry mass,leaf area per leaf dry mass,m2.kg-1,m2/kg,bien_sla,sla_to_lma,mg/mm2,converted,published,NA,51,0.04226677702386893,0.07729224519831684,0.13467338042467752,0.21041238694641606,0.9249420445189036
+BIEN,Correia M,seed mass,seed mass,mg,mg,bien_seed_mass,NA,mg,identity,published,NA,4089,2.9,10.3,12.9,15.2,26.8
+BIEN,Cyrille Violle/Brian Enquist ,leaf nitrogen content per leaf dry mass,leaf nitrogen content per leaf dry mass,mg.g-1,mg/g,bien_leaf_n,NA,mg/g,identity,published,NA,1742,4.2545575,17.8805,23.6205,30.9655,102
+BIEN,D.D. Ackerly,leaf area per leaf dry mass,leaf area per leaf dry mass,m2.kg-1,m2/kg,bien_sla,sla_to_lma,mg/mm2,converted,dropped,duplicate_of_try_record,50,0.022253872173758234,0.04009171089846858,0.07623534593775148,0.11558357222947045,0.2240143369175627
+BIEN,D.D. Ackerly,leaf area per leaf dry mass,leaf area per leaf dry mass,m2.kg-1,m2/kg,bien_sla,sla_to_lma,mg/mm2,converted,published,NA,364,0.010982011465219968,0.10775286098493345,0.16890468343972953,0.22814462102557823,0.5871990604815032
+BIEN,D.D. Ackerly,leaf nitrogen content per leaf dry mass,leaf nitrogen content per leaf dry mass,mg.g-1,mg/g,bien_leaf_n,NA,mg/g,identity,dropped,duplicate_of_try_record,21,11.03,13.72,16.65,20.1,33.64
+BIEN,D.D. Ackerly,leaf nitrogen content per leaf dry mass,leaf nitrogen content per leaf dry mass,mg.g-1,mg/g,bien_leaf_n,NA,mg/g,identity,published,NA,32,10.05,14.805,18.174999999999997,22.2075,31.98
+BIEN,D.D. Ackerly,seed mass,seed mass,mg,mg,bien_seed_mass,NA,mg,identity,dropped,duplicate_of_try_record,1843,0.001,0.2605,0.863,3.739,35714.286
+BIEN,D.D. Ackerly,seed mass,seed mass,mg,mg,bien_seed_mass,NA,mg,identity,published,NA,610,0.001,0.244,1.0125,4.64,6374
+BIEN,D.D. Ackerly,stem wood density,stem wood density,g.cm-3,g/cm3,bien_density,NA,g/cm3,identity,dropped,duplicate_of_try_record,2,0.67,0.6775,0.685,0.6924999999999999,0.7
+BIEN,D.D. Ackerly,stem wood density,stem wood density,g.cm-3,g/cm3,bien_density,NA,g/cm3,identity,published,NA,52,0.326,0.528,0.6174999999999999,0.7082499999999999,0.8
+BIEN,D.D. Ackerly,whole plant height,whole plant height,m,m,bien_height,NA,m,identity,dropped,duplicate_of_try_record,33,0.6,2.4,3.8,15.5,45
+BIEN,D.D. Ackerly,whole plant height,whole plant height,m,m,bien_height,NA,m,identity,published,NA,18,0.3,1.9749999999999999,3.2,6.300000000000001,21.4
+BIEN,D.K. Kunzmann,leaf area,leaf area,mm2,mm2,bien_leaf_area,NA,mm2,identity,dropped,duplicate_of_try_record,16,14.87,109.2175,681.625,2486.4375,11760.75
+BIEN,D.K. Kunzmann,leaf area,leaf area,mm2,mm2,bien_leaf_area,NA,mm2,identity,published,NA,1306,0.19,221.0225,878.5,2884.7325,193776.79
+BIEN,Dalponte M,whole plant height,whole plant height,m,m,bien_height,NA,m,identity,published,NA,4619,0,8,20.7,30.5,42.6
+BIEN,Dana Royer,leaf area,leaf area,mm2,mm2,bien_leaf_area,NA,mm2,identity,published,NA,1326,20,1280,2520,4577.5,53880
+BIEN,Dana Royer,leaf area per leaf dry mass,leaf area per leaf dry mass,m2.kg-1,m2/kg,bien_sla,sla_to_lma,mg/mm2,converted,published,NA,1090,0.013500000000742501,0.044900000004130795,0.06034999999593195,0.09085000000859397,0.2580999999834558
+BIEN,Dana Royer,leaf nitrogen content per leaf dry mass,leaf nitrogen content per leaf dry mass,mg.g-1,mg/g,bien_leaf_n,NA,mg/g,identity,published,NA,311,5.4,12.6,15.9,20,31.5
+BIEN,Deraison H,leaf area,leaf area,mm2,mm2,bien_leaf_area,NA,mm2,identity,published,NA,20,16.0232595,246.130820925,1119.5693621,1732.225711,5116.39375
+BIEN,Deraison H,leaf nitrogen content per leaf dry mass,leaf nitrogen content per leaf dry mass,mg.g-1,mg/g,bien_leaf_n,NA,mg/g,identity,published,NA,20,13.78063833,19.5742955275,25.925489315,29.5767690075,60.832432
+BIEN,Dostál P,leaf area per leaf dry mass,leaf area per leaf dry mass,m2.kg-1,m2/kg,bien_sla,sla_to_lma,mg/mm2,converted,published,NA,258,0.020537897310714308,0.044074387443873875,0.05344615541617133,0.07037209117187551,0.15621721847574427
+BIEN,Dostál P,whole plant height,whole plant height,m,m,bien_height,NA,m,identity,published,NA,258,0.02,0.05,0.058,0.258833333325,0.916
+BIEN,Edwards EJ,leaf area per leaf dry mass,leaf area per leaf dry mass,m2.kg-1,m2/kg,bien_sla,sla_to_lma,mg/mm2,converted,quarantined,source_scale_implausible,32,39609.55423000005,58796.578207500104,63205.79873500002,73045.63858749982,91531.37204000007
+BIEN,Edwards EJ,leaf nitrogen content per leaf dry mass,leaf nitrogen content per leaf dry mass,mg.g-1,mg/g,bien_leaf_n,NA,mg/g,identity,published,NA,32,15.41872745,17.976961215,19.69912099,20.970694447499998,25.60840262
+BIEN,El-Kassaby YA,stem wood density,stem wood density,g.cm-3,g/cm3,bien_density,NA,g/cm3,identity,quarantined,source_scale_implausible,1120,2.57e-4,3.0906e-4,3.3237e-4,3.534675e-4,4.885e-4
+BIEN,El-Kassaby YA,whole plant height,whole plant height,m,m,bien_height,NA,m,identity,published,NA,1124,6,11.7,13,14.4,20.1
+BIEN,Evans LM,whole plant height,whole plant height,m,m,bien_height,NA,m,identity,published,NA,426,0.05,0.43,0.57,0.73,1.61
+BIEN,Feng Y,leaf area,leaf area,mm2,mm2,bien_leaf_area,NA,mm2,identity,published,NA,1239,3.15,199.79000000000002,653.91,2198.5,31769.85
+BIEN,Feng Y,leaf area per leaf dry mass,leaf area per leaf dry mass,m2.kg-1,m2/kg,bien_sla,sla_to_lma,mg/mm2,converted,published,NA,1027,0.01007539722001655,0.022092057639561003,0.030079711234772148,0.04222097656924499,0.09803921568627452
+BIEN,Feng Y,seed mass,seed mass,mg,mg,bien_seed_mass,NA,mg,identity,published,NA,1080,0.096,0.246,0.449,0.7,5.7
+BIEN,Feng Y,whole plant height,whole plant height,m,m,bien_height,NA,m,identity,published,NA,1068,0,0.2384645,0.45,0.67410225,2.27
+BIEN,Fricke EC,seed mass,seed mass,mg,mg,bien_seed_mass,NA,mg,identity,published,NA,434,12.6,405.875,1271.6999999999998,9073.25,250300
+BIEN,Fu B,leaf area,leaf area,mm2,mm2,bien_leaf_area,NA,mm2,identity,published,NA,41,16.415,133.8133,612.5,1202.696,15110.54
+BIEN,Fu B,leaf area per leaf dry mass,leaf area per leaf dry mass,m2.kg-1,m2/kg,bien_sla,sla_to_lma,mg/mm2,converted,quarantined,source_scale_implausible,39,28.02811556328384,48.65693301395361,63.57582211484972,77.86958355220378,322.2186169539192
+BIEN,Fu B,leaf nitrogen content per leaf dry mass,leaf nitrogen content per leaf dry mass,mg.g-1,mg/g,bien_leaf_n,NA,mg/g,identity,published,NA,35,14.13667,19.7825,24.2,26.188335000000002,44.575
+BIEN,Gapare WJ,whole plant height,whole plant height,m,m,bien_height,NA,m,failed,quarantined,original_value_not_numeric,1009,NA,NA,NA,NA,NA
+BIEN,Gapare WJ,whole plant height,whole plant height,m,m,bien_height,NA,m,identity,published,NA,5570,1.6,8.1,10.4,15.875,47.7
+BIEN,Gavinet J,leaf area,leaf area,mm2,mm2,bien_leaf_area,NA,mm2,identity,dropped,duplicate_of_try_record,23,754.22,1073.47,1245.72,1623.245,10285.41
+BIEN,Gavinet J,leaf area,leaf area,mm2,mm2,bien_leaf_area,NA,mm2,identity,published,NA,215,218.38,836.76,1530.89,3830.38,36454.54
+BIEN,Gavinet J,leaf area per leaf dry mass,leaf area per leaf dry mass,m2.kg-1,m2/kg,bien_sla,sla_to_lma,mg/mm2,converted,dropped,duplicate_of_try_record,228,0.03339523942446404,0.0532519730053363,0.0702210670942145,0.11159526397856705,1.1179619046476383
+BIEN,Gavinet J,leaf area per leaf dry mass,leaf area per leaf dry mass,m2.kg-1,m2/kg,bien_sla,sla_to_lma,mg/mm2,converted,published,NA,7,0.04233513886209193,0.046661279342544514,0.052136358453772624,0.07481530463033131,3.302524686000494
+BIEN,Gianoli E,leaf area per leaf dry mass,leaf area per leaf dry mass,m2.kg-1,m2/kg,bien_sla,sla_to_lma,mg/mm2,converted,dropped,duplicate_of_try_record,450,0.019361534053066093,0.031004123437253187,0.035486186784438115,0.04105220979083646,0.08778860503906592
+BIEN,Gianoli E,leaf area per leaf dry mass,leaf area per leaf dry mass,m2.kg-1,m2/kg,bien_sla,sla_to_lma,mg/mm2,converted,published,NA,31,0.026034954529951915,0.03238216152720028,0.035330196011927474,0.043163438703973045,0.06361727845282779
+BIEN,Goodman RC,stem wood density,stem wood density,g.cm-3,g/cm3,bien_density,NA,g/cm3,identity,published,NA,51,0.132,0.446,0.59,0.6930000000000001,0.89
+BIEN,Goodman RC,whole plant height,whole plant height,m,m,bien_height,NA,m,identity,published,NA,51,3.6,13.7,16.3,19.25,25.3
+BIEN,Greg Reams,whole plant height,whole plant height,m,m,bien_height,NA,m,identity,published,NA,9709542,0,9.7536,14.6304,19.2024,304.4952
+BIEN,Grootemaat S,leaf area,leaf area,mm2,mm2,bien_leaf_area,NA,mm2,identity,published,NA,91,66,201,934,1825.5,4267
+BIEN,Grootemaat S,leaf area per leaf dry mass,leaf area per leaf dry mass,m2.kg-1,m2/kg,bien_sla,sla_to_lma,mg/mm2,converted,published,NA,91,0.09355412105903264,0.22017203375990574,0.30835646006783846,0.40900233373887857,0.9832841691248771
+BIEN,Grootemaat S,leaf nitrogen content per leaf dry mass,leaf nitrogen content per leaf dry mass,mg.g-1,mg/g,bien_leaf_n,NA,mg/g,identity,published,NA,89,2.6,6,9.1,13.5,20.1
+BIEN,Hamann E,leaf area per leaf dry mass,leaf area per leaf dry mass,m2.kg-1,m2/kg,bien_sla,sla_to_lma,mg/mm2,converted,published,NA,205,0.025804453848734293,0.07910766553279013,0.09554748710108925,0.10783996549121104,0.14979029358897544
+BIEN,Hamilton JA,whole plant height,whole plant height,m,m,bien_height,NA,m,identity,published,NA,714,0.042,0.164,0.2255,0.29075,0.432
+BIEN,Herrera CM,leaf area,leaf area,mm2,mm2,bien_leaf_area,NA,mm2,identity,published,NA,147,326.2,734.1500000000001,1014.1,1503.45,3368
+BIEN,Herrera CM,leaf area per leaf dry mass,leaf area per leaf dry mass,m2.kg-1,m2/kg,bien_sla,sla_to_lma,mg/mm2,converted,published,NA,147,0.0039006123961461948,0.0065436900220619135,0.007653451706719731,0.008832796653394055,0.011839924224484964
+BIEN,Herrera CM,seed mass,seed mass,mg,mg,bien_seed_mass,NA,mg,identity,published,NA,193,8.17,10.86,12.08,13.3,16.62
+BIEN,Ishizuka W,whole plant height,whole plant height,m,m,bien_height,NA,m,identity,published,NA,16204,0.01,0.18,0.43,1.9124999999999999,22.5
+BIEN,J. Fang,leaf nitrogen content per leaf dry mass,leaf nitrogen content per leaf dry mass,mg.g-1,mg/g,bien_leaf_n,NA,mg/g,identity,dropped,duplicate_of_try_record,955,4.5,13.49,18.6,25.4,58.8
+BIEN,J. Fang,leaf nitrogen content per leaf dry mass,leaf nitrogen content per leaf dry mass,mg.g-1,mg/g,bien_leaf_n,NA,mg/g,identity,published,NA,260,1.8,10.4,15.8,24.642500000000002,54.3
+BIEN,"J. P. Grime, J. G. Hodgson and R. Hunt",whole plant height,whole plant height,m,m,bien_height,NA,m,identity,dropped,duplicate_of_try_record,223,0.02,0.4,0.6,1,40
+BIEN,"J. P. Grime, J. G. Hodgson and R. Hunt",whole plant height,whole plant height,m,m,bien_height,NA,m,identity,published,NA,38,0.01,0.21250000000000002,0.4,0.7,1.5
+BIEN,J.-S. He,leaf area per leaf dry mass,leaf area per leaf dry mass,m2.kg-1,m2/kg,bien_sla,sla_to_lma,mg/mm2,converted,published,NA,68,0.03800000000532,0.058374999990956675,0.06604999999958425,0.08782500000194693,0.145999999989196
+BIEN,J.-S. He,leaf nitrogen content per leaf dry mass,leaf nitrogen content per leaf dry mass,mg.g-1,mg/g,bien_leaf_n,NA,mg/g,identity,published,NA,68,15.3,22.874999999999996,26.55,32.8,56.8
+BIEN,"J.D. Karagatzides, A. Ellison",leaf area,leaf area,mm2,mm2,bien_leaf_area,NA,mm2,identity,published,NA,105,161,1700,3300,8241,25629
+BIEN,"J.D. Karagatzides, A. Ellison",leaf area per leaf dry mass,leaf area per leaf dry mass,m2.kg-1,m2/kg,bien_sla,sla_to_lma,mg/mm2,converted,published,NA,106,0.03500000000175,0.0650000000195,0.0820000000082,0.11874999999574024,0.249000000001743
+BIEN,"J.D. Karagatzides, A. Ellison",leaf nitrogen content per leaf dry mass,leaf nitrogen content per leaf dry mass,mg.g-1,mg/g,bien_leaf_n,NA,mg/g,identity,published,NA,287,4.4,7.4,9.3,11.350000000000001,44.9
+BIEN,JM Guehl,leaf nitrogen content per leaf dry mass,leaf nitrogen content per leaf dry mass,mg.g-1,mg/g,bien_leaf_n,NA,mg/g,identity,published,NA,148,4,12,15,20,31
+BIEN,K. Thompson,leaf area,leaf area,mm2,mm2,bien_leaf_area,NA,mm2,identity,dropped,duplicate_of_try_record,93,1,101,493.7,1744,46655
+BIEN,K. Thompson,leaf area,leaf area,mm2,mm2,bien_leaf_area,NA,mm2,identity,published,NA,1401,0.8,270,1007,3328,946070
+BIEN,K.S. Murali,seed mass,seed mass,mg,mg,bien_seed_mass,NA,mg,identity,published,NA,95,1,25.6,166.7,833.3,20000
+BIEN,"King, D.A. (1996) Allometry and life history of tropical trees. Journal of Tropical Ecology 12, 25-44.",whole plant height,whole plant height,m,m,bien_height,NA,m,identity,published,NA,14,5,13,30,33.5,48
+BIEN,Kleinschroth F,whole plant height,whole plant height,m,m,bien_height,NA,m,identity,published,NA,2180,0.5,3,4,6,70
+BIEN,"Kleyer M, Bekker RM, Knevel IC, et al. 2008. The LEDA Traitbase: a database of life-history traits of the Northwest European flora . Journal of Ecology 96: 1266-1274.",leaf area,leaf area,mm2,mm2,bien_leaf_area,NA,mm2,identity,quarantined,source_scale_implausible,79,0,0,21.3,411.5,14200
+BIEN,Kraft TS,seed mass,seed mass,mg,mg,bien_seed_mass,NA,mg,identity,published,NA,193,0.09,11.58,67.473,233.686,24698.72
+BIEN,Krüger,leaf area,leaf area,mm2,mm2,bien_leaf_area,NA,mm2,identity,dropped,duplicate_of_try_record,1,3514.5,3514.5,3514.5,3514.5,3514.5
+BIEN,Krüger,leaf area,leaf area,mm2,mm2,bien_leaf_area,NA,mm2,identity,published,NA,75,1.27,401,1222,2580.125,20870
+BIEN,Kurokawa H,leaf area per leaf dry mass,leaf area per leaf dry mass,m2.kg-1,m2/kg,bien_sla,sla_to_lma,mg/mm2,converted,quarantined,source_scale_implausible,24,18840.000000000015,31792.500000000015,32949.999999999985,37552.5,57810.00000000014
+BIEN,Kurokawa H,leaf nitrogen content per leaf dry mass,leaf nitrogen content per leaf dry mass,mg.g-1,mg/g,bien_leaf_n,NA,mg/g,identity,published,NA,24,11.5,16.075000000000003,19.65,21.825000000000003,27.7
+BIEN,Kurokawa H,stem wood density,stem wood density,g.cm-3,g/cm3,bien_density,NA,g/cm3,identity,published,NA,24,0.32,0.47,0.565,0.59,0.71
+BIEN,Kühner,leaf area,leaf area,mm2,mm2,bien_leaf_area,NA,mm2,identity,dropped,duplicate_of_try_record,3,273.75,278.125,282.5,651.25,1020
+BIEN,Kühner,leaf area,leaf area,mm2,mm2,bien_leaf_area,NA,mm2,identity,published,NA,17,19.85,125.25,349,784,1764
+BIEN,L. Poorter,leaf area,leaf area,mm2,mm2,bien_leaf_area,NA,mm2,identity,published,NA,36,2980,4485,7780,34795,295800
+BIEN,L. Poorter,leaf area per leaf dry mass,leaf area per leaf dry mass,m2.kg-1,m2/kg,bien_sla,sla_to_lma,mg/mm2,converted,published,NA,85,0.023923444976076555,0.04566210045662101,0.05952380952380952,0.07352941176470588,0.11904761904761904
+BIEN,L. Poorter,leaf nitrogen content per leaf dry mass,leaf nitrogen content per leaf dry mass,mg.g-1,mg/g,bien_leaf_n,NA,mg/g,identity,published,NA,49,1.3,2,2.3,2.8,4
+BIEN,L. Poorter,whole plant height,whole plant height,m,m,bien_height,NA,m,identity,published,NA,90,5,20,28,34,46
+BIEN,Laliberté E,leaf nitrogen content per leaf dry mass,leaf nitrogen content per leaf dry mass,mg.g-1,mg/g,bien_leaf_n,NA,mg/g,identity,published,NA,508,2.73924,6.469250000000001,8.7737135,11.285325,28.39954
+BIEN,Lankinen A,whole plant height,whole plant height,m,m,bien_height,NA,m,identity,published,NA,89,0.05,0.16,0.22,0.26,0.37
+BIEN,Lawson JR,stem wood density,stem wood density,g.cm-3,g/cm3,bien_density,NA,g/cm3,identity,published,NA,66,0.371791,0.5028732499999999,0.585714,0.65615925,0.82006
+BIEN,Leake JR,whole plant height,whole plant height,m,m,bien_height,NA,m,identity,published,NA,140,1.55,3.26,4.58,6.23,14.9
+BIEN,Leishman MR,leaf area,leaf area,mm2,mm2,bien_leaf_area,NA,mm2,identity,published,NA,1233,45,318.52,1104.84,2233.8,9183.3
+BIEN,Leishman MR,leaf nitrogen content per leaf dry mass,leaf nitrogen content per leaf dry mass,mg.g-1,mg/g,bien_leaf_n,NA,mg/g,identity,published,NA,1208,7.68,13.09,18.1,25.25,42.16
+BIEN,Letcher SG,seed mass,seed mass,mg,mg,bien_seed_mass,NA,mg,identity,published,NA,547,0,8,52,269.5,23451
+BIEN,Letcher SG,whole plant height,whole plant height,m,m,bien_height,NA,m,identity,published,NA,722,2,8,14,21,43
+BIEN,Liu Y,leaf area,leaf area,mm2,mm2,bien_leaf_area,NA,mm2,identity,published,NA,693,6.8,8254.4,18480,38049.28,401633.4
+BIEN,"Liu, K., Eastwood, R.J., Flynn, S., Turner, R.M., and Stuppy, W.H.",seed mass,seed mass,mg,mg,bien_seed_mass,NA,mg,identity,dropped,duplicate_of_try_record,28667,3.4e-5,0.76,3.76,23,1276000
+BIEN,"Liu, K., Eastwood, R.J., Flynn, S., Turner, R.M., and Stuppy, W.H.",seed mass,seed mass,mg,mg,bien_seed_mass,NA,mg,identity,published,NA,4592,0.00104,0.6,3.37952,20.2925,66203.44727
+BIEN,Lopez-Gonzalez G,stem wood density,stem wood density,g.cm-3,g/cm3,bien_density,NA,g/cm3,identity,dropped,duplicate_of_try_record,14393,0.08,0.487,0.6,0.732,1.35
+BIEN,Lopez-Gonzalez G,stem wood density,stem wood density,g.cm-3,g/cm3,bien_density,NA,g/cm3,identity,published,NA,1668,0.16,0.482,0.6,0.7324999999999999,1.39
+BIEN,"Louda, S. M., P. M. Dixon and N. J. Huntly 1987 Herbivory in sun versus shade at a natural meadow-woodland ecotone in the rocky mountains USA. Vegetatio 72 3 141-150",whole plant height,whole plant height,m,m,bien_height,NA,m,identity,published,NA,13,0.067,0.207,0.233,0.28,0.4
+BIEN,Loughnan D,leaf area per leaf dry mass,leaf area per leaf dry mass,m2.kg-1,m2/kg,bien_sla,sla_to_lma,mg/mm2,converted,published,NA,1275,0.008641974241731576,0.03225738366765221,0.048790840983330606,0.08032606044394973,1.0757581136366325
+BIEN,Loughnan D,whole plant height,whole plant height,m,m,bien_height,NA,m,identity,published,NA,1257,0.0044,0.071,0.114,0.511,1.5
+BIEN,Lu B,seed mass,seed mass,mg,mg,bien_seed_mass,NA,mg,identity,published,NA,136,19.2,21.7,22.6,23.125000000000004,25.1
+BIEN,Maire V,leaf area per leaf dry mass,leaf area per leaf dry mass,m2.kg-1,m2/kg,bien_sla,sla_to_lma,mg/mm2,converted,dropped,duplicate_of_try_record,1669,0.016445693502906106,0.06498570314530804,0.09212669510009708,0.1466034804493102,0.78125
+BIEN,Maire V,leaf area per leaf dry mass,leaf area per leaf dry mass,m2.kg-1,m2/kg,bien_sla,sla_to_lma,mg/mm2,converted,published,NA,190,0.02110016247125103,0.06499878126421799,0.09500142499525127,0.13729972340281899,0.45998160073597055
+BIEN,Maire V,leaf nitrogen content per leaf dry mass,leaf nitrogen content per leaf dry mass,mg.g-1,mg/g,bien_leaf_n,NA,mg/g,identity,dropped,duplicate_of_try_record,1487,3.1,12.1,17.8,24.2,58.2
+BIEN,Maire V,leaf nitrogen content per leaf dry mass,leaf nitrogen content per leaf dry mass,mg.g-1,mg/g,bien_leaf_n,NA,mg/g,identity,published,NA,168,5.975,14.174999999999999,21.24069525,27.150000000000002,53
+BIEN,Martin AR,leaf area,leaf area,mm2,mm2,bien_leaf_area,NA,mm2,identity,published,NA,384,1410,2687.5,3515,4595,9670
+BIEN,Martin AR,leaf area per leaf dry mass,leaf area per leaf dry mass,m2.kg-1,m2/kg,bien_sla,sla_to_lma,mg/mm2,converted,quarantined,source_scale_implausible,384,65700,87174.99999999981,96199.99999999996,111325.00000000003,156699.9999999999
+BIEN,Martin AR,leaf nitrogen content per leaf dry mass,leaf nitrogen content per leaf dry mass,mg.g-1,mg/g,bien_leaf_n,NA,mg/g,identity,published,NA,384,25,31.3,33.2,35.6,43.7
+BIEN,Marx HE,leaf area,leaf area,mm2,mm2,bien_leaf_area,NA,mm2,identity,published,NA,188,6.8838,156.30755,679.0581,2258.46475,60534.79
+BIEN,Marx HE,leaf area per leaf dry mass,leaf area per leaf dry mass,m2.kg-1,m2/kg,bien_sla,sla_to_lma,mg/mm2,converted,published,NA,198,0.01574057517320929,0.03405998970154447,0.04402342989396868,0.059273601400445776,0.33759205713407975
+BIEN,Marx HE,leaf nitrogen content per leaf dry mass,leaf nitrogen content per leaf dry mass,mg.g-1,mg/g,bien_leaf_n,NA,mg/g,identity,published,NA,108,6.84105,16.8372825,21.483495,28.299339999999997,59.9
+BIEN,Marx HE,seed mass,seed mass,mg,mg,bien_seed_mass,NA,mg,identity,published,NA,321,4.47e-4,0.262004,1.030198,3.868714,4273.644
+BIEN,Marx HE,whole plant height,whole plant height,m,m,bien_height,NA,m,identity,published,NA,307,0.04,0.4,0.692308,1.4072535,68.57143
+BIEN,Mascaro J,stem wood density,stem wood density,g.cm-3,g/cm3,bien_density,NA,g/cm3,identity,published,NA,42,0.21,0.35749999999999993,0.5,0.62,0.87
+BIEN,Mason CM,leaf area,leaf area,mm2,mm2,bien_leaf_area,NA,mm2,identity,published,NA,83,125.5,2758.35,4102.1,6068.950000000001,14156.4
+BIEN,Mason CM,leaf area per leaf dry mass,leaf area per leaf dry mass,m2.kg-1,m2/kg,bien_sla,sla_to_lma,mg/mm2,converted,quarantined,source_scale_implausible,336,13959.999999999993,40502.499999999985,48847.99999999994,83082.50000000032,267250.0000000001
+BIEN,Mason CM,leaf nitrogen content per leaf dry mass,leaf nitrogen content per leaf dry mass,mg.g-1,mg/g,bien_leaf_n,NA,mg/g,identity,published,NA,336,6.5,20.075000000000003,46.67,57.102500000000006,72.3
+BIEN,Mayor JR,leaf nitrogen content per leaf dry mass,leaf nitrogen content per leaf dry mass,mg.g-1,mg/g,bien_leaf_n,NA,mg/g,identity,published,NA,61,10.6,16.7,18.62,22.06,38.89
+BIEN,"Mazer S. (1989)  Ecological, Taxonomic, and Life History Correlates of Seed Mass Among Indiana Dune Angiosperms. Ecological Monographs 59:153-175",whole plant height,whole plant height,m,m,bien_height,NA,m,identity,dropped,duplicate_of_try_record,446,0.07,0.5,0.9,1.5,60
+BIEN,"Mazer S. (1989)  Ecological, Taxonomic, and Life History Correlates of Seed Mass Among Indiana Dune Angiosperms. Ecological Monographs 59:153-175",whole plant height,whole plant height,m,m,bien_height,NA,m,identity,published,NA,120,0.03,0.4,0.6,1,35
+BIEN,Michael Kleyer,leaf area per leaf dry mass,leaf area per leaf dry mass,m2.kg-1,m2/kg,bien_sla,sla_to_lma,mg/mm2,converted,dropped,duplicate_of_try_record,10937,0.0058823529411764705,0.03378378378378378,0.04625346901017576,0.06622516556291391,0.5
+BIEN,Michael Kleyer,leaf area per leaf dry mass,leaf area per leaf dry mass,m2.kg-1,m2/kg,bien_sla,sla_to_lma,mg/mm2,converted,published,NA,7419,0.006207324643078833,0.03278688524590164,0.044444444444444446,0.06033183052779705,0.3663003663003663
+BIEN,Michael Kleyer,whole plant height,whole plant height,m,m,bien_height,NA,m,identity,dropped,duplicate_of_try_record,12401,0.001,0.1,0.3,0.6,90
+BIEN,Michael Kleyer,whole plant height,whole plant height,m,m,bien_height,NA,m,identity,published,NA,1422,0.005,0.1,0.25,0.5,40
+BIEN,Milla R,leaf area,leaf area,mm2,mm2,bien_leaf_area,NA,mm2,identity,published,NA,108,29.8,354.55000000000007,878.4,3279.6499999999996,69247.6
+BIEN,Milla R,leaf area per leaf dry mass,leaf area per leaf dry mass,m2.kg-1,m2/kg,bien_sla,sla_to_lma,mg/mm2,converted,published,NA,107,0.01677900208562996,0.025201490737038708,0.03556036015532765,0.05670361032325234,0.10916792209777079
+BIEN,Milla R,seed mass,seed mass,mg,mg,bien_seed_mass,NA,mg,failed,quarantined,original_value_not_numeric,1,NA,NA,NA,NA,NA
+BIEN,Milla R,seed mass,seed mass,mg,mg,bien_seed_mass,NA,mg,identity,published,NA,113,0.661,5.795,34.39,99.091,432.68
+BIEN,Milla R,whole plant height,whole plant height,m,m,bien_height,NA,m,identity,published,NA,114,0.0092,0.052875,0.11015,0.26032500000000003,0.9193
+BIEN,Mitchell N,leaf area per leaf dry mass,leaf area per leaf dry mass,m2.kg-1,m2/kg,bien_sla,sla_to_lma,mg/mm2,converted,published,NA,628,0.07258000000000002,0.25962250000000003,0.31318499999999994,0.37412999999999963,0.8083100000000001
+BIEN,Molinari MA,leaf area per leaf dry mass,leaf area per leaf dry mass,m2.kg-1,m2/kg,bien_sla,sla_to_lma,mg/mm2,converted,published,NA,51,0.027608064867909215,0.0473338952337294,0.05635358493330553,0.06808061783276545,0.18619893494209214
+BIEN,Molinari MA,seed mass,seed mass,mg,mg,bien_seed_mass,NA,mg,identity,published,NA,58,0.014,0.53725,1.7999999999999998,3.2155,15.4
+BIEN,Molinari MA,whole plant height,whole plant height,m,m,bien_height,NA,m,identity,published,NA,63,0.04,0.1725,0.285,0.4625,1.1
+BIEN,Moreno-Gutiérrez C,leaf nitrogen content per leaf dry mass,leaf nitrogen content per leaf dry mass,mg.g-1,mg/g,bien_leaf_n,NA,mg/g,identity,published,NA,31,16.5191782,19.1863196,21.4923239,23.37937895,27.2042986
+BIEN,Mottet M,whole plant height,whole plant height,m,m,bien_height,NA,m,identity,published,NA,90750,0,1.26111081675,2.16,4.4,15
+BIEN,Muir CD,leaf area per leaf dry mass,leaf area per leaf dry mass,m2.kg-1,m2/kg,bien_sla,sla_to_lma,mg/mm2,converted,quarantined,source_scale_implausible,81,28599.99999999997,39670.000000000044,48020.00000000003,61240.00000000002,88419.9999999997
+BIEN,Nathan Kraft,leaf area,leaf area,mm2,mm2,bien_leaf_area,NA,mm2,identity,dropped,duplicate_of_try_record,16,1265,5712.25,9510,11231.75,20165
+BIEN,Nathan Kraft,leaf area,leaf area,mm2,mm2,bien_leaf_area,NA,mm2,identity,published,NA,745,29,4945,9637,18838,148969
+BIEN,Nathan Kraft,leaf area per leaf dry mass,leaf area per leaf dry mass,m2.kg-1,m2/kg,bien_sla,sla_to_lma,mg/mm2,converted,dropped,duplicate_of_try_record,705,0.014880730941503849,0.04313691657320335,0.05295768680824022,0.06556087327083197,0.1438641922025608
+BIEN,Nathan Kraft,leaf area per leaf dry mass,leaf area per leaf dry mass,m2.kg-1,m2/kg,bien_sla,sla_to_lma,mg/mm2,converted,published,NA,56,0.023931460297707364,0.03986288047222162,0.054222247888213296,0.06765471141021173,0.09838646202282567
+BIEN,Nathan Kraft,leaf nitrogen content per leaf dry mass,leaf nitrogen content per leaf dry mass,mg.g-1,mg/g,bien_leaf_n,NA,mg/g,identity,dropped,duplicate_of_try_record,710,11.5,19.924999999999997,24.45,29.6,65.3
+BIEN,Nathan Kraft,leaf nitrogen content per leaf dry mass,leaf nitrogen content per leaf dry mass,mg.g-1,mg/g,bien_leaf_n,NA,mg/g,identity,published,NA,53,12.5,19.1,24.4,31.2,41.7
+BIEN,Newbery DM,leaf nitrogen content per leaf dry mass,leaf nitrogen content per leaf dry mass,mg.g-1,mg/g,bien_leaf_n,NA,mg/g,identity,quarantined,source_scale_implausible,367,0.01035,0.014315,0.0167,0.01984,0.03321
+BIEN,Newbery DM,whole plant height,whole plant height,m,m,bien_height,NA,m,identity,published,NA,383,0.225,0.56,0.71,0.91,1.635
+BIEN,Nidzgorski DA,leaf nitrogen content per leaf dry mass,leaf nitrogen content per leaf dry mass,mg.g-1,mg/g,bien_leaf_n,NA,mg/g,identity,published,NA,33,14.98615,18.74652,25.23031,29.95776,44.90345
+BIEN,Nidzgorski DA,whole plant height,whole plant height,m,m,bien_height,NA,m,identity,published,NA,33,8.5,11.1,12.7,14.2,21.8
+BIEN,Niu K,leaf area per leaf dry mass,leaf area per leaf dry mass,m2.kg-1,m2/kg,bien_sla,sla_to_lma,mg/mm2,converted,published,NA,394,0.0017198829997992896,0.005333168879762638,0.006463392900499569,0.007912087999696144,0.018212182857600765
+BIEN,Niu K,leaf nitrogen content per leaf dry mass,leaf nitrogen content per leaf dry mass,mg.g-1,mg/g,bien_leaf_n,NA,mg/g,identity,published,NA,394,13.26667,19.93333,23.058335,26.7,39.53333
+BIEN,Norghauer JM,leaf area,leaf area,mm2,mm2,bien_leaf_area,NA,mm2,identity,published,NA,283,851,2055.5,3068,4157,10242
+BIEN,Norghauer JM,leaf area per leaf dry mass,leaf area per leaf dry mass,m2.kg-1,m2/kg,bien_sla,sla_to_lma,mg/mm2,converted,published,NA,111,0.025800000000000017,0.04100000000000004,0.046699999999999964,0.053750000000000124,0.08119999999999994
+BIEN,Norghauer JM,leaf nitrogen content per leaf dry mass,leaf nitrogen content per leaf dry mass,mg.g-1,mg/g,bien_leaf_n,NA,mg/g,failed,quarantined,original_value_not_numeric,3,NA,NA,NA,NA,NA
+BIEN,Norghauer JM,leaf nitrogen content per leaf dry mass,leaf nitrogen content per leaf dry mass,mg.g-1,mg/g,bien_leaf_n,NA,mg/g,identity,published,NA,369,13.78,20.39,22.46,24.32,35
+BIEN,Onstein RE,leaf area,leaf area,mm2,mm2,bien_leaf_area,NA,mm2,identity,published,NA,256,151.659,964.22875,1745.58,4354.2865,17172.287
+BIEN,Onstein RE,leaf area per leaf dry mass,leaf area per leaf dry mass,m2.kg-1,m2/kg,bien_sla,sla_to_lma,mg/mm2,converted,published,NA,256,0.06195862489771405,0.16637569127351134,0.21587680983577562,0.30620926763024303,2.207563022612951
+BIEN,Osborne CP,leaf area,leaf area,mm2,mm2,bien_leaf_area,NA,mm2,identity,published,NA,3693,1.48,64.99,285.4,1456.04,84706.66
+BIEN,Osborne CP,whole plant height,whole plant height,m,m,bien_height,NA,m,identity,published,NA,154,0.1075,0.266275,0.3328,0.47165,1.035
+BIEN,Ostevik KL,seed mass,seed mass,mg,mg,bien_seed_mass,NA,mg,identity,published,NA,529,0,4.68,8.92,12.74,69
+BIEN,Ostevik KL,whole plant height,whole plant height,m,m,bien_height,NA,m,identity,published,NA,226,0.01,0.24,0.37,0.55,1.14
+BIEN,Osuri AM,whole plant height,whole plant height,m,m,bien_height,NA,m,identity,published,NA,7182,0.5,4.5,6,9,37
+BIEN,Paine CET,leaf area per leaf dry mass,leaf area per leaf dry mass,m2.kg-1,m2/kg,bien_sla,sla_to_lma,mg/mm2,converted,dropped,duplicate_of_try_record,3418,0.009615384615384616,0.03388039045086822,0.05042864346949068,0.07739473915394693,2.3860653781913626
+BIEN,Paine CET,leaf area per leaf dry mass,leaf area per leaf dry mass,m2.kg-1,m2/kg,bien_sla,sla_to_lma,mg/mm2,converted,published,NA,145,0.02244114808913624,0.045965810630053366,0.06854009595613433,0.08253753394356084,0.21317870771067385
+BIEN,Paine CET,leaf nitrogen content per leaf dry mass,leaf nitrogen content per leaf dry mass,mg.g-1,mg/g,bien_leaf_n,NA,mg/g,identity,dropped,duplicate_of_try_record,60,11.2,19.925,24.200000000000003,31.825000000000003,49.8
+BIEN,Paine CET,seed mass,seed mass,mg,mg,bien_seed_mass,NA,mg,identity,dropped,duplicate_of_try_record,257,0.14,48.65,804.17,1826.94,30330
+BIEN,Paine CET,seed mass,seed mass,mg,mg,bien_seed_mass,NA,mg,identity,published,NA,6,0.26,88.75,560,1890,5710
+BIEN,Paine CET,stem wood density,stem wood density,g.cm-3,g/cm3,bien_density,NA,g/cm3,identity,dropped,duplicate_of_try_record,1068,0.081,0.43,0.5355000000000001,0.64,1.102
+BIEN,Paine CET,stem wood density,stem wood density,g.cm-3,g/cm3,bien_density,NA,g/cm3,identity,published,NA,51,0.43,0.5705,0.68,0.74,0.95
+BIEN,Peppe DJ,leaf area,leaf area,mm2,mm2,bien_leaf_area,NA,mm2,identity,published,NA,835,8.3,250.7,636.8,1764.0500000000002,84280.3
+BIEN,Philipson CD,whole plant height,whole plant height,m,m,bien_height,NA,m,identity,published,NA,6651,0.01,0.5175000000000001,0.78,1.4,85.5
+BIEN,Picó FX,seed mass,seed mass,mg,mg,bien_seed_mass,NA,mg,identity,published,NA,279,12.89,18.36,20.28,22.755000000000003,35.58
+BIEN,Ploton P,stem wood density,stem wood density,g.cm-3,g/cm3,bien_density,NA,g/cm3,identity,published,NA,554,0.13,0.497425,0.5971,0.6789,1.1522
+BIEN,Ploton P,whole plant height,whole plant height,m,m,bien_height,NA,m,identity,published,NA,427,4.1,16.9,27.2,41.5,61
+BIEN,Price CA,leaf area,leaf area,mm2,mm2,bien_leaf_area,NA,mm2,identity,dropped,duplicate_of_try_record,266,1,474.15,1621.05,4135.375,53850
+BIEN,Price CA,leaf area,leaf area,mm2,mm2,bien_leaf_area,NA,mm2,identity,published,NA,165,2.3,133.9,898.2,2745.8,30000
+BIEN,Price CA,leaf area per leaf dry mass,leaf area per leaf dry mass,m2.kg-1,m2/kg,bien_sla,sla_to_lma,mg/mm2,converted,quarantined,source_scale_implausible,514,21300.00000000002,66999.99999999981,91599.99999999993,127975.00000000003,781300.0000000028
+BIEN,Price CA,leaf nitrogen content per leaf dry mass,leaf nitrogen content per leaf dry mass,mg.g-1,mg/g,bien_leaf_n,NA,mg/g,identity,dropped,duplicate_of_try_record,126,5,13,18.5,23,42
+BIEN,Price CA,leaf nitrogen content per leaf dry mass,leaf nitrogen content per leaf dry mass,mg.g-1,mg/g,bien_leaf_n,NA,mg/g,identity,published,NA,291,5,13,17,23,64
+BIEN,Price CA,whole plant height,whole plant height,m,m,bien_height,NA,m,identity,dropped,duplicate_of_try_record,476,0.02,1.7,5,16,57.9
+BIEN,Price CA,whole plant height,whole plant height,m,m,bien_height,NA,m,identity,published,NA,53,0.1,0.4,1.7,10,40
+BIEN,Prunier R,leaf area,leaf area,mm2,mm2,bien_leaf_area,NA,mm2,identity,published,NA,416,17,100.75,179,263,649
+BIEN,Prunier R,leaf area per leaf dry mass,leaf area per leaf dry mass,m2.kg-1,m2/kg,bien_sla,sla_to_lma,mg/mm2,converted,published,NA,416,0.019298246291166537,0.04053611998596037,0.04586949412006834,0.05351198750763493,0.10989010989010989
+BIEN,Pélabon C,seed mass,seed mass,mg,mg,bien_seed_mass,NA,mg,identity,published,NA,1220,3.4,27.174999999999997,34.6,38.5,46.2
+BIEN,Pérez F,leaf area,leaf area,mm2,mm2,bien_leaf_area,NA,mm2,identity,published,NA,17,20,41,109,302,1550
+BIEN,Pérez F,leaf area per leaf dry mass,leaf area per leaf dry mass,m2.kg-1,m2/kg,bien_sla,sla_to_lma,mg/mm2,converted,published,NA,17,58999.99999999993,142000,163000.00000000012,181999.9999999998,303999.99999999965
+BIEN,Pérez-de-Lis G,whole plant height,whole plant height,m,m,bien_height,NA,m,identity,published,NA,120,10,13,15,16.5,21
+BIEN,Rasmann S,leaf area per leaf dry mass,leaf area per leaf dry mass,m2.kg-1,m2/kg,bien_sla,sla_to_lma,mg/mm2,converted,published,NA,72,0.026232323232911473,0.034726010102215495,0.0396655921545535,0.0548166666559696,0.11417777777844254
+BIEN,Rinne-Garmston KT,stem wood density,stem wood density,g.cm-3,g/cm3,bien_density,NA,g/cm3,identity,published,NA,49,0.13,0.16,0.22,0.33,0.46
+BIEN,Robert Peet,whole plant height,whole plant height,m,m,bien_height,NA,m,identity,published,NA,16,0.75,0.75,0.75,0.75,1.185
+BIEN,Rodríguez-Quilón I,whole plant height,whole plant height,m,m,bien_height,NA,m,identity,dropped,duplicate_of_try_record,9756,0.02,0.19,0.25,0.31,0.7
+BIEN,Rodríguez-Quilón I,whole plant height,whole plant height,m,m,bien_height,NA,m,identity,published,NA,375,0.04,0.11,0.12,0.12,0.345
+BIEN,Roe AD,seed mass,seed mass,mg,mg,bien_seed_mass,NA,mg,identity,published,NA,482,0.074,0.40625,5.3735,148.67499999999998,514.5
+BIEN,Roe AD,whole plant height,whole plant height,m,m,bien_height,NA,m,identity,published,NA,371,10,16.7,19.7,22.2,49.9
+BIEN,Rusch,leaf area,leaf area,mm2,mm2,bien_leaf_area,NA,mm2,identity,dropped,duplicate_of_try_record,95,4.09,50.4125,130.58,216.29500000000002,1331.22
+BIEN,Rusch,leaf area,leaf area,mm2,mm2,bien_leaf_area,NA,mm2,identity,published,NA,891,3.195,51.21,144.91,316.52,3965.23
+BIEN,S.E. Russo,stem wood density,stem wood density,g.cm-3,g/cm3,bien_density,NA,g/cm3,identity,published,NA,39,0.49,0.59,0.67,0.76,1.03
+BIEN,S.E. Russo,whole plant height,whole plant height,m,m,bien_height,NA,m,identity,published,NA,59,3,5.5,10,15.5,50
+BIEN,Saara J. DeWalt,whole plant height,whole plant height,m,m,bien_height,NA,m,identity,published,NA,1038,0.5,9.9,9.9,9.9,9.9
+BIEN,Schmid B,leaf area per leaf dry mass,leaf area per leaf dry mass,m2.kg-1,m2/kg,bien_sla,sla_to_lma,mg/mm2,converted,published,NA,783,0.006215040397762585,0.030478426040539207,0.041324192421969594,0.05381175571615375,0.7527909725306574
+BIEN,Schneider G,seed mass,seed mass,mg,mg,bien_seed_mass,NA,mg,identity,published,NA,68,84.554,3399.57875,11451.970000000001,24315.999999999996,71343.25
+BIEN,Sessa EB,leaf area per leaf dry mass,leaf area per leaf dry mass,m2.kg-1,m2/kg,bien_sla,sla_to_lma,mg/mm2,converted,dropped,duplicate_of_try_record,123,0.014850632339925035,0.023327831980791802,0.03158001111616391,0.042096021558124835,0.12144323136150008
+BIEN,Sessa EB,leaf area per leaf dry mass,leaf area per leaf dry mass,m2.kg-1,m2/kg,bien_sla,sla_to_lma,mg/mm2,converted,published,NA,11,0.021838400206154497,0.025828937764937308,0.029567953069744888,0.032010114925553376,0.10375058359703272
+BIEN,"Shugart, H. H. J., M. S. Hopkins, I. P. Burgess, and A. T. Mortlock. 1980. Devlopment of a Succession model for Subtropical Rain Forest and its Application to Assess the Effects of Timber Harvest at Wiangree State Forest, New South Wales. Journal of Environmental Management 11:243-266.",whole plant height,whole plant height,m,m,bien_height,NA,m,identity,published,NA,112,4.57,12.19,21.34,30.48,48.77
+BIEN,Snell-Rood EC,leaf nitrogen content per leaf dry mass,leaf nitrogen content per leaf dry mass,mg.g-1,mg/g,bien_leaf_n,NA,mg/g,identity,published,NA,24,21.26,26.985,31.630000000000003,40.335,58.53
+BIEN,Spasojevic MJ,leaf area,leaf area,mm2,mm2,bien_leaf_area,NA,mm2,identity,dropped,duplicate_of_try_record,211,1279.6,3902.95,6191.6,10872.650000000001,22963
+BIEN,Spasojevic MJ,leaf area,leaf area,mm2,mm2,bien_leaf_area,NA,mm2,identity,published,NA,1822,566.5,3292.625,5165.35,8795.575,31791.5
+BIEN,Spasojevic MJ,leaf area per leaf dry mass,leaf area per leaf dry mass,m2.kg-1,m2/kg,bien_sla,sla_to_lma,mg/mm2,converted,dropped,duplicate_of_try_record,1880,0.012282598015132162,0.034553066334316596,0.04131689377003789,0.05209967680989895,0.13016240363101042
+BIEN,Spasojevic MJ,leaf area per leaf dry mass,leaf area per leaf dry mass,m2.kg-1,m2/kg,bien_sla,sla_to_lma,mg/mm2,converted,published,NA,151,0.02221235006663705,0.04066171113960654,0.04543529741036979,0.05209275279303813,0.07749937419255339
+BIEN,Steane DA,leaf area,leaf area,mm2,mm2,bien_leaf_area,NA,mm2,identity,published,NA,108,323.8149507,523.692725,590.9886328,737.2065900750001,2017.529173
+BIEN,Steane DA,leaf area per leaf dry mass,leaf area per leaf dry mass,m2.kg-1,m2/kg,bien_sla,sla_to_lma,mg/mm2,converted,published,NA,108,0.2246328174877892,0.25708392061333657,0.2922886964879906,0.3408630132852279,0.4346291674033613
+BIEN,Steane DA,leaf nitrogen content per leaf dry mass,leaf nitrogen content per leaf dry mass,mg.g-1,mg/g,bien_leaf_n,NA,mg/g,identity,published,NA,9,0.921,0.977,1.19,1.299,1.385
+BIEN,Steane DA,whole plant height,whole plant height,m,m,bien_height,NA,m,identity,published,NA,18,8.125,9.545454544750001,10.725,11.212500000000002,13.2
+BIEN,Steendam,leaf area,leaf area,mm2,mm2,bien_leaf_area,NA,mm2,identity,published,NA,167,2,184.75,899,3018.5,64840.5
+BIEN,Stevens JT,leaf area per leaf dry mass,leaf area per leaf dry mass,m2.kg-1,m2/kg,bien_sla,sla_to_lma,mg/mm2,converted,quarantined,source_scale_implausible,133,1.1466897443023143,4.05837332045184,5.854889205735977,7.9294674504638625,45.19337009283722
+BIEN,Storkey J,leaf area per leaf dry mass,leaf area per leaf dry mass,m2.kg-1,m2/kg,bien_sla,sla_to_lma,mg/mm2,converted,published,NA,10,30303.0303030303,33620.68965517241,39230.769230769234,41666.666666666664,58823.529411764706
+BIEN,Susan Letcher,whole plant height,whole plant height,m,m,bien_height,NA,m,identity,quarantined,source_scale_implausible,19748,0,0,0,0,0
+BIEN,Susan Wiser,whole plant height,whole plant height,m,m,bien_height,NA,m,identity,published,NA,2,0.35,0.38749999999999996,0.425,0.4625,0.5
+BIEN,Szefer P,leaf area per leaf dry mass,leaf area per leaf dry mass,m2.kg-1,m2/kg,bien_sla,sla_to_lma,mg/mm2,converted,published,NA,200,0.04215389544147775,0.05451403463821761,0.06430330583295288,0.07710575825802671,0.09771923309945864
+BIEN,Szefer P,leaf nitrogen content per leaf dry mass,leaf nitrogen content per leaf dry mass,mg.g-1,mg/g,bien_leaf_n,NA,mg/g,identity,published,NA,432,12.03,17.32,19.86,25.1,41.47
+BIEN,Szefer P,stem wood density,stem wood density,g.cm-3,g/cm3,bien_density,NA,g/cm3,identity,published,NA,440,0.254,0.412,0.484,0.578,0.777
+BIEN,Sánchez-Robles JM,seed mass,seed mass,mg,mg,bien_seed_mass,NA,mg,identity,published,NA,9229,4,35,43,65,110
+BIEN,Sánchez-Robles JM,whole plant height,whole plant height,m,m,bien_height,NA,m,identity,published,NA,162,4.5,7,7,8,15
+BIEN,T.A. Easdale,leaf area per leaf dry mass,leaf area per leaf dry mass,m2.kg-1,m2/kg,bien_sla,sla_to_lma,mg/mm2,converted,published,NA,29,0.04098360655737705,0.06565988181221273,0.08561643835616438,0.09891196834817013,0.16750418760469013
+BIEN,T.A. Easdale,seed mass,seed mass,mg,mg,bien_seed_mass,NA,mg,identity,published,NA,29,6500,14170,20060,24400,35410
+BIEN,T.A. Easdale,stem wood density,stem wood density,g.cm-3,g/cm3,bien_density,NA,g/cm3,identity,published,NA,29,0.165,0.462,0.562,0.699,0.965
+BIEN,T.A. Easdale,whole plant height,whole plant height,m,m,bien_height,NA,m,identity,published,NA,29,6.5,14.17,20.06,24.4,35.41
+BIEN,T.L. Meers,leaf area,leaf area,mm2,mm2,bien_leaf_area,NA,mm2,identity,published,NA,85,2.3,42.6,208.8,518,5437.7
+BIEN,T.L. Meers,leaf area per leaf dry mass,leaf area per leaf dry mass,m2.kg-1,m2/kg,bien_sla,sla_to_lma,mg/mm2,converted,published,NA,85,0.01277139208173691,0.03189792663476874,0.056179775280898875,0.11428571428571428,0.28169014084507044
+BIEN,T.L. Meers,seed mass,seed mass,mg,mg,bien_seed_mass,NA,mg,identity,published,NA,79,0.001,0.12,0.66,3.0999999999999996,35.03
+BIEN,T.L. Meers,whole plant height,whole plant height,m,m,bien_height,NA,m,identity,published,NA,86,0.02,0.35,0.56,1,32.5
+BIEN,Thomas SC,whole plant height,whole plant height,m,m,bien_height,NA,m,identity,published,NA,1608,1.16,6.01,14.57,22.6,48.8
+BIEN,Tim Killeen,whole plant height,whole plant height,m,m,bien_height,NA,m,identity,published,NA,13859,-3,9.9,9.9,9.9,45
+BIEN,Umaña MN,leaf nitrogen content per leaf dry mass,leaf nitrogen content per leaf dry mass,mg.g-1,mg/g,bien_leaf_n,NA,mg/g,identity,published,NA,72,12.06667,17.5250025,21.942,28.3750025,50.66667
+BIEN,Urrutia-Jalabert RB,whole plant height,whole plant height,m,m,bien_height,NA,m,identity,published,NA,1546,3.2,8.2,10.9,14.1,45.7
+BIEN,Vincent JB,leaf area per leaf dry mass,leaf area per leaf dry mass,m2.kg-1,m2/kg,bien_sla,sla_to_lma,mg/mm2,converted,published,NA,48,0.050978792822185974,0.057949499743595964,0.06350060351063852,0.06513750114827735,0.06568144499178982
+BIEN,Vincent JB,leaf nitrogen content per leaf dry mass,leaf nitrogen content per leaf dry mass,mg.g-1,mg/g,bien_leaf_n,NA,mg/g,identity,published,NA,48,13.8,17.5,19.200000000000003,19.725,32.3
+BIEN,Welsh ME,leaf area per leaf dry mass,leaf area per leaf dry mass,m2.kg-1,m2/kg,bien_sla,sla_to_lma,mg/mm2,converted,published,NA,274,0.01600787000000001,0.023086182499999996,0.02627537,0.030595377500000024,0.04047524999999996
+BIEN,Welsh ME,leaf nitrogen content per leaf dry mass,leaf nitrogen content per leaf dry mass,mg.g-1,mg/g,bien_leaf_n,NA,mg/g,identity,published,NA,276,16.58145,28.791737499999996,38.881285000000005,47.056797499999995,62.61872
+BIEN,Weremijewicz J,leaf nitrogen content per leaf dry mass,leaf nitrogen content per leaf dry mass,mg.g-1,mg/g,bien_leaf_n,NA,mg/g,identity,published,NA,30,11,13.224999999999998,17.15,18.4,20.1
+BIEN,Wigley BJ,leaf area,leaf area,mm2,mm2,bien_leaf_area,NA,mm2,identity,published,NA,101,55,720,1488,3006,29296
+BIEN,Wigley BJ,leaf area per leaf dry mass,leaf area per leaf dry mass,m2.kg-1,m2/kg,bien_sla,sla_to_lma,mg/mm2,converted,published,NA,100,0.03861003861003861,0.08624450260847888,0.1118981904242291,0.15762008152404136,0.3681885125184094
+BIEN,Wigley BJ,leaf nitrogen content per leaf dry mass,leaf nitrogen content per leaf dry mass,mg.g-1,mg/g,bien_leaf_n,NA,mg/g,identity,published,NA,100,3.4,17.75,23,28.525,44.9
+BIEN,Wood ZT,whole plant height,whole plant height,m,m,bien_height,NA,m,identity,published,NA,1959,1.1,2.2,4.4,7.1,19.94501
+BIEN,"Wright et al ""GLOPNET"" leaf economics dataset",whole plant height,whole plant height,m,m,bien_height,NA,m,identity,published,NA,88,0.2,1.345,1.89,3.8749999999999996,17.7
+BIEN,Y.F. Bai,leaf area,leaf area,mm2,mm2,bien_leaf_area,NA,mm2,identity,published,NA,803,5.098959641,71.24546402,233.9711123,666.104167,14297.38718
+BIEN,Y.F. Bai,leaf area per leaf dry mass,leaf area per leaf dry mass,m2.kg-1,m2/kg,bien_sla,sla_to_lma,mg/mm2,converted,published,NA,803,0.01472332073846639,0.05943910241679594,0.07856538482257665,0.09722432540152007,0.2377033745741177
+BIEN,Yoder JB,whole plant height,whole plant height,m,m,bien_height,NA,m,identity,published,NA,253,0.945945946,2.24137931,2.956521739,3.777777778,17.375
+BIEN,Zanne AE,leaf area,leaf area,mm2,mm2,bien_leaf_area,NA,mm2,identity,published,NA,21,19.384,2114.778,3642.848,5912.829,13489.16
+BIEN,Zanne AE,leaf area per leaf dry mass,leaf area per leaf dry mass,m2.kg-1,m2/kg,bien_sla,sla_to_lma,mg/mm2,converted,published,NA,21,0.03550824909888941,0.05162217523457116,0.06069880101658352,0.07817887012769736,0.25556126876969737
+BIEN,Zas R,seed mass,seed mass,mg,mg,bien_seed_mass,NA,mg,failed,quarantined,original_value_not_numeric,63,NA,NA,NA,NA,NA
+BIEN,Zas R,seed mass,seed mass,mg,mg,bien_seed_mass,NA,mg,identity,published,NA,32610,6,52,64,78,140
+BIEN,Zerebecki RA,whole plant height,whole plant height,m,m,bien_height,NA,m,identity,published,NA,644,0.13,0.2139375,0.24457475,0.279244525,0.4525
+BIEN,Zheng Z,whole plant height,whole plant height,m,m,bien_height,NA,m,identity,published,NA,27,9,16,20,25,35
+BIEN,Züst T,whole plant height,whole plant height,m,m,bien_height,NA,m,identity,published,NA,3097,0.0055,0.0415,0.0633,0.0825,0.1747
+BIEN,de la Riva EG,leaf area,leaf area,mm2,mm2,bien_leaf_area,NA,mm2,identity,dropped,duplicate_of_try_record,7,287,473,518,884,1211
+BIEN,de la Riva EG,leaf area,leaf area,mm2,mm2,bien_leaf_area,NA,mm2,identity,published,NA,67,26,196.5,454,1105.5,18787
+BIEN,de la Riva EG,leaf area per leaf dry mass,leaf area per leaf dry mass,m2.kg-1,m2/kg,bien_sla,sla_to_lma,mg/mm2,converted,dropped,duplicate_of_try_record,67,0.027770063871146906,0.07727749564885678,0.10626992561105207,0.14194814510344383,0.41493775933609955
+BIEN,de la Riva EG,leaf area per leaf dry mass,leaf area per leaf dry mass,m2.kg-1,m2/kg,bien_sla,sla_to_lma,mg/mm2,converted,published,NA,7,0.06775067750677508,0.0756019627981285,0.08130081300813008,0.08389450529667572,0.1607717041800643
+BIEN,de la Riva EG,leaf nitrogen content per leaf dry mass,leaf nitrogen content per leaf dry mass,mg.g-1,mg/g,bien_leaf_n,NA,mg/g,identity,dropped,duplicate_of_try_record,72,10.8,16.174999999999997,19.9,25.675000000000004,36.5
+BIEN,de la Riva EG,leaf nitrogen content per leaf dry mass,leaf nitrogen content per leaf dry mass,mg.g-1,mg/g,bien_leaf_n,NA,mg/g,identity,published,NA,2,12.8,14.900000000000002,17,19.099999999999998,21.2
+BIEN,de la Riva EG,stem wood density,stem wood density,g.cm-3,g/cm3,bien_density,NA,g/cm3,identity,dropped,duplicate_of_try_record,3,0.46,0.55,0.64,0.72,0.8
+BIEN,de la Riva EG,stem wood density,stem wood density,g.cm-3,g/cm3,bien_density,NA,g/cm3,identity,published,NA,71,0.24,0.44,0.56,0.62,0.71
+BIEN,http://www.americanforests.org/resources/bigtrees/register.php,whole plant height,whole plant height,m,m,bien_height,NA,m,identity,published,NA,882,3.3528,9.144,15.24,27.1272,97.8408
+BIEN,van der Plas F,leaf area per leaf dry mass,leaf area per leaf dry mass,m2.kg-1,m2/kg,bien_sla,sla_to_lma,mg/mm2,converted,published,NA,24,0.2764263600176913,0.45016113117405693,0.47978336355387025,0.5523114419613989,0.6658676255160474
+BIEN,van der Plas F,leaf nitrogen content per leaf dry mass,leaf nitrogen content per leaf dry mass,mg.g-1,mg/g,bien_leaf_n,NA,mg/g,identity,published,NA,24,11.6,15.4,19,23.224999999999998,34.3
+BIEN,van der Plas F,whole plant height,whole plant height,m,m,bien_height,NA,m,identity,published,NA,24,0.064,0.18924999999999997,0.47035000000000005,0.671,0.838

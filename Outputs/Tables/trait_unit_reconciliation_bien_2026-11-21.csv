@@ -1,0 +1,28 @@
+source_provider,source_trait_id,disposition,conversion_status,disposition_reason,n_records
+BIEN,leaf area,dropped,identity,duplicate_of_try_record,2525
+BIEN,leaf area,dropped,NA,species_name_missing,499
+BIEN,leaf area,published,identity,NA,29450
+BIEN,leaf area,quarantined,failed,original_value_not_numeric,6
+BIEN,leaf area,quarantined,identity,source_scale_implausible,79
+BIEN,leaf area per leaf dry mass,dropped,converted,duplicate_of_try_record,22694
+BIEN,leaf area per leaf dry mass,dropped,NA,species_name_missing,3530
+BIEN,leaf area per leaf dry mass,published,converted,NA,24079
+BIEN,leaf area per leaf dry mass,quarantined,converted,source_scale_implausible,1591
+BIEN,leaf nitrogen content per leaf dry mass,dropped,identity,duplicate_of_try_record,3756
+BIEN,leaf nitrogen content per leaf dry mass,dropped,NA,species_name_missing,1298
+BIEN,leaf nitrogen content per leaf dry mass,published,identity,NA,9340
+BIEN,leaf nitrogen content per leaf dry mass,quarantined,failed,original_value_not_numeric,3
+BIEN,leaf nitrogen content per leaf dry mass,quarantined,identity,source_scale_implausible,367
+BIEN,seed mass,dropped,identity,duplicate_of_try_record,30767
+BIEN,seed mass,dropped,NA,species_name_missing,607
+BIEN,seed mass,published,identity,NA,62105
+BIEN,seed mass,quarantined,failed,original_value_not_numeric,64
+BIEN,stem wood density,dropped,identity,duplicate_of_try_record,30252
+BIEN,stem wood density,dropped,NA,species_name_missing,1119
+BIEN,stem wood density,published,identity,NA,6671
+BIEN,stem wood density,quarantined,identity,source_scale_implausible,1120
+BIEN,whole plant height,dropped,identity,duplicate_of_try_record,24389
+BIEN,whole plant height,dropped,NA,species_name_missing,230643
+BIEN,whole plant height,published,identity,NA,9892124
+BIEN,whole plant height,quarantined,failed,original_value_not_numeric,1009
+BIEN,whole plant height,quarantined,identity,source_scale_implausible,19748
