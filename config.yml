@@ -1,0 +1,127 @@
+# Project configuration read through `load_config_value()`.
+# Select a profile with the `R_CONFIG_ACTIVE` environment variable; the
+#   `default` profile is used otherwise. Other profiles inherit from
+#   `default` and only list the values they change.
+# Machine-local paths do not belong here; put them in the git-ignored
+#   `secrets.yaml` (see `secrets_example.yaml`).
+
+default:
+  seed: 900723
+  # Data root used when `secrets.yaml` is absent; relative to the project.
+  #   Raw inputs live in `<data root>/Input/`.
+  data_storage_path: "Data"
+  # Packages for `R/___Init_project___.R` to install and renv to record.
+  #   Packages called only as `pkg::fun()` are detected automatically.
+  packages:
+    # Attached by `R/___setup_project___.R`. Do not attach packages that
+    #   mask base functions (e.g. renv, config).
+    attach:
+      - assertthat
+      - cli
+      - here
+      - targets
+      - tidyverse
+    # Installed and recorded, but not attached (IDE and workflow tools)
+    tools:
+      - httpgd
+      - languageserver
+      - roxygen2
+      - visNetwork
+  graphical:
+    width: 16
+    height: 12
+    units: "cm"
+    dpi: 300
+    bg: "white"
+    text_size: 10
+    line_size: 0.1
+  # TRY data request 28498 is a manual download from the TRY database; the
+  #   pipeline never downloads it and stops when the file is missing or
+  #   differs from the recorded version.
+  try:
+    raw_file: "Input/TRY/Raw/28498.txt"
+    raw_file_version: "TRY data request 28498"
+    raw_file_sha256: "7aaca061a164bf34237cb1648b8ff8ef62c2106c5e054b1a595760a84619206d"
+    # Columns read from the request file. The full request (about 17
+    #   million rows) must not be held in memory more than once.
+    columns_selected:
+      - Dataset
+      - AccSpeciesName
+      - ObservationID
+      - ObsDataID
+      - TraitID
+      - DataID
+      - DataName
+      - OrigValueStr
+      - OrigUnitStr
+      - ValueKindName
+      - OrigObsDataID
+      - StdValue
+      - UnitName
+      - Reference
+    # Ancillary variables kept for the observations of the selected traits.
+    #   They become export columns (`latitude`, `longitude`,
+    #   `reference_source`, `dataset_reference_citation`), so a change here
+    #   is a change of the VegVault contract.
+    ancillary:
+      coordinates:
+        - Latitude
+        - Longitude
+      references:
+        - "Reference / source"
+        - "Dataset reference (citation)"
+  bien:
+    # Download the six BIEN traits again. Keep FALSE: a normal run reads
+    #   the newest file of each trait in `raw_dir` (by the date in its
+    #   name) and never downloads.
+    flag_download: false
+    raw_dir: "Input/BIEN"
+    # BIEN text that is repaired before any source key is built from it
+    columns_text_repaired:
+      - method
+      - url_source
+      - source_citation
+      - project_pi
+    # Columns kept from the downloaded records
+    columns_selected:
+      - trait_name
+      - trait_value
+      - unit
+      - id
+      - longitude
+      - latitude
+      - method
+      - url_source
+      - source_citation
+      - project_pi
+      - scrubbed_species_binomial
+      - access
+  # Tracked rule tables, relative to the project. Each row of a selection
+  #   table is one trait with its trait domain (Diaz et al. 2016) and the
+  #   derivation applied after the unit contract.
+  trait_rules:
+    try_traits: "config/trait_selection/try_traits.csv"
+    try_data_id_exclusions: "config/trait_selection/try_data_id_exclusions.csv"
+    bien_traits: "config/trait_selection/bien_traits.csv"
+    unit_registry_dir: "config/trait_units"
+    source_quarantine: "config/trait_quarantine/source_quarantine.csv"
+    bien_shared_sources: "config/trait_duplicates/bien_sources_shared_with_try.csv"
+  # Export folders, relative to the project. `dir_data` receives the
+  #   artefacts VegVault reads, `dir_tables` the aggregate tables and the
+  #   manifests, and `dir_audit` the quarantined and dropped records, which
+  #   are licensed record-level data and must stay git-ignored.
+  export:
+    dir_data: "Outputs/Data"
+    dir_tables: "Outputs/Tables"
+    dir_audit: "Data/Temp/trait_unit_audit"
+    # The published BIEN records are split into this many parts
+    n_bien_parts: 4
+
+# Test runs, for example the comparison with the old scripts: every export
+#   goes to a git-ignored folder, never next to the tracked outputs.
+#   Select with the environment variable R_CONFIG_ACTIVE=dev.
+dev:
+  export:
+    dir_data: "Outputs/Data_temp"
+    dir_tables: "Outputs/Data_temp/Tables"
+    dir_audit: "Outputs/Data_temp/Audit"

@@ -1,0 +1,115 @@
+trait_id,data_id,data_name,n_records
+4,4,Wood density; stem specific density; wood specific gravity (SSD),75139
+4,974,Internode density,82
+4,1629,Wood density after drying at 60C,482
+4,1739,Wood density after drying at 100C,521
+4,2568,Wood density; stem specific density; wood specific gravity,640
+4,3727,Wood density; stem specific density: min,18
+4,3728,Wood density; stem specific density: max,18
+4,8178,Xylem density (xylem tissue density),810
+4,8681,Wood density (only wood),180
+4,8682,"Stem specific density (whole stem, incl. bark)",180
+4,9780,Wood density at 0% humidity,476
+4,9781,Wood density at 12 - 15% humidity,630
+4,9782,Wood density of green volume,425
+14,15,Leaf nitrogen content per dry mass (Nmass),145612
+14,1628,Leaf nitrogen content per dry mass (shaded leaves),314
+14,2386,N amount at 15 N measurement,380
+14,2527,Leaf senescent nitrogen (N) content per dry mass,948
+14,2761,Leaf N content per dry mass (one year old leaves),1
+14,7211,Leaf nitrogen concentration  (NIRS based),454
+14,8615,Leaf nitrogen content per dry mass (old leaves),3
+26,30,Seed dry mass,303967
+26,177,Seed mass,8873
+26,3698,Seed mass original value: min,98
+26,3699,Seed mass original value: max,98
+26,3730,Seed mass min,109
+26,3731,Seed mass max,111
+26,3732,Seed mass original value: mean,318
+3106,19,Plant height vegetative,90077
+3106,20,Plant height maximum,18948
+3106,448,Plant height observed,59068
+3106,504,Plant height vegetative,94634
+3106,1026,"Vegetative plant height, not elongated",43
+3106,1027,"Flowering plant height, heighest leaf elongated",43
+3106,1028,"Flowering plant height, heighest leaf not elongated",43
+3106,1117,Average tree height,216
+3106,1299,Height at 20 Years,1025
+3106,1937,Plant height (unspecified if vegetative or reproductive),54479
+3106,2081,Plant height of aquatic plants,115
+3106,2221,height at 15 days,82
+3106,2222,height at 23 days,82
+3106,2223,height at 32 days,82
+3106,2224,height at 41 days,82
+3106,2225,height at 78 days,82
+3106,2311,Height of seedlings,16
+3106,3645,Maximum height,2005
+3106,3646,Maximum height min,2030
+3106,3647,Maximum height max,2650
+3106,3648,Maximum height extreme,868
+3106,3849,Plant height observed min,62
+3106,3850,Plant height observed max,150
+3106,3871,Plant height from flora,119
+3106,4029,Plant height vegetative min.,304
+3106,4030,Plant height vegetative max.,304
+3106,4142,Vegetative plant height elongated,1596
+3106,9946,Plant height,6118
+3108,6575,Leaf area: in case of compound leaves leaf; petiole excluded,42468
+3108,7224,"Leaf area, whole leaf, petiole excluded (min)",300
+3108,7225,"Leaf area, whole leaf, petiole excluded (max)",300
+3110,6463,Leaf area dry (in case of compound leaves: leaf; petiole included),442
+3110,6464,Leaf area fresh (in case of compound leaves: leaf; petiole included),393
+3110,6577,Leaf area: in case of compound leaves leaf; petiole and rhachis included,53240
+3110,6586,Leaf area: in case of compound leaves leaf; petiole included (1),612
+3110,6587,Leaf area: in case of compound leaves leaf; petiole included (2),293
+3112,6579,Leaf area: in case of compound leaves leaf; undefined if petiole in- or excluded,19685
+3114,1917,Hemisurface leaf area,350
+3114,2337,Leaf area dry  (herbarium specimen),104
+3114,6581,Leaf area: in case of compound leaves undefined if leaf or leaflet; undefined if petiole and rhachis in- or excluded,70807
+3114,6589,Leaf area: in case of compound leaves undefined if leaf or leaflet; undefined if petiole in- or excluded (1),3673
+3114,6941,Leaf area classified,1929
+3114,7911,Leaf area (leaf 1),315
+3114,7912,Leaf area (leaf 2),308
+3114,7913,Leaf area (leaf 3),290
+3114,7914,Leaf area (leaf 4),277
+3114,7915,Leaf area (leaf 5),258
+3114,7916,Leaf area (leaf 6),235
+3114,7917,Leaf area (leaf 7),218
+3114,7918,Leaf area (leaf 8),198
+3114,7919,Leaf area (leaf 9),175
+3114,7920,Leaf area (leaf 10),158
+3114,7921,Leaf area (leaf 11),139
+3114,7922,Leaf area (leaf 12),126
+3114,7923,Leaf area (leaf 13),112
+3114,7924,Leaf area (leaf 14),97
+3114,7925,Leaf area (leaf 15),86
+3114,7926,Leaf area (leaf 16),78
+3114,7927,Leaf area (leaf 17),72
+3114,7928,Leaf area (leaf 18),68
+3114,7929,Leaf area (leaf 19),64
+3114,7930,Leaf area (leaf 20),61
+3114,7931,Leaf area (leaf 21),58
+3114,7932,Leaf area (leaf 22),51
+3114,7933,Leaf area (leaf 23),46
+3114,7934,Leaf area (leaf 24),43
+3114,7935,Leaf area (leaf 25),39
+3114,8690,Leaf area : leaf 1,125
+3114,8691,Leaf area : leaf 2,125
+3114,8692,Leaf area : leaf 3,125
+3114,8693,Leaf area : leaf 4,125
+3114,8694,Leaf area : leaf 5,122
+3116,6495,Specific leaf area based on dry mass (SLA) whole leaf,388
+3116,6583,SLA: petiole  included,93692
+3116,6591,SLA leaf; shade,319
+3116,6596,SLA: petiole included (1),643
+3116,6597,SLA: petiole included (2),293
+3116,9452,Leaf specific area (incl. petiole)  based on dry area and dry mass  (herbarium specimen),104
+3117,64,Leaf mass per area (LMA),2793
+3117,4079,Whole plant SLA,494
+3117,6584,SLA: undefined if petiole in- or excluded,208849
+3117,6598,SLA: undefined if petiole in- or excluded (1),9748
+3117,8700,SLA : leaf 1,125
+3117,8701,SLA : leaf 2,125
+3117,8702,SLA : leaf 3,125
+3117,8703,SLA : leaf 4,125
+3117,8704,SLA : leaf 5,122

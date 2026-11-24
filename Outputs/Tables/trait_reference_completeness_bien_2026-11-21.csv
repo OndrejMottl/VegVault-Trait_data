@@ -1,0 +1,19 @@
+source_provider,trait_domain,reference_column,n_records,n_present,share_present,n_distinct_present
+BIEN,Diaspore mass,project_pi,62105,62105,1,26
+BIEN,Diaspore mass,source_citation,62105,62105,1,27
+BIEN,Diaspore mass,url_source,62105,61931,0.9971982932131068,25
+BIEN,Leaf Area,project_pi,29450,29450,1,45
+BIEN,Leaf Area,source_citation,29450,29280,0.9942275042444821,38
+BIEN,Leaf Area,url_source,29450,27066,0.9190492359932089,35
+BIEN,Leaf mass per area,project_pi,24079,24079,1,55
+BIEN,Leaf mass per area,source_citation,24079,22212,0.922463557456705,57
+BIEN,Leaf mass per area,url_source,24079,20234,0.8403172889239586,54
+BIEN,Leaf nitrogen content per unit mass,project_pi,9340,9340,1,45
+BIEN,Leaf nitrogen content per unit mass,source_citation,9340,7569,0.8103854389721628,44
+BIEN,Leaf nitrogen content per unit mass,url_source,9340,7110,0.76124197002141325,42
+BIEN,Plant heigh,project_pi,9892124,9884255,0.9992045186655566,63
+BIEN,Plant heigh,source_citation,9892124,160112,0.016185806000814384,63
+BIEN,Plant heigh,url_source,9892124,160552,0.01623028583143519,57
+BIEN,Stem specific density,project_pi,6671,6671,1,18
+BIEN,Stem specific density,source_citation,6671,6639,0.9952031179733174,17
+BIEN,Stem specific density,url_source,6671,6600,0.9893569180032978,16
