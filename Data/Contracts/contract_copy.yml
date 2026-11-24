@@ -1,25 +1,25 @@
 # Copy of the VegVault producer contracts, written by
 #   save_contract_copy(). Do not edit the copied files or this record;
 #   make the copy again from a VegVault checkout instead.
-vegvault_commit: 2cda2ed4efe48104667615bf1b064f16b3d60a5c
+vegvault_commit: 0aa6c07f07a6c7e221b6f8e8539b05f67e9dbfea
 producer_repository: OndrejMottl/VegVault-Trait_data
 files:
 - path: Data/Contracts/bien_traits.yml
-  sha256: faeb91d382dce8a3525fbcc2048253b29777b0ebd5475b97b48af915b7bdae7b
+  sha256: 04fa2b1e60c98657a977a96acde6a1dfac3cca424706305dbc7124a89f9adfbb
   contract_id: bien_traits
-  contract_version: 1.0.1
+  contract_version: 1.0.2
 - path: Data/Contracts/trait_derivations.yml
-  sha256: 559dffb2159ef4e971634eaf2c00e19bb6a04e4b9945bd86638f778b3540cc9c
+  sha256: 2dd64e136ab692c5f7d64efe709aebe5aca4d1bc6dd33fd8294f9a40d240c979
   contract_id: trait_derivations
-  contract_version: 1.0.0
+  contract_version: 1.0.1
 - path: Data/Contracts/trait_unit_conversions.yml
-  sha256: e849ab954f736b7fde5dabfeea27533042f1cb27c2a534ab8ce18b73fac7a213
+  sha256: 740aee55e1a4e2c8b485b1dd6494ad5966b1f9d6f458683d7096dff49f56513b
   contract_id: trait_unit_conversions
-  contract_version: 1.0.0
+  contract_version: 1.0.1
 - path: Data/Contracts/try_traits.yml
-  sha256: e2fc41cdf0867d1d8a05f88c5cb3a73cbcb64bdb99627a341fc5c64fff8e9546
+  sha256: f1e0a3dcd514b813466dbd581a55893b56ad2127a035a80de3dad0ba7f4b6137
   contract_id: try_traits
-  contract_version: 2.0.1
+  contract_version: 2.0.2
 - path: R/Functions/Contracts/build_bien_plots_fixture.R
   sha256: 51c8040d4af6a165a16079046a492f73bdb56c73dd3a5827597706152e12d907
 - path: R/Functions/Contracts/build_bien_traits_fixture.R
